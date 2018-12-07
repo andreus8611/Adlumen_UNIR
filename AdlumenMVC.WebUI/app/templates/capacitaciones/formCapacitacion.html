@@ -1,0 +1,70 @@
+﻿<div ng-controller="CapacitacionesCtrl">
+
+    <h1>Detalle Capacitaci&oacute;n</h1>
+
+    <div class="row" style="margin-right:auto; margin-left: auto;">
+
+        <form class="form-horizontal col-md-8" role="form">
+            <div class="form-group">
+                <label for="cmbIdFacilitador" class="col-sm-2 control-label">Facilitador</label>
+                <div class="col-sm-10">
+                    <select id="cmbIdFacilitador" class="form-control" ng-model="Capacitacion.cmbIdFacilitador">
+                        <option value="">Seleccione un Facilitador</option>
+                        <option ng-repeat="facilitador in _facilitadores" value="{{facilitador.idFacilitador}}">{{facilitador.nombre}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="txtNombreCapacitacion" class="col-sm-2 control-label">Capacitaci&oacute;n</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" ng-model="Capacitacion.txtNombreCapacitacion" id="txtNombreCapacitacion" placeholder="Nombre Capacitación">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="txtDescripcionCapacitacion" class="col-sm-2 control-label">Descripci&oacute;n</label>
+                <div class="col-sm-10">
+                    <textarea id="txtDescripcionCapacitacion" ng-model="Capacitacion.txtDescripcionCapacitacion" class="form-control" rows="3"></textarea>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="txtFechaInicio" class="col-sm-2 control-label">Desde</label>
+                <div class="col-sm-10">
+                    <p class="input-group">
+                      <input type="text" class="form-control" uib-datepicker-popup="dd.MM.yyyy" ng-model="Capacitacion.txtFechaInicio" is-open="opened" close-text="Cerrar" placeholder="Fecha de Inicio" />
+                      <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                      </span>
+                    </p>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label for="txtFechaFinalizacion" class="col-sm-2 control-label">Hasta</label>
+                <div class="col-sm-10">
+                    <p class="input-group">
+                      <input type="text" class="form-control" id="txtFechaFinalizacion" uib-datepicker-popup="dd.MM.yyyy" ng-model="Capacitacion.txtFechaFinal" is-open="opened2" close-text="Cerrar" placeholder="Fecha de finalización">
+                      <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="open2($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                      </span>
+                    </p>
+                </div>
+            </div>    
+
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-primary" ng-click="addCapacitacion();">Grabar</button>
+                    <a class="btn btn-default" href="#!/capacitaciones">Cancelar</a>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+    <div class="alert">
+        <div uib-alert ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)" dismiss-on-timeout="8000" ng-repeat="alert in alerts" ng-if="showAlert">{{alert.msg}}</div>
+    </div>
+</div>

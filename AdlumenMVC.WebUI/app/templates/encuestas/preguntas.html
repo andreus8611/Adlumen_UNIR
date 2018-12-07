@@ -1,0 +1,98 @@
+﻿<section class="content-header">
+    <h1>
+        {{translation.PREGUNTAS}}
+
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i> {{translation.HOME}}</a></li>
+        <li><a href="#!/inquiries">{{translation.ENCUESTAS}}</a></li>
+        <li class="active">{{translation.PREGUNTAS}}</li>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="container-fluid">
+            <div class="box box-primary">
+                <div class="box-header">
+                    <h3 class="box-title">{{encuesta.titulo}}</h3>
+                </div>
+                <div class="box-body table-responsive">
+                    <form name="encuestaForm">
+                        <uib-accordion close-others="oneAtATime">
+                            <div uib-accordion-group is-open="status.open" ng-repeat="pregunta in preguntas" class="panel-default">
+                                <uib-accordion-heading>
+                                    {{pregunta.orden}}. {{pregunta.pregunta}} ( {{getTypeDescription(pregunta)}} )
+                                    <button type="button" class="btn btn-primary" ng-click="setSelected();" ng-show="enableEditing();">
+                                        <span class="glyphicon glyphicon-pencil"></span>
+                                    </button>
+                                    <button type="button" class="btn btn-primary" ng-click="deletePregunta();" ng-show="enableEditing();">
+                                        <span class="glyphicon glyphicon-trash"></span>
+                                    </button>
+                                    <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}" ng-show="showRespuestas(pregunta.tipo)"></i>
+                                </uib-accordion-heading>
+                                <div ng-repeat="respuesta in pregunta.m_PosiblesRespuestas">
+                                    {{respuesta.respuesta}}
+                                </div>
+                            </div>
+                        </uib-accordion>
+
+                        <table class="table table-hover" ng-if="newPregunta">
+
+                            <thead>
+                                <tr>
+                                    <th>{{translation.ORDEN}}</th>
+                                    <th>{{translation.PREGUNTA}}</th>
+                                    <th>{{translation.TIPO}}</th>
+                                    <th ng-show="showRespuestas(preguntaNueva.tipo.id)">{{translation.POSIBLES_RESPUESTAS}}</th>
+                                </tr>
+
+                            </thead>
+
+                            <tbody>
+                                <tr>
+                                    <td><input type="number" onkeypress="return validateIntegerNumber(event);" ng-model="preguntaNueva.orden" min="0" required></td>
+                                    <td><input type="text" ng-model="preguntaNueva.pregunta" /></td>
+                                    <td><select ng-model="preguntaNueva.tipo" ng-options="translation[tipo.name] for tipo in tipos"></select></td>
+                                    <td>
+                                        <label ng-show="showRespuestas(preguntaNueva.tipo.id)">
+                                            <textarea rows="5" ng-model="preguntaNueva.m_PosiblesRespuestas" ng-list="&#10;" ng-trim="false"></textarea>
+                                        </label>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                        <div class="row">
+                            <div uib-alert ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)" dismiss-on-timeout="8000" ng-repeat="alert in alerts" ng-if="showAlert">{{alert.msg}}</div>
+                        </div>
+
+                        <div class="row">
+                            <button type="button" class="btn btn-primary" ng-model="newPregunta" ng-hide="newPregunta" uib-btn-checkbox btn-checkbox-true="true" btn-checkbox-false="false" ng-click="newRow()" ng-show="enableEditing();">
+                                {{translation.NUEVA_PREGUNTA}}
+                            </button>
+                        </div>
+
+                        <div class="row" ng-if="newPregunta">
+                            <button type="button" class="btn btn-primary" ng-click="addPregunta()">
+                                <span class="glyphicon glyphicon-floppy-disk"></span>
+                            </button>
+
+                            <button type="button" class="btn btn-primary" ng-click="resetPregunta()">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+
+                        </div>
+                    </form>
+
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</section>

@@ -1,0 +1,104 @@
+﻿<script type="text/ng-template" id="displayEvaluacionHito">
+    <td>{{evaluacionhito.codigo}}</td>
+    <td>{{evaluacionhito.activityCode}} - {{evaluacionhito.descripcion}}</td>
+    <td>{{evaluacionhito.peso}}</td>
+    <td>{{evaluacionhito.hito}}</td>
+    <td>{{evaluacionhito.periodo}}</td>
+    <td>{{evaluacionhito.porcentajeHito}}</td>
+    <td>{{evaluacionhito.observacionED}}</td>
+    <td>{{evaluacionhito.cv}}</td>
+    <td>{{evaluacionhito.adh}}</td>
+    <td>{{evaluacionhito.observacionUrip}}</td>
+    <td>
+        <button type="button" class="btn btn-primary" ng-click="editSelectedEvaluacionHito();" uib-tooltip="{{translation.EDITAR}}">
+            <span class="glyphicon glyphicon-pencil"></span>
+        </button>
+    </td>
+    <td></td>
+</script>
+<script type="text/ng-template" id="editEvaluacionHito">
+    <td>{{evaluacionHitoNueva.codigo}}</td>
+    <td>{{evaluacionHitoNueva.activityCode}} - {{evaluacionHitoNueva.descripcion}}</td>
+    <td>{{evaluacionHitoNueva.peso}}</td>
+    <td>{{evaluacionHitoNueva.hito}}</td>
+    <td>{{evaluacionHitoNueva.periodo}}</td>
+    <td>{{evaluacionHitoNueva.porcentajeHito}}</td>
+    <td><textarea rows="3" ng-model="evaluacionHitoNueva.observacionED"></textarea></td>
+    <td>{{evaluacionHitoNueva.cv}}</td>
+    <td>{{evaluacionHitoNueva.adh}}</td>
+    <td><textarea rows="3" ng-model="evaluacionHitoNueva.observacionUrip"></textarea></td>
+    <td>
+        <button type="button" class="btn btn-primary" ng-click="modifyEvaluacionHito()" uib-tooltip="{{translation.GUARDAR}}">
+            <span class="glyphicon glyphicon-floppy-disk"></span>
+        </button>
+    </td>
+    <td>
+        <button type="button" class="btn btn-primary" ng-click="resetEvaluacionHito()" uib-tooltip="{{translation.CANCELAR}}">
+            <span class="glyphicon glyphicon-remove"></span>
+        </button>
+    </td>
+</script>
+
+<div class="box" ng-controller="evaluacionHitosCtrl">
+    <div class="box-header">
+        <section class="col-lg-6 col-xs-12">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="select-evaluationProject">{{translation.PROYECTO}}:</label>
+                    <div class="col-sm-10">
+                        <select id="select-evaluationProject" class="form-control" ng-model="evaluacionparams.idProyecto" ng-options="project.idProyecto as project.nombre for project in projects" ng-change="showPeriods()"></select>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="col-lg-6 col-xs-12">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="select-evaluationPeriod">{{translation.PERIODO}}:</label>
+                    <div class="col-sm-4">
+                        <select id="select-evaluationPeriod" class="form-control" ng-model="evaluacionparams.idPeriodo" ng-options="period.idPeriodo as period.nombre for period in periodsByProject" ng-change="showEvaluacionesHito()"></select>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div class="box-body table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>{{translation.PRODUCTO}}</th>
+                    <th>{{translation.ACTIVIDAD}}</th>
+                    <th>{{translation.PONDERADO_ACTIVIDAD}}</th>
+                    <th>{{translation.HITO}}</th>
+                    <th>{{translation.PERIODO}}</th>
+                    <th>{{translation.ADH}}</th>
+                    <th>{{translation.OBSERVACIONES_ED}}</th>
+                    <th>{{translation.CV}}</th>
+                    <th>{{translation.ADH_ADJ}}</th>
+                    <th>{{translation.OBSERVACIONES_URIP}}</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="evaluacionhito in filteredEvaluacionesHitos" ng-include="getTemplate(evaluacionhito)"></tr>
+            </tbody>
+
+        </table>
+        <ul uib-pagination 
+            items-per-page="8"
+            boundary-links="true"
+            total-items="evaluacioneshitos.length"
+            ng-model="currentPage"
+            class="pagination-sm"
+            previous-text="&lsaquo;"
+            next-text="&rsaquo;"
+            first-text="&laquo;"
+            last-text="&raquo;">
+        </ul>
+
+        <div class="row">
+            <div uib-alert ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)" dismiss-on-timeout="8000" ng-repeat="alert in alerts" ng-if="showAlert">{{alert.msg}}</div>
+        </div>
+    </div>
+</div>

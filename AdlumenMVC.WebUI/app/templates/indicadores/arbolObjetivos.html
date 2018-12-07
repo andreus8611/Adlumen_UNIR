@@ -1,0 +1,26 @@
+﻿<!-- Nested node template -->
+<script type="text/ng-template" id="nodes_renderer.html">
+    <div class="tree-node tree-node-content" uib-tooltip="{{node.description}}">
+        <a class="btn btn-success btn-xs" ng-if="node.children && node.children.length > 0" data-nodrag ng-click="toggle(this)">
+            <span class="glyphicon" ng-class="{ 'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed }"></span>
+        </a>
+        {{ getObjectifType(node) }} {{node.index}}
+        <a class="pull-right btn btn-primary btn-xs" data-nodrag ng-click="showIndicatorDetails();" style="margin-right: 8px;" uib-tooltip="{{translation.VER_DETALLE}}">
+            <span class="glyphicon glyphicon-list-alt"></span>
+        </a>
+    </div>
+    <ul ui-tree-nodes="" class="tree-node-item" ng-model="node.children" ng-class="{hidden: collapsed}" >
+        <li ng-repeat="node in node.children" ui-tree-node ng-include="'nodes_renderer.html'">
+        </li>
+    </ul>
+</script>
+<div class="row">
+    <div class="col-sm-12">
+        <div ui-tree id="tree-root" data-drag-enabled="false" >
+            <ul ui-tree-nodes class="tree-node-item" ng-model="objectives">
+                <li ng-repeat="node in objectives" ui-tree-node ng-include="'nodes_renderer.html'"></li>
+            </ul>
+        </div>
+    </div>
+</div>
+

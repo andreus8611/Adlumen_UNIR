@@ -1,0 +1,789 @@
+﻿     <!--Content Header (Page header)-->
+
+
+<section class="content-header">
+    <h1>
+        {{translation.MENSAJES}}
+        <small>{{newMessages}} new messages</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> {{translation.HOME}}</a></li>
+        <li class="active">{{translation.MENSAJES}}</li>
+    </ol>
+
+</section>
+<!-- Main content -->
+<section class="content">
+
+    <div class="row">
+
+        <div class="col-md-3">
+            <a class="btn btn-primary btn-block margin-bottom" ng-click="setMessageView(4)" href="javascript:;" ng-disabled="views.showCompose">{{translation.ESCRIBIR_MENSAJE}}</a>
+            <div class="box box-solid">
+                <div class="box-header with-border">
+                    <h3 class="box-title">{{translation.CARPETAS}}</h3>
+                    <div class="box-tools">
+                        <button data-widget="collapse" class="btn btn-box-tool" type="button">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="box-body no-padding">
+                    <ul class="nav nav-pills nav-stacked">
+                        <li>
+                            <a href="javascript:;" ng-click="setMessageView(1)">
+                                <i class="fa fa-inbox"></i> {{translation.BUZON_ENTRADA}}
+                                <span ng-if="newMessages.length != 0" class="label label-primary pull-right">{{newMessages.length}}</span>
+                            </a>
+                        </li>
+                        <li><a href="javascript:;" ng-click="setMessageView(2)"><i class="fa fa-envelope-o"></i> {{translation.ENVIADOS}}</a></li>
+                        <li><a href="javascript:;" ng-click="setMessageView(5)"><i class="fa fa-trash-o"></i> {{translation.PAPELERA_RECICLAJE}}</a></li>
+                        <li><a href="javascript:;" ng-click="setMessageView(9)"><i class="fa fa-envelope"></i>  {{translation.BORRADOR}}</a></li>
+                    </ul>
+                </div>
+                <!--/.box-body-->
+            </div>
+            <!--/. box-->
+            <div class="box box-solid">
+                <div class="box-header with-border">
+                    <h3 class="box-title">{{translation.ETIQUETAS}}</h3>
+                    <div class="box-tools">
+                        <button data-widget="collapse" class="btn btn-box-tool" type="button">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+                <!--/.box-header-->
+                <div class="box-body no-padding">
+                    <ul class="nav nav-pills nav-stacked">
+                        <li><a href="#"><i class="fa fa-circle-o text-red"></i> {{translation.PRIORIDAD}}</a></li>
+
+                    </ul>
+                </div>
+                <!--/.box-body-->
+            </div>
+            <!--/.box-->
+        </div>
+        <!-- /.col -->
+        <div class="col-md-9">
+
+            <!--Inbox-->
+            <div class="box box-primary" ng-if="views.showInbox">
+
+                <div class="box-header with-border">
+                    <h3 class="box-title">{{translation.BUZON_ENTRADA}}</h3>
+                    <div class="box-tools pull-right">
+                        <div class="has-feedback">
+                            <input type="text" placeholder="{{translation.BUSCAR_MAIL}}" class="form-control input-sm" ng-model="searchText" name="table_search">
+                            <span class="glyphicon glyphicon-search form-control-feedback"></span>
+                        </div>
+                    </div>
+                    <!-- /.box-tools -->
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body no-padding">
+                    <div class="mailbox-controls">
+                        <!-- Check all button -->
+                        <button class="btn btn-default btn-sm checkbox-toggle" type="button">
+                            <i class="fa fa-square-o"></i>
+                        </button>
+                        <div class="btn-group">
+                            <button class="btn btn-default btn-sm" type="button"><i class="fa fa-trash-o"></i></button>
+                            <button class="btn btn-default btn-sm" type="button"><i class="fa fa-reply"></i></button>
+                            <button class="btn btn-default btn-sm" type="button"><i class="fa fa-share"></i></button>
+                        </div>
+                        <!-- /.btn-group -->
+                        <button class="btn btn-default btn-sm" type="button"><i class="fa fa-refresh"></i></button>
+
+                        <div class="pull-right">
+                            <span>1-50/{{totalItems}}</span>
+                            <ul uib-pagination style="margin-top: 0px; margin-bottom: 0px;" boundary-links="true"
+                                total-items="inbox.length"
+                                ng-model="currentPage"
+                                class="pagination-sm"
+                                previous-text="&lsaquo;"
+                                next-text="&rsaquo;"
+                                first-text="&laquo;"
+                                last-text="&raquo;"></ul>
+                        </div>
+                        <!-- /.pull-right -->
+                    </div>
+
+                    <div ng-if="inbox.length === 0" class="center-block text-center">
+                        <p>{{translation.NO_MENSAJES}}</p>
+                    </div>
+
+                    <div class="table-responsive mailbox-messages">
+                        <table class="table table-hover table-striped">
+                            <tbody>
+                                <tr ng-repeat="message in inbox | filter :searchText">
+                                    <td><div class="icheckbox_flat-blue" style="position: relative;" aria-checked="false" aria-disabled="false"><input type="checkbox" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0%; border: 0px none; opacity: 0;"></ins></div></td>
+                                    <td class="mailbox-star"><a href="javascript:;"><i ng-class="{'fa-star': message.prioridad, 'fa-star-o': !message.prioridad}" class="fa text-yellow"></i></a></td>
+                                    <td class="mailbox-name"><a href="read-mail.html">{{message.sender}}</a></td>
+                                    <td class="mailbox-subject">
+                                        <a href="javascript:;" ng-click="setMessageView(6, 1, message)"><b>{{message.asunto}}</b> </a>
+                                    </td>
+                                    <td class="mailbox-attachment"></td>
+                                    <td class="mailbox-date">5 mins ago</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <!-- /.table -->
+                    </div>
+                    <!-- /.mail-box-messages -->
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer no-padding">
+                    <div class="mailbox-controls">
+                        <!-- Check all button -->
+                        <button class="btn btn-default btn-sm checkbox-toggle" type="button">
+                            <i class="fa fa-square-o"></i>
+                        </button>
+                        <div class="btn-group">
+                            <button class="btn btn-default btn-sm" type="button"><i class="fa fa-trash-o"></i></button>
+                            <button class="btn btn-default btn-sm" type="button"><i class="fa fa-reply"></i></button>
+                            <button class="btn btn-default btn-sm" type="button"><i class="fa fa-share"></i></button>
+                        </div>
+                        <!-- /.btn-group -->
+                        <button class="btn btn-default btn-sm" type="button"><i class="fa fa-refresh"></i></button>
+                        <div class="pull-right">
+                            <span>1-50/{{totalItems}}</span>
+                            <ul uib-pagination style="margin-top: 0px; margin-bottom: 0px;" boundary-links="true"
+                                total-items="inbox.length"
+                                ng-model="currentPage"
+                                class="pagination-sm"
+                                previous-text="&lsaquo;"
+                                next-text="&rsaquo;"
+                                first-text="&laquo;"
+                                last-text="&raquo;"></ul>
+                        </div>
+                        <!-- /.pull-right -->
+                    </div>
+                </div>
+            </div>
+            <!--Compose-->
+            <div class="box box-primary" ng-if="views.showCompose">
+                <div class="alert">
+                    <div uib-alert ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)" dismiss-on-timeout="8000" ng-repeat="alert in alerts" ng-if="showAlert">{{alert.msg}}</div>
+
+                </div>
+                <div class="box-footer">
+                    <div class="pull-right">
+                        <button class="btn btn-default" ng-click="addBorrador()" type="button"><i class="fa fa-pencil"></i> {{translation.BORRADOR}}</button>
+                        <button ng-click="addMensaje()" class="btn btn-primary" type="submit"><i class="fa fa-envelope-o"></i> {{translation.ENVIAR}}</button>
+                    </div>
+
+                    <button class="btn btn-default" ng-click="descartar()" type="reset"><i class="fa fa-times"></i> {{translation.DESCARTAR}}</button>
+
+
+
+                </div>
+                <div class="box-header with-border">
+                    <h3 class="box-title">{{translation.ESCRIBIR_MENSAJE}}</h3>
+                </div>
+
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <div class="form-group">
+
+                        <select class="form-control"
+                                ng-options="usuario.idUsuario as usuario.nombre for usuario in usuarios |  filter:filter: {idEmpresa: '0'} | filter:filter: {customerId: bdClient.id} "
+                                ng-model="message.idUsuarioDestinatario">
+                            <option value="">-- {{translation.SELECCIONAR}} --</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="checkbox"
+                               ng-model="message.prioridad">  <span> {{translation.PRIORIDAD}} </span>
+                    </div>
+                    <div class="form-group">
+
+                        <input ng-model="message.asunto" placeholder=" {{translation.ASUNTO}}" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <div class="btn-toolbar" role="toolbar">
+                            <div class="btn-group" role="group">
+                                <div class="dropdown">
+                                    <a data-toggle="dropdown" class="btn btn-default dropdown-toggle ">
+
+                                        <span class="glyphicon glyphicon-font"></span>
+
+                                        <span class="current-font">{{textHeading.text}}</span>
+                                        <b class="caret"></b>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a tabindex="-1" ng-click="cambiar()" href="javascript:;">{{translation.TEXTO_NORMAL}}</a></li>
+                                        <li><a tabindex="-1" ng-click="textHeading={text: translation.ENCABEZADO + ' 1', class: 'h1'};" href="javascript:;">{{translation.ENCABEZADO}} 1</a></li>
+                                        <li><a tabindex="-1" ng-click="textHeading={text: translation.ENCABEZADO + ' 2', class: 'h2'};" href="javascript:;">{{translation.ENCABEZADO}} 2</a></li>
+                                        <li><a tabindex="-1" ng-click="textHeading={text: translation.ENCABEZADO + ' 3', class: 'h3'};" href="javascript:;">{{translation.ENCABEZADO}} 3</a></li>
+                                        <li><a tabindex="-1" ng-click="textHeading={text: translation.ENCABEZADO + ' 4', class: 'h4'};" href="javascript:;">{{translation.ENCABEZADO}} 4</a></li>
+                                        <li><a tabindex="-1" ng-click="textHeading={text: translation.ENCABEZADO + ' 5', class: 'h5'};" href="javascript:;">{{translation.ENCABEZADO}} 5</a></li>
+                                        <li><a tabindex="-1" ng-click="textHeading={text: translation.ENCABEZADO + ' 6', class: 'h6'};" href="javascript:;">{{translation.ENCABEZADO}} 6</a></li>
+                                    </ul>
+                                </div>
+
+                            </div>
+                            <div class="btn-group" role="group">
+                                <a tabindex="-1" title="CTRL+B" data-wysihtml5-command="bold" class="btn  btn-default" href="javascript:;" unselectable="on">{{translation.NEGRITA}}</a>
+                                <a tabindex="-1" title="CTRL+I" data-wysihtml5-command="italic" class="btn  btn-default" href="javascript:;" unselectable="on">{{translation.ITALICA}}</a>
+                                <a tabindex="-1" title="CTRL+U" data-wysihtml5-command="underline" class="btn  btn-default" href="javascript:;" unselectable="on">{{translation.SUBRAYADO}}</a>
+
+                                <a tabindex="-1" title="CTRL+S" data-wysihtml5-command="small" class="btn  btn-default" href="javascript:;" unselectable="on">{{translation.PEQUENIO}}</a>
+                            </div>
+                            <div class="btn-group" role="group">
+                                <a tabindex="-1" data-wysihtml5-display-format-name="false" data-wysihtml5-command-value="blockquote" data-wysihtml5-command="formatBlock" class="btn  btn-default" href="javascript:;" unselectable="on">
+
+                                    <span class="glyphicon glyphicon-quote"></span>
+
+                                </a>
+                            </div>
+                            <div class="btn-group" role="group">
+                                <a tabindex="-1" title="Unordered list" data-wysihtml5-command="insertUnorderedList" class="btn  btn-default" href="javascript:;" unselectable="on">
+
+                                    <span class="glyphicon glyphicon-list"></span>
+
+                                </a>
+                                <a tabindex="-1" title="Ordered list" data-wysihtml5-command="insertOrderedList" class="btn  btn-default" href="javascript:;" unselectable="on">
+
+                                    <span class="glyphicon glyphicon-th-list"></span>
+
+                                </a>
+                                <a tabindex="-1" title="Outdent" data-wysihtml5-command="Outdent" class="btn  btn-default" href="javascript:;" unselectable="on">
+
+                                    <span class="glyphicon glyphicon-indent-right"></span>
+
+                                </a>
+                                <a tabindex="-1" title="Indent" data-wysihtml5-command="Indent" class="btn  btn-default" href="javascript:;" unselectable="on">
+
+                                    <span class="glyphicon glyphicon-indent-left"></span>
+
+                                </a>
+                            </div>
+
+                        </div>
+
+                        <textarea style="height: 350px;"  ng-model="message.mensaje" class="form-control" id="compose-textarea"></textarea>
+
+
+                       
+                      
+
+
+                        <div class="form-group">
+                            <div class="btn btn-default btn-file">
+                                <i class="fa fa-paperclip"></i> {{translation.ADJUNTO}}
+                                <input type="file" name="attachment">
+                            </div>
+                            <p class="help-block">Max. 32MB</p>
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+                    <!-- /.box-footer -->
+                </div>
+                <!--Read Message-->
+                <div class="box box-primary" ng-if="views.showReadMessage">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">{{translation.LEER_MENSAJE}}</h3>
+                    </div>
+                    <!-- /.box-header -->
+
+                    <div class="box-body">
+                        <div class="form-group">
+                            <select class="form-control"
+                                    ng-options="usuario.idUsuario as usuario.nombre for usuario in usuarios | filter: {customerId: bdClient.id}"
+                                    ng-model="selectedMessage.idUsuarioDestinatario">
+                                <option value="">-- {{translation.SELECCIONAR}} --</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <input type="checkbox" ng-model="message.prioridad">  <span> {{translation.PRIORIDAD}} </span>
+                        </div>
+
+                        <div class="form-group">
+                            <input ng-model="selectedMessage.asunto" placeholder="Subject:" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <div class="btn-toolbar" role="toolbar">
+                                <div class="btn-group" role="group">
+                                    <div class="dropdown">
+                                        <a data-toggle="dropdown" class="btn btn-default dropdown-toggle ">
+
+                                            <span class="glyphicon glyphicon-font"></span>
+
+                                            <span class="current-font">{{textHeading.text}}</span>
+                                            <b class="caret"></b>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li><a tabindex="-1" ng-click="textHeading={text: translation.TEXTO_NORMAL, class: 'p'};" href="javascript:;">{{translation.TEXTO_NORMAL}}</a></li>
+                                            <li><a tabindex="-1" ng-click="textHeading={text: translation.ENCABEZADO + ' 1', class: 'h1'};" href="javascript:;">{{translation.ENCABEZADO}} 1</a></li>
+                                            <li><a tabindex="-1" ng-click="textHeading={text: translation.ENCABEZADO + ' 2', class: 'h2'};" href="javascript:;">{{translation.ENCABEZADO}} 2</a></li>
+                                            <li><a tabindex="-1" ng-click="textHeading={text: translation.ENCABEZADO + ' 3', class: 'h3'};" href="javascript:;">{{translation.ENCABEZADO}} 3</a></li>
+                                            <li><a tabindex="-1" ng-click="textHeading={text: translation.ENCABEZADO + ' 4', class: 'h4'};" href="javascript:;">{{translation.ENCABEZADO}} 4</a></li>
+                                            <li><a tabindex="-1" ng-click="textHeading={text: translation.ENCABEZADO + ' 5', class: 'h5'};" href="javascript:;">{{translation.ENCABEZADO}} 5</a></li>
+                                            <li><a tabindex="-1" ng-click="textHeading={text: translation.ENCABEZADO + ' 6', class: 'h6'};" href="javascript:;">{{translation.ENCABEZADO}} 6</a></li>
+                                        </ul>
+                                    </div>
+
+                                </div>
+                                <div class="btn-group" role="group">
+                                    <a tabindex="-1" title="CTRL+B" data-wysihtml5-command="bold" class="btn  btn-default" href="javascript:;" unselectable="on">{{translation.NEGRITA}}</a>
+                                    <a tabindex="-1" title="CTRL+I" data-wysihtml5-command="italic" class="btn  btn-default" href="javascript:;" unselectable="on">{{translation.ITALICA}}</a>
+                                    <a tabindex="-1" title="CTRL+U" data-wysihtml5-command="underline" class="btn  btn-default" href="javascript:;" unselectable="on">{{translation.SUBRAYADO}}</a>
+
+                                    <a tabindex="-1" title="CTRL+S" data-wysihtml5-command="small" class="btn  btn-default" href="javascript:;" unselectable="on">{{translation.PEQUENIO}}</a>
+                                </div>
+                                <div class="btn-group" role="group">
+                                    <a tabindex="-1" data-wysihtml5-display-format-name="false" data-wysihtml5-command-value="blockquote" data-wysihtml5-command="formatBlock" class="btn  btn-default" href="javascript:;" unselectable="on">
+
+                                        <span class="glyphicon glyphicon-quote"></span>
+
+                                    </a>
+                                </div>
+                                <div class="btn-group" role="group">
+                                    <a tabindex="-1" title="Unordered list" data-wysihtml5-command="insertUnorderedList" class="btn  btn-default" href="javascript:;" unselectable="on">
+
+                                        <span class="glyphicon glyphicon-list"></span>
+
+                                    </a>
+                                    <a tabindex="-1" title="Ordered list" data-wysihtml5-command="insertOrderedList" class="btn  btn-default" href="javascript:;" unselectable="on">
+
+                                        <span class="glyphicon glyphicon-th-list"></span>
+
+                                    </a>
+                                    <a tabindex="-1" title="Outdent" data-wysihtml5-command="Outdent" class="btn  btn-default" href="javascript:;" unselectable="on">
+
+                                        <span class="glyphicon glyphicon-indent-right"></span>
+
+                                    </a>
+                                    <a tabindex="-1" title="Indent" data-wysihtml5-command="Indent" class="btn  btn-default" href="javascript:;" unselectable="on">
+
+                                        <span class="glyphicon glyphicon-indent-left"></span>
+
+                                    </a>
+                                </div>
+
+                            </div>
+                            <textarea style="height: 350px;" ng-model="selectedMessage.mensaje" class="form-control" id="compose-textarea"></textarea>
+
+                        </div>
+                        <div class="form-group">
+                            <div class="btn btn-default btn-file">
+                                <i class="fa fa-paperclip"></i> {{translation.ADJUNTO}}
+                                <input type="file" name="attachment">
+                            </div>
+                            <p class="help-block">Max. 32MB</p>
+                        </div>
+
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="box-footer">
+                        <div class="pull-right">
+                            <button class="btn btn-default" type="button" ng-click="setMessageView(lastView)"><i class="fa fa-remove"></i> {{translation.CERRAR}}</button>
+
+                        </div>
+
+                    </div>
+                    <!-- /.box-footer -->
+                </div>
+                <div class="box box-primary" ng-if="views.showReadMessage2">
+                    <div class="alert">
+                        <div uib-alert ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)" dismiss-on-timeout="8000" ng-repeat="alert in alerts" ng-if="showAlert">{{alert.msg}}</div>
+
+                    </div>
+                    <div class="box-header with-border">
+                        <h3 class="box-title">{{translation.LEER_MENSAJE}}</h3>
+                    </div>
+                    <!-- /.box-header -->
+
+                    <div class="box-footer">
+                        <div class="pull-right">
+                            <button class="btn btn-default" ng-click="addBorrador()" type="button"><i class="fa fa-pencil"></i> {{translation.BORRADOR}}</button>
+                            <button ng-click="editMensaje()" class="btn btn-primary" type="submit"><i class="fa fa-envelope-o"></i> {{translation.ENVIAR}}</button>
+                        </div>
+                        <button class="btn btn-default" ng-click="descartar()" type="reset"><i class="fa fa-times"></i> {{translation.DESCARTAR}}</button>
+                    </div>
+                    <div class="box-body">
+                        <div class="form-group">
+                            <select class="form-control"
+                                    ng-options="usuario.idUsuario as usuario.nombre for usuario in usuarios | filter: {customerId: bdClient.id}"
+                                    ng-model="selectedMessage.idUsuarioDestinatario">
+                                <option value="">-- {{translation.SELECCIONAR}} --</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <input type="checkbox"
+                                   ng-model="message.prioridad">  <span> {{translation.PRIORIDAD}} </span>
+                        </div>
+                        <div class="form-group">
+                            <input ng-model="selectedMessage.asunto" placeholder="Subject:" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <div class="btn-toolbar" role="toolbar">
+                                <div class="btn-group" role="group">
+                                    <div class="dropdown">
+                                        <a data-toggle="dropdown" class="btn btn-default dropdown-toggle ">
+
+                                            <span class="glyphicon glyphicon-font"></span>
+
+                                            <span class="current-font">{{textHeading.text}}</span>
+                                            <b class="caret"></b>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li><a tabindex="-1" ng-click="textHeading={text: translation.TEXTO_NORMAL, class: 'p'};" href="javascript:;">{{translation.TEXTO_NORMAL}}</a></li>
+                                            <li><a tabindex="-1" ng-click="textHeading={text: translation.ENCABEZADO + ' 1', class: 'h1'};" href="javascript:;">{{translation.ENCABEZADO}} 1</a></li>
+                                            <li><a tabindex="-1" ng-click="textHeading={text: translation.ENCABEZADO + ' 2', class: 'h2'};" href="javascript:;">{{translation.ENCABEZADO}} 2</a></li>
+                                            <li><a tabindex="-1" ng-click="textHeading={text: translation.ENCABEZADO + ' 3', class: 'h3'};" href="javascript:;">{{translation.ENCABEZADO}} 3</a></li>
+                                            <li><a tabindex="-1" ng-click="textHeading={text: translation.ENCABEZADO + ' 4', class: 'h4'};" href="javascript:;">{{translation.ENCABEZADO}} 4</a></li>
+                                            <li><a tabindex="-1" ng-click="textHeading={text: translation.ENCABEZADO + ' 5', class: 'h5'};" href="javascript:;">{{translation.ENCABEZADO}} 5</a></li>
+                                            <li><a tabindex="-1" ng-click="textHeading={text: translation.ENCABEZADO + ' 6', class: 'h6'};" href="javascript:;">{{translation.ENCABEZADO}} 6</a></li>
+                                        </ul>
+                                    </div>
+
+                                </div>
+                                <div class="btn-group" role="group">
+                                    <a tabindex="-1" title="CTRL+B" data-wysihtml5-command="bold" class="btn  btn-default" href="javascript:;" unselectable="on">{{translation.NEGRITA}}</a>
+                                    <a tabindex="-1" title="CTRL+I" data-wysihtml5-command="italic" class="btn  btn-default" href="javascript:;" unselectable="on">{{translation.ITALICA}}</a>
+                                    <a tabindex="-1" title="CTRL+U" data-wysihtml5-command="underline" class="btn  btn-default" href="javascript:;" unselectable="on">{{translation.SUBRAYADO}}</a>
+
+                                    <a tabindex="-1" title="CTRL+S" data-wysihtml5-command="small" class="btn  btn-default" href="javascript:;" unselectable="on">{{translation.PEQUENIO}}</a>
+                                </div>
+                                <div class="btn-group" role="group">
+                                    <a tabindex="-1" data-wysihtml5-display-format-name="false" data-wysihtml5-command-value="blockquote" data-wysihtml5-command="formatBlock" class="btn  btn-default" href="javascript:;" unselectable="on">
+
+                                        <span class="glyphicon glyphicon-quote"></span>
+
+                                    </a>
+                                </div>
+                                <div class="btn-group" role="group">
+                                    <a tabindex="-1" title="Unordered list" data-wysihtml5-command="insertUnorderedList" class="btn  btn-default" href="javascript:;" unselectable="on">
+
+                                        <span class="glyphicon glyphicon-list"></span>
+
+                                    </a>
+                                    <a tabindex="-1" title="Ordered list" data-wysihtml5-command="insertOrderedList" class="btn  btn-default" href="javascript:;" unselectable="on">
+
+                                        <span class="glyphicon glyphicon-th-list"></span>
+
+                                    </a>
+                                    <a tabindex="-1" title="Outdent" data-wysihtml5-command="Outdent" class="btn  btn-default" href="javascript:;" unselectable="on">
+
+                                        <span class="glyphicon glyphicon-indent-right"></span>
+
+                                    </a>
+                                    <a tabindex="-1" title="Indent" data-wysihtml5-command="Indent" class="btn  btn-default" href="javascript:;" unselectable="on">
+
+                                        <span class="glyphicon glyphicon-indent-left"></span>
+
+                                    </a>
+                                </div>
+
+                            </div>
+                            <textarea style="height: 350px;" ng-model="selectedMessage.mensaje" class="form-control" id="compose-textarea"></textarea>
+
+                        </div>
+                        <div class="form-group">
+                            <div class="btn btn-default btn-file">
+                                <i class="fa fa-paperclip"></i> {{translation.ADJUNTO}}
+                                <input type="file" name="attachment">
+                            </div>
+                            <p class="help-block">Max. 32MB</p>
+                        </div>
+
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="box-footer">
+                        <div class="pull-right">
+                            <button class="btn btn-default" type="button" ng-click="setMessageView(lastView)"><i class="fa fa-remove"></i> {{translation.CERRAR}}</button>
+
+                        </div>
+
+                    </div>
+                    <!-- /.box-footer -->
+                </div>
+                <!--Sent-->
+                <div class="box box-primary" ng-if="views.showSent">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">{{translation.ENVIADOS}}</h3>
+                        <div class="box-tools pull-right">
+                            <div class="has-feedback">
+                                <input type="text" placeholder="{{translation.BUSCAR_MAIL}}" class="form-control input-sm" ng-model="searchText" name="table_search">
+                                <span class="glyphicon glyphicon-search form-control-feedback"></span>
+                            </div>
+                        </div>
+                        <!-- /.box-tools -->
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body no-padding">
+                        <div class="mailbox-controls">
+                            <!-- Check all button -->
+                            <button class="btn btn-default btn-sm checkbox-toggle" type="button">
+                                <i class="fa fa-square-o"></i>
+                            </button>
+                            <div class="btn-group">
+                                <button class="btn btn-default btn-sm" type="button"><i class="fa fa-trash-o"></i></button>
+                                <button class="btn btn-default btn-sm" type="button"><i class="fa fa-reply"></i></button>
+                                <button class="btn btn-default btn-sm" type="button"><i class="fa fa-share"></i></button>
+                            </div>
+                            <!-- /.btn-group -->
+                            <button class="btn btn-default btn-sm" type="button"><i class="fa fa-refresh"></i></button>
+                            <div class="pull-right">
+                                <span>1-50/{{totalItems}}</span>
+                                <ul uib-pagination style="margin-top: 0px; margin-bottom: 0px;" boundary-links="true"
+                                    total-items="sent.length"
+                                    ng-model="currentPage"
+                                    class="pagination-sm"
+                                    previous-text="&lsaquo;"
+                                    next-text="&rsaquo;"
+                                    first-text="&laquo;"
+                                    last-text="&raquo;"></ul>
+                            </div>
+                            <!-- /.pull-right -->
+                        </div>
+
+                        <div ng-if="sent.length === 0" class="center-block text-center">
+                            <p>{{translation.NO_MENSAJES}}</p>
+                        </div>
+
+                        <div class="table-responsive mailbox-messages">
+                            <table class="table table-hover table-striped">
+                                <tbody>
+                                    <tr ng-repeat="message in sent | filter: searchText">
+                                        <td><div class="icheckbox_flat-blue" style="position: relative;" aria-checked="false" aria-disabled="false"><input type="checkbox" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0%; border: 0px none; opacity: 0;"></ins></div></td>
+                                        <td class="mailbox-star"><a href="javascript:;"><i ng-class="{'fa-star': message.prioridad, 'fa-star-o': !message.prioridad}" class="fa text-yellow"></i></a></td>
+                                        <td class="mailbox-name"><a href="read-mail.html">{{message.sender}}</a></td>
+                                        <td class="mailbox-subject">
+                                            <a href="javascript:;" ng-click="setMessageView(6, 1, message)"><b>{{message.asunto}}</b></a>
+                                        </td>
+                                        <td class="mailbox-attachment"></td>
+                                        <td class="mailbox-date">5 mins ago</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <!-- /.table -->
+                        </div>
+                        <!-- /.mail-box-messages -->
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="box-footer no-padding">
+                        <div class="mailbox-controls">
+                            <!-- Check all button -->
+                            <button class="btn btn-default btn-sm checkbox-toggle" type="button">
+                                <i class="fa fa-square-o"></i>
+                            </button>
+                            <div class="btn-group">
+                                <button class="btn btn-default btn-sm" type="button"><i class="fa fa-trash-o"></i></button>
+                                <button class="btn btn-default btn-sm" type="button"><i class="fa fa-reply"></i></button>
+                                <button class="btn btn-default btn-sm" type="button"><i class="fa fa-share"></i></button>
+                            </div>
+                            <!-- /.btn-group -->
+                            <button class="btn btn-default btn-sm" type="button"><i class="fa fa-refresh"></i></button>
+                            <div class="pull-right">
+                                <span>1-50/{{totalItems}}</span>
+                                <ul uib-pagination style="margin-top: 0px; margin-bottom: 0px;" boundary-links="true"
+                                    total-items="sent.length"
+                                    ng-model="currentPage"
+                                    class="pagination-sm"
+                                    previous-text="&lsaquo;"
+                                    next-text="&rsaquo;"
+                                    first-text="&laquo;"
+                                    last-text="&raquo;"></ul>
+                            </div>
+                            <!-- /.pull-right -->
+                        </div>
+                    </div>
+                </div>
+                <!--Deleted-->
+                <div class="box box-primary" ng-if="views.showDeleted">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">{{translation.ELIMINADOS}}</h3>
+                        <div class="box-tools pull-right">
+                            <div class="has-feedback">
+                                <input type="text" placeholder="{{translation.BUSCAR_MAIL}}" class="form-control input-sm" ng-model="searchText" name="table_search">
+                                <span class="glyphicon glyphicon-search form-control-feedback"></span>
+                            </div>
+                        </div>
+                        <!-- /.box-tools -->
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body no-padding">
+                        <div class="mailbox-controls">
+                            <!-- Check all button -->
+                            <button class="btn btn-default btn-sm checkbox-toggle" type="button">
+                                <i class="fa fa-square-o"></i>
+                            </button>
+                            <div class="btn-group">
+                                <button class="btn btn-default btn-sm" type="button"><i class="fa fa-trash-o"></i></button>
+                                <button class="btn btn-default btn-sm" type="button"><i class="fa fa-reply"></i></button>
+                                <button class="btn btn-default btn-sm" type="button"><i class="fa fa-share"></i></button>
+                            </div>
+                            <!-- /.btn-group -->
+                            <button class="btn btn-default btn-sm" type="button"><i class="fa fa-refresh"></i></button>
+                            <div class="pull-right">
+                                <span>1-50/{{totalItems}}</span>
+                                <ul uib-pagination style="margin-top: 0px; margin-bottom: 0px;" boundary-links="true"
+                                    total-items="deleted.length"
+                                    ng-model="currentPage"
+                                    class="pagination-sm"
+                                    previous-text="&lsaquo;"
+                                    next-text="&rsaquo;"
+                                    first-text="&laquo;"
+                                    last-text="&raquo;"></ul>
+                            </div>
+                            <!-- /.pull-right -->
+                        </div>
+
+                        <div ng-if="deleted.length === 0" class="center-block text-center">
+                            <p>{{translation.NO_MENSAJES}}</p>
+                        </div>
+
+                        <div class="table-responsive mailbox-messages">
+                            <table class="table table-hover table-striped">
+                                <tbody>
+                                    <tr ng-repeat="message in deleted | filter: searchText ">
+                                        <td><div class="icheckbox_flat-blue" style="position: relative;" aria-checked="false" aria-disabled="false"><input type="checkbox" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0%; border: 0px none; opacity: 0;"></ins></div></td>
+                                        <td class="mailbox-star"><a href="javascript:;"><i ng-class="{'fa-star': message.prioridad, 'fa-star-o': !message.prioridad}" class="fa text-yellow"></i></a></td>
+                                        <td class="mailbox-name"><a href="read-mail.html">{{message.sender}}</a></td>
+                                        <td class="mailbox-subject">
+                                            <a href="javascript:;" ng-click="setMessageView(6, 1, message)"><b>{{message.asunto}}</b></a>
+                                        </td>
+                                        <td class="mailbox-attachment"></td>
+                                        <td class="mailbox-date">5 mins ago</td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                            <!-- /.table -->
+                        </div>
+                        <!-- /.mail-box-messages -->
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="box-footer no-padding">
+                        <div class="mailbox-controls">
+                            <!-- Check all button -->
+                            <button class="btn btn-default btn-sm checkbox-toggle" type="button">
+                                <i class="fa fa-square-o"></i>
+                            </button>
+                            <div class="btn-group">
+                                <button class="btn btn-default btn-sm" type="button"><i class="fa fa-trash-o"></i></button>
+                                <button class="btn btn-default btn-sm" type="button"><i class="fa fa-reply"></i></button>
+                                <button class="btn btn-default btn-sm" type="button"><i class="fa fa-share"></i></button>
+                            </div>
+                            <!-- /.btn-group -->
+                            <button class="btn btn-default btn-sm" type="button"><i class="fa fa-refresh"></i></button>
+                            <div class="pull-right">
+                                <span>1-50/{{totalItems}}</span>
+                                <ul uib-pagination style="margin-top: 0px; margin-bottom: 0px;" boundary-links="true"
+                                    total-items="deleted.length"
+                                    ng-model="currentPage"
+                                    class="pagination-sm"
+                                    previous-text="&lsaquo;"
+                                    next-text="&rsaquo;"
+                                    first-text="&laquo;"
+                                    last-text="&raquo;"></ul>
+                            </div>
+                            <!-- /.pull-right -->
+                        </div>
+                    </div>
+                </div>
+                <div class="box box-primary" ng-if="views.showTrash">
+
+                    <div class="box-header with-border">
+                        <h3 class="box-title">{{translation.BUZON_ENTRADA}}</h3>
+                        <div class="box-tools pull-right">
+                            <div class="has-feedback">
+                                <input type="text" placeholder="{{translation.BUSCAR_MAIL}}" class="form-control input-sm" ng-model="searchText" name="table_search">
+                                <span class="glyphicon glyphicon-search form-control-feedback"></span>
+                            </div>
+                        </div>
+                        <!-- /.box-tools -->
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body no-padding">
+                        <div class="mailbox-controls">
+                            <!-- Check all button -->
+                            <button class="btn btn-default btn-sm checkbox-toggle" type="button">
+                                <i class="fa fa-square-o"></i>
+                            </button>
+                            <div class="btn-group">
+                                <button class="btn btn-default btn-sm" type="button"><i class="fa fa-trash-o"></i></button>
+                                <button class="btn btn-default btn-sm" type="button"><i class="fa fa-reply"></i></button>
+                                <button class="btn btn-default btn-sm" type="button"><i class="fa fa-share"></i></button>
+                            </div>
+                            <!-- /.btn-group -->
+                            <button class="btn btn-default btn-sm" type="button"><i class="fa fa-refresh"></i></button>
+
+                            <div class="pull-right">
+                                <span>1-50/{{totalItems}}</span>
+                                <ul uib-pagination style="margin-top: 0px; margin-bottom: 0px;" boundary-links="true"
+                                    total-items="inbox.length"
+                                    ng-model="currentPage"
+                                    class="pagination-sm"
+                                    previous-text="&lsaquo;"
+                                    next-text="&rsaquo;"
+                                    first-text="&laquo;"
+                                    last-text="&raquo;"></ul>
+                            </div>
+                            <!-- /.pull-right -->
+                        </div>
+
+                        <div ng-if="inbox.length === 0" class="center-block text-center">
+                            <p>{{translation.NO_MENSAJES}}</p>
+                        </div>
+
+                        <div class="table-responsive mailbox-messages">
+                            <table class="table table-hover table-striped">
+                                <tbody>
+                                    <tr ng-repeat="message in draft | filter :searchText">
+                                        <td><div class="icheckbox_flat-blue" style="position: relative;" aria-checked="false" aria-disabled="false"><input type="checkbox" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0%; border: 0px none; opacity: 0;"></ins></div></td>
+                                        <td class="mailbox-star"><a href="javascript:;"><i ng-class="{'fa-star': message.prioridad, 'fa-star-o': !message.prioridad}" class="fa text-yellow"></i></a></td>
+                                        <td class="mailbox-name"><a href="read-mail.html">{{message.sender}}</a></td>
+                                        <td class="mailbox-subject">
+                                            <a href="javascript:;" ng-click="setMessageView(7, 1, message)"><b>{{message.asunto}}</b> </a>
+                                        </td>
+                                        <td class="mailbox-attachment"></td>
+                                        <td class="mailbox-date">5 mins ago</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <!-- /.table -->
+                        </div>
+                        <!-- /.mail-box-messages -->
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="box-footer no-padding">
+                        <div class="mailbox-controls">
+                            <!-- Check all button -->
+                            <button class="btn btn-default btn-sm checkbox-toggle" type="button">
+                                <i class="fa fa-square-o"></i>
+                            </button>
+                            <div class="btn-group">
+                                <button class="btn btn-default btn-sm" type="button"><i class="fa fa-trash-o"></i></button>
+                                <button class="btn btn-default btn-sm" type="button"><i class="fa fa-reply"></i></button>
+                                <button class="btn btn-default btn-sm" type="button"><i class="fa fa-share"></i></button>
+                            </div>
+                            <!-- /.btn-group -->
+                            <button class="btn btn-default btn-sm" type="button"><i class="fa fa-refresh"></i></button>
+                            <div class="pull-right">
+                                <span>1-50/{{totalItems}}</span>
+                                <ul uib-pagination style="margin-top: 0px; margin-bottom: 0px;" boundary-links="true"
+                                    total-items="inbox.length"
+                                    ng-model="currentPage"
+                                    class="pagination-sm"
+                                    previous-text="&lsaquo;"
+                                    next-text="&rsaquo;"
+                                    first-text="&laquo;"
+                                    last-text="&raquo;"></ul>
+                            </div>
+                            <!-- /.pull-right -->
+                        </div>
+                    </div>
+                </div>
+                <!-- /. box -->
+            </div>
+            <!-- /.col -->
+        </div>
+    </div>
+
+</section>
+<!-- /.content -->
+<!-- Realizar cambios en los filtros de cada tabla para el usuario. -->

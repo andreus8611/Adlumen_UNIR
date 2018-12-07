@@ -1,0 +1,58 @@
+﻿<script type="text/ng-template" id="displayDistribucionTemplate">
+    <td>{{distribucion.descripcion}}</td>
+    <td>{{distribucion.monto | number: 2}}</td>
+    <td>{{distribucion.fechaCreacion | date: short}}</td>
+    <td>
+        <button type="button" class="btn btn-primary" ng-show="!editMode" ng-click="editDistribucion()" uib-tooltip="{{translation.EDITAR}}">
+            <span class="glyphicon glyphicon-pencil"></span>
+        </button>
+    </td>
+    <td></td>
+</script>
+<script type="text/ng-template" id="editDistribucionTemplate">
+    <td>{{selectedDistribucion.descripcion}}</td>
+    <td><input class="large-input-full" type="number" onkeypress="return validateNumber(event);" ng-model="selectedDistribucion.monto"></td>
+    <td>{{selectedDistribucion.fechaCreacion | date: short}}</td>
+    <td>
+        <button type="button" class="btn btn-primary" ng-show="editMode" ng-click="SaveDistribucion()" uib-tooltip="{{translation.GUARDAR}}">
+            <span class="glyphicon glyphicon-floppy-disk"></span>
+        </button>
+    </td>
+    <td>
+        <button type="button" class="btn btn-primary" ng-show="editMode" ng-click="CancelEdit()" uib-tooltip="{{translation.CANCELAR}}">
+            <span class="glyphicon glyphicon-remove"></span>
+        </button>
+    </td>
+</script>
+<div class="row">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>{{translation.PRESUPUESTO_TOTAL}}</th>
+                <th>{{translation.TOTAL_DISTRIBUIDO}}</th>
+                <th>{{translation.PENDIENTE}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{presupuestoData.totalPresupuesto | number:2}}</td>
+                <td>{{presupuestoData.totalDistribuido | number:2}}</td>
+                <td>{{presupuestoData.pendienteDistribucion | number:2}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="row" >
+    </div>
+    <table class="table table-hover" style="margin-right:auto; margin-left: inherit;">
+        <thead>
+            <tr>
+                <th>{{translation.DESCRIPCION}}</th>
+                <th>{{translation.MONTO}}</th>
+                <th>{{translation.FECHACREACION}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="distribucion in presupuestoData.distribucionPresupuesto" ng-include="getDistribucionTemplate(distribucion)"></tr>
+        </tbody>
+    </table>
+</div>

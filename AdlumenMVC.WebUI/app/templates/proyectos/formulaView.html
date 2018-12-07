@@ -1,0 +1,102 @@
+﻿<script type="text/ng-template" id="displayVariableTemplate">
+    <td>
+        <button type="button" class="btn btn-primary" ng-click="escribir(variable.nombre)" uib-tooltip="{{translation.ADICIONAR_VARIABLE_FORMULA}}">
+            {{variable.nombre}}
+        </button>
+    </td>
+    <td>{{variable.fuenteInformacion}}</td>
+    <td>
+        <button type="button" class="btn btn-primary" ng-click="editVariable()" uib-tooltip="{{translation.EDITAR}}">
+            <span class="glyphicon glyphicon-pencil"></span>
+        </button>
+    </td>
+    <td>
+        <button type="button" class="btn btn-primary" ng-click="deleteVariable()" uib-tooltip="{{translation.ELIMINAR}}">
+            <span class="glyphicon glyphicon-trash"></span>
+        </button>
+    </td>
+</script>
+<script type="text/ng-template" id="editVariableTemplate">
+    <td><input type="text" ng-model="selectedVariable.nombre"></td>
+    <td><input type="text" ng-model="selectedVariable.fuenteInformacion"></td>
+    <td>
+        <button type="button" class="btn btn-primary" ng-click="saveVariable()" uib-tooltip="{{translation.GUARDAR}}">
+            <span class="glyphicon glyphicon-floppy-disk"></span>
+        </button>
+    </td>
+    <td>
+        <button type="button" class="btn btn-primary" ng-click="cancelEdit()" uib-tooltip="{{translation.CANCELAR}}">
+            <span class="glyphicon glyphicon-remove"></span>
+        </button>
+    </td>
+</script>
+<div class="row" style="margin-right:auto; margin-left: auto;">
+    <div class="col-md-6">
+        <div class="row">
+            <textarea class="large-input" onkeypress="return validateNumber(event);" rows="4" ng-model="$parent.formulaTxt"></textarea>
+        </div>
+        <div class="row">
+            <button type="button" class="btn btn-primary" ng-click="limpiarFormula()">
+                {{translation.LIMPIAR}}
+            </button>
+            <button type="button" class="btn btn-primary" ng-click="deshacer()">
+                {{translation.DESHACER}}
+            </button>
+            <button type="button" class="btn btn-primary" ng-click="validar()">
+                {{translation.VALIDAR}}
+            </button>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <table>
+            <tr>
+                <td><button type="button" class="btn btn-sm" ng-click="escribir('7')" style="width:40px">7</button>&nbsp;</td>
+                <td><button type="button" class="btn btn-sm" ng-click="escribir('8')" style="width:40px">8</button>&nbsp;</td>
+                <td><button type="button" class="btn btn-sm" ng-click="escribir('9')" style="width:40px">9</button>&nbsp;</td>
+                <td><button type="button" class="btn btn-sm" ng-click="escribir('/')" style="width:40px">/</button>&nbsp;</td>
+            </tr>
+            <tr>
+                <td><button type="button" class="btn btn-sm" ng-click="escribir('4')" style="width:40px">4</button>&nbsp;</td>
+                <td><button type="button" class="btn btn-sm" ng-click="escribir('5')" style="width:40px">5</button>&nbsp;</td>
+                <td><button type="button" class="btn btn-sm" ng-click="escribir('6')" style="width:40px">6</button>&nbsp;</td>
+                <td><button type="button" class="btn btn-sm" ng-click="escribir('*')" style="width:40px">*</button>&nbsp;</td>
+            </tr>
+            <tr>
+                <td><button type="button" class="btn btn-sm" ng-click="escribir('1')" style="width:40px">1</button>&nbsp;</td>
+                <td><button type="button" class="btn btn-sm" ng-click="escribir('2')" style="width:40px">2</button>&nbsp;</td>
+                <td><button type="button" class="btn btn-sm" ng-click="escribir('3')" style="width:40px">3</button>&nbsp;</td>
+                <td><button type="button" class="btn btn-sm" ng-click="escribir('-')" style="width:40px">-</button>&nbsp;</td>
+            </tr>
+            <tr>
+                <td><button type="button" class="btn btn-sm" ng-click="escribir('0')" style="width:40px">0</button>&nbsp;</td>
+                <td><button type="button" class="btn btn-sm" ng-click="escribir('(')" style="width:40px">(</button>&nbsp;</td>
+                <td><button type="button" class="btn btn-sm" ng-click="escribir(')')" style="width:40px">)</button>&nbsp;</td>
+                <td><button type="button" class="btn btn-sm" ng-click="escribir('+')" style="width:40px">+</button>&nbsp;</td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div class="row" style="margin-right:auto; margin-left: auto;">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>{{translation.NOMBRE}}</th>
+                <th>{{translation.FUENTE}}</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="variable in variablesInFormula" ng-include="getVariablesTemplate(variable)"></tr>
+            <tr ng-show="selectedVariable && selectedVariable.idVariable === 0" ng-include="getNewVariablesTemplate()"></tr>
+        </tbody>
+    </table>
+    <div>
+        <button type="button" class="btn btn-primary" ng-click="crearNuevaVariable();" uib-tooltip="{{translation.NUEVO}}">
+            {{translation.NUEVO}}
+        </button>
+    </div>
+    <div class="row">
+        <div uib-alert ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)" dismiss-on-timeout="8000" ng-repeat="alert in alerts" ng-if="showAlert">{{alert.msg}}</div>
+    </div>
+</div>

@@ -1,0 +1,104 @@
+﻿<div class="modal-content">
+    <form name="form">
+        <div class="modal-header">
+            <button type="button"
+                    class="close"
+                    ng-click="cancel()"
+                    data-dismiss="modal"
+                    aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title">{{headerTitle}}</h4>
+        </div>
+        <div class="modal-body">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{translation.USUARIO}}</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" ng-model="user.userName" ng-disabled="editMode" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{translation.NOMBRE}}</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" ng-model="user.firstName"  />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{translation.APELLIDO}}</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" ng-model="user.lastName"  />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{translation.CORREO}}</label>
+                    <div class="col-sm-10">
+                        <input type="email" class="form-control" ng-model="user.email" />
+                    </div>
+                </div>
+                <div class="form-group" ng-if="!editMode">
+                    <label for="inputEmail" class="col-sm-2 control-label">Password</label>
+                    <div class="col-sm-10">
+                        <input type="password"
+                               class="form-control"
+                               ng-model="user.password"
+                               ng-required="true">
+                    </div>
+                </div>
+
+                <div class="form-group" ng-if="!editMode">
+                    <label for="inputEmail" class="col-sm-2 control-label">Confirm Password</label>
+                    <div class="col-sm-10">
+                        <input type="password"
+                               class="form-control"
+                               ng-model="user.confirmPassword"
+                               ng-required="true">
+                        <span>La contraseña debe tener mínimo una mayúscula y un caracter que no sea letra o dígito.</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{translation.TELEFONO}}</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" ng-model="user.phoneNumber" ng-pattern="base.phoneRegex" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10 form-inline">
+                        <google-places class="form-control" location=location ></google-places>
+                        <button ng-click="doSearch()" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <ui-gmap-google-map ng-if="map.center" center="map.center" zoom="map.zoom" draggable="true" ui-gmap-after-show="refresh()">
+                            <ui-gmap-marker coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id"></ui-gmap-marker>
+                        </ui-gmap-google-map>
+                    </div>
+                </div>
+
+                <div class="alert">
+                    <div uib-alert ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)" dismiss-on-timeout="8000" ng-repeat="alert in alerts" ng-if="showAlert">{{alert.msg}}</div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button"
+                    ng-click="save()"
+                    ng-disabled="form.$invalid"
+                    class="btn btn-success">
+                {{translation.GUARDAR}}
+            </button>
+            <button type="button"
+                    ng-click="cancel()"
+                    class="btn btn-danger"
+                    data-dismiss="modal">
+                {{translation.CANCELAR}}
+            </button>
+
+        </div>
+    </form>
+</div>

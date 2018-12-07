@@ -1,0 +1,71 @@
+﻿<div ng-controller="formBeneficiarioCtrl">
+
+    <h1>Detalle Beneficiario</h1>
+
+    <div class="row" style="margin-right:auto; margin-left: auto;">
+
+        <form class="form-horizontal col-md-8" role="form">
+
+            <div class="form-group">
+                <label for="cmbIdObjetivo" class="col-sm-2 control-label">Objetivo</label>
+                <div class="col-sm-10">
+                    <select id="cmbIdObjetivo" class="form-control" ng-model="Beneficiario.cmbIdObjetivo">
+                        <option value="">Seleccione un Objetivo</option>
+                        <option ng-repeat="objetivo in objetivos" value="{{objetivo.idObjetivo}}">{{objetivo.descripcion}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="txtNombre" class="col-sm-2 control-label">Nombre</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" ng-model="Beneficiario.txtNombre" id="txtNombre" placeholder="Nombre Beneficiario" value="Beneficiario.txtNombre">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="txtEmail" class="col-sm-2 control-label">Email</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" ng-model="Beneficiario.txtEmail" id="txtEmail" placeholder="Email Beneficiario" value="Beneficiario.txtEmail">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="txtTelefono" class="col-sm-2 control-label">Tel&eacute;fono</label>
+                <div class="col-sm-10">
+                    <input type="text" onkeypress="return validateNumber(event);" class="form-control" ng-model="Beneficiario.txtTelefono" 
+                        id="txtTelefono" placeholder="Teléfono Beneficiario" value="Beneficiario.txtTelefono">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="txtDireccion" class="col-sm-2 control-label">Direcci&oacute;n</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" ng-model="Beneficiario.txtDireccion" id="txtDireccion" placeholder="Dirección Beneficiario" value="Beneficiario.txtDireccion">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="txtExtensionTerritorial" class="col-sm-2 control-label">Extensi&oacute;n Territorial Varas<sup>2</sup></label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" ng-model="Beneficiario.txtExtensionTerritorial" id="Text1" placeholder="Extension Territorial" value="Beneficiario.txtExtensionTerritorial">
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-primary" ng-click="addBeneficiario();" ng-show="_newObject == true">Grabar</button>
+                    <button type="submit" class="btn btn-primary" ng-click="updateBeneficiario();" ng-show="_newObject == false">Actualizar</button>
+                    <a class="btn btn-default" href="#/beneficiarios">Cancelar</a>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+
+    <div class="alert">
+        <alert ng-repeat="alert in alerts" ng-if="showAlert" type="{{alert.type}}">{{alert.msg}}</alert>
+    </div>
+</div>

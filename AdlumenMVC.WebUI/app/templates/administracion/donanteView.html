@@ -1,0 +1,71 @@
+﻿<div class="container-fluid">
+    <form name="forms.sponsor" class="form-horizontal" role="form">
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="input-donorName">{{translation.NOMBRE}}:</label>
+            <div class="col-sm-10">
+                <input id="input-donorName" class="form-control" type="text" ng-model="donante.nombre" ng-disabled="!editMode" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2">{{translation.IDENTIFICACION}}:</label>
+            <div class="col-sm-10 form-inline">
+                <select class="form-control" ng-model="donante.idIdentificacionTipo" ng-options="tipo.idIdentificacionTipo as tipo.nombre for tipo in identificacionTipos" ng-disabled="!editMode"></select>
+                <input class="form-control" type="text" ng-model="donante.identificacion" ng-disabled="!editMode" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="input-donorContact">{{translation.CONTACTO}}:</label>
+            <div class="col-sm-10">
+                <input id="input-donorContact" class="form-control" type="text" ng-model="donante.contacto" ng-disabled="!editMode" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="input-donorPhone">{{translation.TELEFONO}}:</label>
+            <div class="col-sm-10">
+                <input id="input-donorPhone" name="phone" class="form-control" type="text" ng-model="donante.telefono" ng-pattern="base.phoneRegex" ng-disabled="!editMode" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="input-donorLocation">{{translation.UBICACION}}:</label>
+            <div class="col-sm-10">
+                <input id="input-donorLocation" class="form-control" type="text" ng-model="donante.ubicacion" ng-disabled="!editMode" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="input-donorMail">{{translation.CORREO}}:</label>
+            <div class="col-sm-10">
+                <input id="input-donorMail" class="form-control" type="email" ng-model="donante.correo" ng-disabled="!editMode" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="input-donorUrl">{{translation.URL}}:</label>
+            <div class="col-sm-10">
+                <input id="input-donorUrl" class="form-control" type="url" ng-model="donante.url" ng-disabled="!editMode" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="input-donorCV">{{translation.HOJADEVIDA}}:</label>
+            <div class="col-sm-10 form-inline">
+                <label><a ng-if="donante.hojaVida" ng-href="{{donante.hojaVida}}">{{donante.nombre}} CV</a></label>
+                <input type="file" name="file" accept="*" onchange="angular.element(this).scope().selectFileforUpload(this.files)" ng-if="editMode" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10 form-inline">
+                <button type="button" class="btn btn-primary" ng-show="!editMode" ng-click="Edit()">
+                    {{translation.EDITAR}}
+                </button>
+                <button type="button" class="btn btn-primary" ng-show="editMode" ng-click="SaveDonante()">
+                    {{translation.GUARDAR}}
+                </button>
+                <button type="button" class="btn btn-primary" ng-show="editMode" ng-click="CancelEdit()">
+                    {{translation.CANCELAR}}
+                </button>
+            </div>
+        </div>
+        <div class="form-group">
+            <div uib-alert ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)" dismiss-on-timeout="8000" ng-repeat="alert in alerts" ng-if="showAlert">{{alert.msg}}</div>
+        </div>
+    </form>
+</div>
+

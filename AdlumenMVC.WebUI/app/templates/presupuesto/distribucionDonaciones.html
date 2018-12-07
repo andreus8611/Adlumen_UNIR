@@ -1,0 +1,83 @@
+﻿<script type="text/ng-template" id="displayDonacionTemplate">
+    <td>{{donacionPresupuesto.monto | number: 2}}</td>
+    <td>
+        <button type="button" class="btn btn-primary" ng-show="!editMode" ng-click="editPresupuestoDonacion()" uib-tooltip="{{translation.EDITAR}}">
+            <span class="glyphicon glyphicon-pencil"></span>
+        </button>
+    </td>
+    <td>
+        <button type="button" class="btn btn-primary" ng-show="!editMode" ng-click="deletePresupuestoDonacion()" uib-tooltip="{{translation.ELIMINAR}}">
+            <span class="glyphicon glyphicon-trash"></span>
+        </button>
+    </td>
+</script>
+<script type="text/ng-template" id="editDonacionTemplate">
+    <td><input type="number" onkeypress="return validateNumber(event);" ng-model="selectedDonacion.monto"></td>
+    <td>
+        <button type="button" class="btn btn-primary" ng-show="editMode" ng-click="SavePresupuestoDonacion()" uib-tooltip="{{translation.GUARDAR}}">
+            <span class="glyphicon glyphicon-floppy-disk"></span>
+        </button>
+    </td>
+    <td>
+        <button type="button" class="btn btn-primary" ng-show="editMode" ng-click="CancelEdit()" uib-tooltip="{{translation.CANCELAR}}">
+            <span class="glyphicon glyphicon-remove"></span>
+        </button>
+    </td>
+</script>
+<div class="row">
+    <label>
+        {{translation.DONANTE}}:
+        <select ng-model="selectedDonante.idDonante" ng-options="donante.idDonante as donante.nombre for donante in donantes | filter: {idCliente: bdClient.id}"></select>
+    </label>
+</div>
+<div class="row">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>{{translation.TOTAL_DONADO}}</th>
+                <th>{{translation.TOTAL_DISTRIBUIDO}}</th>
+                <th>{{translation.PENDIENTE}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{totalDonadoDistribucion | number:2}}</td>
+                <td>{{totalDonacionesDistribucion | number:2}}</td>
+                <td>{{totalDonadoDistribucion - totalDonacionesDistribucion | number:2}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <ul style="list-style-type:none; margin-left: 0; margin-right: 0; padding-left: 0px;" ng-show="selectedDonante.idDonante !== 0">
+        <li ng-repeat="donacion in getDonacionesPorDonante()">
+            <p><b>{{donacion.objetivoProyecto.objetivoClase.descripcion}}</b></p>
+            <p><b ng-show="donacion.objetivoProyecto.codigo != 0">{{donacion.objetivoProyecto.codigo}}&nbsp;</b>{{donacion.objetivoProyecto.descripcion}}</p>
+            <p>
+                <b>{{translation.PRESUPUESTO_TOTAL}}:&nbsp;</b>{{donacion.totalPresupuesto | number: 2}}&nbsp;
+                <b>{{translation.TOTAL_DONADO}}:&nbsp;</b>{{donacion.totalDonaciones | number: 2}}&nbsp;
+                <b>{{translation.TOTAL_OBJETIVO}}:&nbsp;</b>{{getObjectiveTotalDonated(donacion.objetivoProyecto.idObjetivo) | number: 2}}&nbsp;
+                <b>{{translation.PENDIENTE}}:&nbsp;</b>{{donacion.totalPresupuesto - getObjectiveTotalDonated(donacion.objetivoProyecto.idObjetivo)  | number: 2}}&nbsp;
+            </p>
+            <div class="row">
+                <div uib-alert ng-if="donacion.pendiente < 0" ng-class="'alert-danger'">{{translation.DONACION_EXCEDE_PRESUPUESTO}}</div>
+            </div>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>{{translation.MONTO}}</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="donacionPresupuesto in donacion.donaciones" ng-include="getPresupuestoDonacionesTemplate(donacionPresupuesto)"></tr>
+                    <tr ng-show="selectedDonacion && selectedDonacion.idPresupuesto === 0" ng-include="getNewPresupuestoDonacionesTemplate(donacion)"></tr>
+                </tbody>
+            </table>
+            <div>
+                <button type="button" class="btn btn-primary" ng-click="crearNuevoPresupuestoDonacion();" ng-show="!editMode && donacion.pendiente > 0" uib-tooltip="{{translation.NUEVO}}">
+                    {{translation.NUEVO}}
+                </button>
+            </div>
+        </li>
+    </ul>
+</div>

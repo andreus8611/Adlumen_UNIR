@@ -1,0 +1,47 @@
+﻿<!-- Nested node template -->
+<script type="text/ng-template" id="nodes_renderer.html">
+    <div class="tree-node1 tree-node-content" ng-style="selectedObjetivo && selectedObjetivo.idObjetivo == node.idObjetivo && {'border':'2px solid darkblue'}">
+        <div class="al-tree-buttons">
+            <a class="pull-right btn btn-primary btn-xs" data-nodrag ng-click="showObjetivoDetails();" tooltip-placement="right" uib-tooltip="{{translation.VER_DETALLE}}" ng-show="!editMode">
+                <span class="glyphicon glyphicon-list-alt"></span>
+            </a>
+            <a class="pull-right btn btn-danger btn-xs" data-nodrag ng-click="removeObjetivo()" uib-tooltip="{{translation.ELIMINAR}}" tooltip-placement="right" ng-show="node.idObjetivoClase != 1 && node.idObjetivoClase != 2">
+                <span class="glyphicon glyphicon-remove"></span>
+            </a>
+            <a class="pull-right btn btn-primary btn-xs" data-nodrag ng-click="newSubObjetivo()" uib-tooltip="{{translation.ADICIONAR_SUB_OBJETIVO}}" tooltip-placement="right" ng-show="node.idObjetivoClase != 1 && node.idObjetivoClase != lastObjetivoClase.idObjetivoClase">
+                <span class="glyphicon glyphicon-plus"></span>
+            </a>
+        </div>
+        <div class="al-tree-content">
+            <a class="btn btn-success btn-xs" ng-if="node.children && node.children.length > 0" data-nodrag ng-click="toggle(this)">
+                <span class="glyphicon" ng-class="{ 'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed }"></span>
+            </a>
+            <b ng-show="node.codigo != 0">{{node.codigo}}&nbsp;</b><b>{{ node.objetivoClase.descripcion }}:</b> {{node.descripcion}}
+        </div>
+        <div style="clear:both"></div>
+    </div>
+    <ul ui-tree-nodes="" class="tree-node-item1" ng-model="node.children" ng-class="{hidden: collapsed}" >
+        <li ng-repeat="node in node.children" ui-tree-node ng-include="'nodes_renderer.html'">
+        </li>
+    </ul>
+</script>
+<div class="row">
+    <div class="col-sm-12">
+        <div ui-tree id="tree-root" data-drag-enabled="false">
+            <ul ui-tree-nodes class="tree-node-item1" ng-model="proyecto.objetivos">
+                <li ng-repeat="node in proyecto.objetivos" ui-tree-node ng-include="'nodes_renderer.html'"></li>
+            </ul>
+        </div>
+        <div class="row" ng-show="!proyectoTieneObjetivoGeneral()">
+            <button type="button" class="btn btn-primary" ng-click="crearObjetivoGeneral();" ng-show="!editMode" uib-tooltip="{{translation.NUEVOOBJETIVOGENERAL}}">
+                {{translation.NUEVOOBJETIVOGENERAL}}
+            </button>
+        </div>
+        <div class="row" ng-show="proyectoTieneObjetivoGeneral() && !proyectoTieneProposito()">
+            <button type="button" class="btn btn-primary" ng-click="crearProposito();" ng-show="!editMode" uib-tooltip="{{translation.NUEVOPROPOSITO}}">
+                {{translation.NUEVOPROPOSITO}}
+            </button>
+        </div>
+    </div>
+</div>
+

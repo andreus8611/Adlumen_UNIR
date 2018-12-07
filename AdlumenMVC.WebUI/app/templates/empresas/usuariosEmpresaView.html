@@ -1,0 +1,38 @@
+﻿<div class="col-md-12">
+
+    <div class="row">
+        <table class="table table-hover">
+
+            <thead>
+                <tr>
+                    <th>{{translation.USUARIO}}</th>
+                    <th>{{translation.NOMBRE}}</th>
+                    <th></th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <tr ng-repeat="usuario in empresa.usuarios">
+                    <td>{{usuario.userName}}</td>
+                    <td>{{usuario.fullName}}</td>
+                    <td><input type="checkbox" ng-model="usuario.include" ng-disabled="!editMode && tabSelected==6"></td>
+                </tr>
+            </tbody>
+
+        </table>
+    </div>
+
+    <div class="row">
+        <button type="button" class="btn btn-primary" ng-show="!editMode" ng-click="Edit()">
+            {{translation.EDITAR}}
+        </button>
+        <button type="button" class="btn btn-primary" ng-show="editMode" ng-click="SaveUsuariosEmpresa()">
+            {{translation.GUARDAR}}
+        </button>
+        <button type="button" class="btn btn-primary" ng-show="editMode" ng-click="CancelEdit()">
+            {{translation.CANCELAR}}
+        </button>
+    </div>
+</div>

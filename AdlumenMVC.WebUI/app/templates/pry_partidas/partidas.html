@@ -1,0 +1,169 @@
+﻿<section class="content-header">
+    <h1>
+        {{translation.PARTIDA_GASTOS}}
+
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i> {{translation.HOME}}</a></li>
+        <li><a href="#">{{translation.ADMIN}}</a></li>
+        <li><a href="#">{{translation.TABLAS_CATALOGO}}</a></li>
+        <li class="active">{{translation.PARTIDA_GASTOS}}</li>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="row">
+
+        <div class="container-fluid">
+            <div class="box box-primary">
+                <div class="box-header">
+                </div>
+                <div class="box-body table-responsive">
+
+                    <div class="row">
+                        <div uib-alert ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)" dismiss-on-timeout="8000" ng-repeat="alert in alerts" ng-if="showAlert">{{alert.msg}}</div>
+                    </div>
+                    <div style="background-color: aliceblue" ng-show="partidasGastos">
+                        <button type="submit" style="background-color:transparent; border-color:transparent" ng-click="NuevasPartidaGastos=true;partidasGastos=false"> <img src="../../../Images/ic_add_18pt.png" height="35" />  {{translation.NUEVA_PARTIDA}} </button>
+                        <table class="table table-hover">
+                            <thead>
+                                <tr class="info">
+                                    <th>
+                                        {{translation.ABREVIATURA}}
+                                        <br />
+                                        <input type="text" ng-model="inputAbrev" />
+                                    </th>
+                                    <th>
+
+                                        {{translation.CODIGO}}
+                                        <br />
+                                        <input type="text" ng-model="inputCod" />
+                                    </th>
+                                    <th>
+                                        {{translation.NOMBRE}}
+                                        
+                                        <br />
+                                        <input type="text" ng-model="inputNombre" />
+                                    </th>
+                                    <th> {{translation.VER}}</th>
+                                    <th>
+                                        {{translation.ELIMINAR}}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="partida in partidas | filter:{abreviatura:inputAbrev ,codigo:inputCod, nombre:inputNombre}">
+                                    <td>{{partida.abreviatura
+                                        }}</td>
+<td>{{partida.codigo}}</td>
+                                    <td>{{partida.nombre}}</td>
+
+                                    <!--<div class="row">
+                                        <div uib-alert ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)" dismiss-on-timeout="8000" ng-repeat="alert in alerts" ng-if="showAlert">{{alert.msg}}</div>
+                                    </div>-->
+                                    <td> <button type="submit" style="background-color:transparent; border-color:transparent;" ng-click="selectPartidaGastos(partida)"> <img src="../../../Images/ic_remove_red_eye_black_18dp.png" height="35" /></button>
+                                    <td><button type="submit" style="background-color:transparent; border-color:transparent;" ng-click="eliminar(partida.idpartidagasto)"> <img src="../../../Images/ic_delete_black_18dp.png" height="35"> </button></td>
+
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div ng-show="NuevasPartidaGastos">
+                        <table class="table table-bordered">
+                            <thead>
+                                {{translation.NUEVA_PARTIDA}}
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="background-color:azure; text-align:right">
+                                        <label> {{translation.ABREVIATURA
+                                }}</label>
+                                </td>
+<td>
+                                        <input id="Text1" type="text" ng-model="inputTarea.Abrevi" />
+                                        <br />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="background-color:azure; text-align:right">
+                                        <label> {{translation.CODIGO}}</label>
+                                    </td>
+                                    <td>
+                                        <input id="Text2" type="text" ng-model="inputTarea.codigo" />
+
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td style="background-color:azure; text-align:right">
+                                        <label> {{translation.NOMBRE}}</label>
+                                    </td>
+                                    <td>
+                                        <input id="Text3" type="text" ng-model="inputTarea.nombre" />
+
+
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+                        <button ng-click="addPartida()"> {{translation.GUARDAR}}</button>
+                        <button ng-click="NuevasPartidaGastos=false;partidasGastos=true"> {{translation.CANCELAR}}</button>
+                        <!--<br /><br />
+                        <div class="row">
+                            <div uib-alert ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)" dismiss-on-timeout="8000" ng-repeat="alert in alerts" ng-if="showAlert">{{alert.msg}}</div>
+                        </div>-->
+                    </div>
+                    <div ng-show="modificarPartidaGastos">
+                        <table class="table table-bordered">
+                            <thead>
+                                Modificar Partida Gastos
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="background-color:azure; text-align:right">
+                                        <label>{{translation.ABREVIATURA}}:</label>
+                                    </td>
+                                    <td>
+                                        <input id="txtAbreviatura" type="text" ng-model="newPartida.abreviatura" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="background-color:azure; text-align:right">
+                                        <label>{{translation.CODIGO}}:</label>
+                                    </td>
+                                    <td>
+                                        <input id="txtCodigo" type="text" ng-model="newPartida.codigo" />
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td style="background-color:azure; text-align:right">
+                                        <label>{{translation.NOMBRE}}:</label>
+                                    </td>
+                                    <td>
+                                        <input id="txtNombre" type="text" ng-model="newPartida.nombre" />
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+                        <button ng-click="editar()">{{translation.GUARDAR}}</button>
+                        <button ng-click="cancel()">{{translation.CANCELAR}}</button>
+                        <!--<br /><br />
+                        <div class="row">
+                            <div uib-alert ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)" dismiss-on-timeout="8000" ng-repeat="alert in alerts" ng-if="showAlert">{{alert.msg}}</div>
+                        </div>-->
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>

@@ -1,0 +1,51 @@
+﻿<div ng-controller="ProductividadBeneficiarioCtrl">
+
+    <h1>Detalle Productividad Beneficiario</h1>
+
+    <div class="row" style="margin-right:auto; margin-left: auto;">
+
+        <form class="form-horizontal col-md-8" role="form">
+
+            <div class="form-group">
+                <label for="txtAreaSembrada" class="col-sm-3 control-label">Area Sembrada</label>
+                <div class="col-sm-9">
+                    <input type="text" onkeypress="return validateNumber(event);" class="form-control" ng-model="Productividad.txtAreaSembrada" id="txtAreaSembrada" placeholder="Area Sembrada">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="txtCultivoSembrado" class="col-sm-3 control-label">Cultivo Sembrado</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" ng-model="Productividad.txtCultivoSembrado" id="txtCultivoSembrado" placeholder="Cultivo Sembrado">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="txtCantidadSembrada" class="col-sm-3 control-label">Cantidad Sembrada</label>
+                <div class="col-sm-9">
+                    <input type="text" onkeypress="return validateNumber(event);" class="form-control" ng-model="Productividad.txtCantidadSembrada" id="txtCantidadSembrada" placeholder="Cantidad de tierra Sembrada">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="txtProduccionCultivo" class="col-sm-3 control-label">Producci&oacute;n Cultivo</label>
+                <div class="col-sm-9">
+                    <input type="text" onkeypress="return validateNumber(event);" class="form-control" ng-model="Productividad.txtProduccionCultivo" id="txtProduccionCultivo" placeholder="Producción del Cultivo">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-offset-1 col-sm-10">
+                    <button type="submit" class="btn btn-primary" ng-click="addProductividad();">Grabar</button>
+                    <a class="btn btn-default" href="#!/beneficiarios">Cancelar</a>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+
+    <div class="alert">
+        <div uib-alert ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)" dismiss-on-timeout="8000" ng-repeat="alert in alerts" ng-if="showAlert">{{alert.msg}}</div>
+    </div>
+</div>

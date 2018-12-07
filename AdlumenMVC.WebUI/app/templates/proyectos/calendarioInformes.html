@@ -1,0 +1,70 @@
+﻿<div class="box box-solid">
+    <div class="box-header">
+        <h3 class="box-title">{{translation.CALENDARIO_INFORMES}}</h3>
+        
+    </div>
+    <div class="box-body table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>{{translation.DESCRIPCION}}</th>
+                    <th>{{translation.FECHA_PROGRAMADA}}</th>
+                    <th>{{translation.PRESUPUESTO_META}}</th>
+                    <th>{{translation.AVANCE_META}}</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="informe in proyecto.informes" ng-include="getInformeTemplate(informe)"></tr>
+                <tr ng-show="selectedInforme && selectedInforme.idInforme === 0" ng-include="getNewInformeTemplate()"></tr>
+            </tbody>
+        </table>
+        <div>
+            <button type="button" class="btn btn-primary" ng-click="crearNuevoInforme();" ng-show="!editMode" uib-tooltip="{{translation.NUEVOINFORME}}">
+                {{translation.NUEVOINFORME}}
+            </button>
+        </div>
+    </div>
+</div>
+
+<script type="text/ng-template" id="displayCalendarioInformes">
+    <td style="width:40%">{{informe.descripcion}}</td>
+    <td style="width:30%">{{informe.fechaProgramada | date:shortDate}}</td>
+    <td>{{informe.presupuestoMeta}}</td>
+    <td>{{informe.avanceMeta}}</td>
+    <td>
+        <button type="button" class="btn btn-primary" ng-show="!editMode" ng-click="deleteInforme()" uib-tooltip="{{translation.ELIMINAR}}">
+            <span class="glyphicon glyphicon-trash"></span>
+        </button>
+    </td>
+    <td>
+        <button type="button" class="btn btn-primary" ng-show="!editMode" ng-click="editInforme()" uib-tooltip="{{translation.EDITAR}}">
+            <span class="glyphicon glyphicon-pencil"></span>
+        </button>
+    </td>
+    <td></td>
+</script>
+<script type="text/ng-template" id="editCalendarioInformes">
+    <td style ="width:40%"><input type="text" ng-model="selectedInforme.descripcion"></td>
+    <td style="width:30%">
+        <p class="input-group">
+            <input type="date" class="form-control" input-date ng-model="selectedInforme.fechaProgramada" />
+            <!--<span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+            </span>-->
+        </p>
+    </td>
+    <td style="width:15%"><input style="width:100%" type="number" onkeypress="return validateNumber(event);" ng-model="selectedInforme.presupuestoMeta"></td>
+    <td style="width:15%"><input style="width:100%" type="number" onkeypress="return validateNumber(event);" ng-model="selectedInforme.avanceMeta"></td>
+    <td>
+        <button type="button" class="btn btn-primary" ng-show="editMode" ng-click="SaveInforme()" uib-tooltip="{{translation.GUARDAR}}">
+            <span class="glyphicon glyphicon-floppy-disk"></span>
+        </button>
+    </td>
+    <td>
+        <button type="button" class="btn btn-primary" ng-show="editMode" ng-click="CancelEdit()" uib-tooltip="{{translation.CANCELAR}}">
+            <span class="glyphicon glyphicon-remove"></span>
+        </button>
+    </td>
+</script>

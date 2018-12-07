@@ -1,0 +1,167 @@
+﻿<section class="content-header">
+    <h1>
+        {{translation.VISITAS}}
+
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i> {{translation.HOME}}</a></li>
+        <li><a href="#">{{translation.TAREAS}}</a></li>
+        <li class="active">{{translation.VISITAS}}</li>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="container-fluid">
+            <section class="col-lg-8 col-xs-12">
+                <div class="box box-primary">
+                    <div class="box box-solid">
+                        <div class="box-header">
+                            <div class="box-tools">
+                                <div style="width: 250px;" class="input-group">
+                                    <input type="text" placeholder="{{translation.FILTRAR_DESCRIPCION_UBICACION}}" class="form-control input-sm pull-right" ng-model="searchText" name="table_search">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="margin-top: 20px;" class="box-body table-responsive">
+                            <div class="container-fluid">
+                                <form name="visitaForm">
+                                    <div class="form-group">
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>{{translation.FECHA}}</th>
+                                                    <th>{{translation.DESCRIPCION}}</th>
+                                                    <th>{{translation.UBICACION}}</th>
+                                                    <th>{{translation.CONTACTO}}</th>
+                                                    <th>{{translation.ESTADO}}</th>
+                                                    <th colspan="6"></th>
+                                                </tr>
+
+                                            </thead>
+
+                                            <tbody>
+
+                                                <tr ng-repeat="visita in visitas | filter: search">
+                                                    <td>{{visita.fecha | date : 'medium'}}</td>
+                                                    <td>{{visita.descripcion}}</td>
+                                                    <td>{{visita.ubicacion}}</td>
+                                                    <td>{{visita.personaContacto}}</td>
+                                                    <td>{{getEstadoDescription(visita)}}</td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-primary" ng-click="showLocationInMap()" uib-tooltip="{{translation.VER_UBICACION}}">
+                                                            <span class="glyphicon glyphicon-globe"></span>
+                                                        </button>
+                                                    </td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-primary" ng-click="editSelected();" ng-show="enableEditing();" uib-tooltip="{{translation.EDITAR}}">
+                                                            <span class="glyphicon glyphicon-pencil"></span>
+                                                        </button>
+                                                    </td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-primary" ng-click="deleteVisita()" ng-show="enableEditing();" uib-tooltip="{{translation.ELIMINAR}}">
+                                                            <span class="glyphicon glyphicon-trash"></span>
+                                                        </button>
+                                                    </td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-primary" ng-click="completeVisita()" ng-show="enableEditing();" uib-tooltip="{{translation.COMPLETAR_VISITA}}">
+                                                            <span class="glyphicon glyphicon-check"></span>
+                                                        </button>
+                                                    </td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-primary" ng-click="getLogBook(visita)" uib-tooltip="{{translation.VER_BITACORA}}">
+                                                            <span class="glyphicon glyphicon-list-alt"></span>
+                                                        </button>
+                                                    </td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-primary" ng-click="viewRights()" ng-show="enableEditingRights();" uib-tooltip="{{translation.VER_DERECHOS}}">
+                                                            <span class="glyphicon glyphicon-user"></span>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                                <tr ng-if="newVisita">
+                                                    <td class="required"><input type="date" ng-model="visitaNueva.fecha" is-open="opened" ng-required="true" close-text="Close" /></td>
+                                                    <td class="required"><input type="text" ng-model="visitaNueva.descripcion" required /></td>
+                                                    <td>{{visitaNueva.ubicacion}}</td>
+                                                    <td class="required"><input type="text" ng-model="visitaNueva.personaContacto" /></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                            </tbody>
+
+                                        </table>
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div uib-alert ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)" dismiss-on-timeout="8000" ng-repeat="alert in alerts" ng-if="showAlert">{{alert.msg}}</div>
+                                    </div>
+
+                                    <div class="form-group" ng-show="enableAddNew();">
+                                        <button type="button" class="btn btn-primary" ng-model="newVisita" ng-hide="newVisita" uib-btn-checkbox btn-checkbox-true="true" btn-checkbox-false="false" ng-click="newRow()">
+                                            {{translation.NUEVA_VISITA}}
+                                        </button>
+                                    </div>
+
+                                    <div class="form-group" ng-if="newVisita">
+                                        <button type="button" class="btn btn-primary" ng-click="addVisita()">
+                                            <span class="glyphicon glyphicon-floppy-disk"></span>
+                                        </button>
+
+                                        <button type="button" class="btn btn-primary" ng-click="resetVisita()">
+                                            <span class="glyphicon glyphicon-remove"></span>
+                                        </button>
+                                    </div>
+
+                                </form>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">{{translation.BITACORA}} {{selectedVisit.descripcion}}</h3>
+                    </div>
+                    <div class="box-body" ui-view></div>
+                </div>
+
+            </section>
+            <section class="col-lg-4 col-xs-12">
+                <div class="box box-success">
+                    <div class="box-header">
+                        <h3 class="box-title">{{translation.UBICACION}}</h3>
+                    </div>
+                    <div class="box-body">
+                        <div ng-show="newVisita">
+                            {{translation.BUSCAR_UBICACION}}
+                            <div class="required">
+                                <google-places location="location" class="form-inline "></google-places>
+                            </div>
+                            <button ng-click="doSearch()" class="btn btn-xs btn-primary">{{translation.BUSCAR}}</button>
+                        </div>
+                        <ui-gmap-google-map ng-if="map.center" center="map.center" zoom="map.zoom" draggable="true">
+                            <ui-gmap-marker coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id"></ui-gmap-marker>
+                        </ui-gmap-google-map>
+                        
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+    </div>
+
+</section>

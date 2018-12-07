@@ -1,0 +1,218 @@
+﻿****************************** 2018-04-17 ******************************
+
+ALTER TABLE M_Monedas 
+	ADD Codigo NCHAR(3) NOT NULL
+    CONSTRAINT CodigoNotNull DEFAULT '';
+
+ALTER TABLE M_Monedas 
+	DROP CONSTRAINT CodigoNotNull;
+
+ALTER TABLE Pry_PresupuestoTipo 
+	ADD Tipo INT NOT NULL
+    CONSTRAINT TipoNotNull DEFAULT 1000;
+
+****************************** 2018-05-05 ******************************
+
+ALTER TABLE PRY_PARTIDAGASTOS 
+	ADD CONSTRAINT UniqueCode
+	UNIQUE (CODIGO, IdTenant);
+
+ALTER TABLE PRY_PARTIDAGASTOS 
+	ADD CONSTRAINT UniqueName
+	UNIQUE (NOMBRE, IdTenant);	
+
+****************************** 2018-06-02 ******************************
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+ALTER PROCEDURE [dbo].[SELEVALUACIONESINDICADORES] 
+	@idProyecto INT, 
+	@idPeriodo bigint,
+	@idTenant INT
+AS
+BEGIN
+
+select 
+Pry_ObjetivosClase.Descripcion AS ML,
+Pry_Objetivos.idobjetivo,
+Pry_Objetivos.Descripcion,
+Pry_Objetivos.IdObjetivoClase,
+Pry_Indicadores.IdIndicador,
+Pry_Indicadores.Ponderado Peso,
+Pry_Indicadores.Descripcion Hito,
+PRY_PERIODOSPROYECTOS.IdPeriodo IdHitoPeriodo,
+PRY_PERIODOSPROYECTOS.Nombre Periodo,
+null PorcentajeHito,--'This column is not necesary (i guess)'
+PRY_EVALUACIONINDICADORESPERIODO.ObservacionED,
+COALESCE(
+	PRY_EVALUACIONINDICADORESPERIODO.ADH,
+	Pry_DatosMuestras.Efectividad,
+	(	select top 1 (a.Efectividad) 
+		from Pry_DatosMuestras a 
+		where a.IdIndicador=Pry_Indicadores.IdIndicador and a.IdPeriodo<=PRY_PERIODOSPROYECTOS.IdPeriodo 
+		order by a.IdPeriodo desc)
+	) 
+ADH,
+PRY_EVALUACIONINDICADORESPERIODO.CV, 
+PRY_EVALUACIONINDICADORESPERIODO.ObservacionUrip,
+CASE WHEN PRY_EVALUACIONINDICADORESPERIODO.IdProyecto is null THEN 1 ELSE 0 END IsNew 
+from Pry_Indicadores 
+inner join Pry_Objetivos ON Pry_Objetivos.IdObjetivo = Pry_Indicadores.IdObjetivo 
+inner join Pry_Proyectos on Pry_Proyectos.IdProposito = Pry_Objetivos.IdObjetivo  --objetivo del proposito
+	or Pry_Objetivos.IdObjetivo = --consulta que trae el objetivo de la finalidad
+	(select b.IdObjetivo from Pry_Objetivos a --objetivo del proposito
+	inner join Pry_Objetivos b on a.IdPadre = b.IdObjetivo
+	inner join Pry_Proyectos p on p.IdProyecto=Pry_Proyectos.IdProyecto and a.IdObjetivo= p.IdProposito)
+	or Pry_Objetivos.IdObjetivo in --Consulta que trae los objetivos de los resultados
+	(select b.IdObjetivo from Pry_Objetivos a --objetivo del proposito
+	inner join Pry_Objetivos b on a.IdObjetivo = b.IdPadre
+	inner join Pry_Proyectos p on p.IdProyecto=Pry_Proyectos.IdProyecto and a.IdObjetivo= p.IdProposito)
+inner join Pry_ObjetivosClase on Pry_ObjetivosClase.IdObjetivoClase = Pry_Objetivos.IdObjetivoClase
+INNER JOIN PRY_PERIODOSPROYECTOS on PRY_PERIODOSPROYECTOS.IdPeriodo in
+               (select * from FSELPERIODOPORFECHAS(Pry_Indicadores.FechaInicio,Pry_Indicadores.FechaFin,Pry_Proyectos.IdProyecto,@idTenant))
+LEFT OUTER JOIN Pry_DatosMuestras 
+--el campo Pry_Indicadores.IdDatosMuestra contiene el id de la ultima muestra suministrada para ese indicador por tanto con la siguiente igualacion  devuelve siempre el ultimo avance del indicador
+--ON Pry_Indicadores.IdDatosMuestra = Pry_DatosMuestras.IdDatosMuestra 
+on Pry_DatosMuestras.IdIndicador = Pry_Indicadores.IdIndicador and Pry_DatosMuestras.IdPeriodo = PRY_PERIODOSPROYECTOS.IdPeriodo
+LEFT OUTER JOIN PRY_EVALUACIONINDICADORESPERIODO ON PRY_PERIODOSPROYECTOS.IdPeriodo=PRY_EVALUACIONINDICADORESPERIODO.IdPeriodo 
+AND Pry_Objetivos.IdObjetivo = PRY_EVALUACIONINDICADORESPERIODO.IdResultado 
+AND PRY_EVALUACIONINDICADORESPERIODO.IdProyecto = Pry_Proyectos.IdProyecto 
+AND PRY_EVALUACIONINDICADORESPERIODO.IdHito = Pry_Indicadores.IdIndicador
+
+where Pry_Proyectos.IdProyecto = @idProyecto and PRY_PERIODOSPROYECTOS.IdPeriodo=@idPeriodo
+AND Pry_Proyectos.IdTenant = @idTenant AND Pry_Indicadores.IdTenant = @idTenant
+order by PRY_PERIODOSPROYECTOS.Nombre
+END
+GO
+
+
+ALTER PROCEDURE [dbo].[SELEVALUACIONESHITOS] 
+  -- Add the parameters for the stored procedure here
+  @idProyecto INT, 
+  @idPeriodo bigint,
+  @idTenant INT
+AS
+BEGIN
+  -- SET NOCOUNT ON added to prevent extra result sets from
+  -- interfering with SELECT statements.
+
+  DECLARE @idProposito int
+  DECLARE @fechaInicio datetime
+  DECLARE @fechaFin datetime
+  --PROPOSITO
+  SELECT @idProposito = idproposito from pry_proyectos
+  WHERE idproyecto = @idproyecto
+  AND IdTenant = @idTenant
+  --FECHAS DE PERIODO
+  SELECT @fechaInicio = FechaInicio, @fechaFin = FechaFin from PRY_PERIODOSPROYECTOS
+  WHERE IdPeriodo = @idperiodo
+
+
+  SELECT oResul.IdObjetivo IdResultado, oResul.Codigo Codigo,o.Codigo ActivityCode, oResul.Descripcion Resultado,
+    o.IdObjetivo IdActividad, o.Ponderado Peso, o.Descripcion [Descripcion],
+    i.IdIndicador IdIndicador, i.Descripcion Hito, i.Codigo MLCodigo, 
+    per.IdPeriodo IdHitoPeriodo, per.Nombre Periodo,
+    dm.Efectividad PorcentajeHito,
+    eh.ObservacionED, eh.ADH, eh.CV, eh.ObservacionUrip,
+    case when eh.IdProyecto is null then 1 else 0 end IsNew
+    FROM PRY_OBJETIVOS o  
+  INNER JOIN Pry_ObjetivosClase oc ON o.IdObjetivoClase = oc.IdObjetivoClase
+  INNER JOIN Pry_Indicadores i ON o.IdObjetivo = i.IdObjetivo
+  INNER JOIN PRY_PERIODOSPROYECTOS per on per.IdPeriodo = @idPeriodo
+               --(select * from FSELPERIODOPORFECHAS(i.FechaInicio,i.FechaFin,@idproyecto,@idTenant)) --ON i.IdPeriodo = per.IdPeriodo -- resultado
+  INNER JOIN Pry_Objetivos oResul ON o.IdPadre = oResul.IdObjetivo -- resultado
+  LEFT OUTER JOIN Sys_Usuarios u ON o.IdResponsable = u.IdUsuario 
+  LEFT OUTER JOIN Pry_DatosMuestras dm ON i.IdIndicador = dm.IdIndicador AND 
+  dm.IdDatosMuestra = (select top 1 IdDatosMuestra from Pry_DatosMuestras where IdIndicador = i.IdIndicador AND IdPeriodo in 
+  (SELECT top 1000 idperiodo FROM PRY_PERIODOSPROYECTOS WHERE idproyecto = @idProyecto AND idperiodo<= @idPeriodo order by idperiodo desc)  order by IdDatosMuestra desc)
+  LEFT OUTER JOIN Pry_EvaluacionHitos eh ON @idproyecto=eh.IdProyecto AND oResul.IdObjetivo = eh.IdResultado AND o.IdObjetivo = eh.IdActividad AND @idperiodo = eh.IdPeriodo
+  WHERE o.IdPadre IN (SELECT IdObjetivo from Pry_Objetivos WHERE IdPadre = @idProposito) 
+  --AND (i.IdPeriodo = @idperiodo
+  AND o.IdObjetivoClase = 4 --solo actvidades
+  AND o.Eliminado = 0
+  AND ((COALESCE(@FECHAINICIO,i.FechaInicio)  BETWEEN i.FechaInicio AND  i.FechaFin) 
+  OR (COALESCE(@FECHAFIN,i.FechaInicio) BETWEEN i.FechaInicio AND  i.FechaFin) 
+  OR (i.FechaFin <= @FECHAFIN AND 0 = COALESCE( (SELECT CASE WHEN Efectividad >=100 THEN 1 ELSE 0 end FROM Pry_DatosMuestras WHERE IdDatosMuestra = i.IdDatosMuestra), 0)))
+  AND o.IdTenant = @idTenant
+END
+GO
+
+****************************** 2018-09-02 ******************************
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[SELEVALUACIONESHITOS] 
+  -- Add the parameters for the stored procedure here
+  @idProyecto INT, 
+  @idPeriodo bigint,
+  @idTenant INT
+AS
+BEGIN
+  -- SET NOCOUNT ON added to prevent extra result sets from
+  -- interfering with SELECT statements.
+
+  DECLARE @idProposito int
+  DECLARE @fechaInicio datetime
+  DECLARE @fechaFin datetime
+  --PROPOSITO
+  SELECT @idProposito = idproposito from pry_proyectos
+  WHERE idproyecto = @idproyecto
+  AND IdTenant = @idTenant
+  --FECHAS DE PERIODO
+  SELECT @fechaInicio = FechaInicio, @fechaFin = FechaFin from PRY_PERIODOSPROYECTOS
+  WHERE IdPeriodo = @idperiodo
+
+
+  SELECT oResul.IdObjetivo IdResultado, oResul.Codigo Codigo,o.Codigo ActivityCode, oResul.Descripcion Resultado,
+    o.IdObjetivo IdActividad, o.Ponderado Peso, o.Descripcion [Descripcion],
+    i.IdIndicador IdIndicador, i.Descripcion Hito, i.Codigo MLCodigo, 
+    per.IdPeriodo IdHitoPeriodo, per.Nombre Periodo,
+    dm.Efectividad PorcentajeHito,
+    eh.ObservacionED, eh.ADH, eh.CV, eh.ObservacionUrip,
+    case when eh.IdProyecto is null then 1 else 0 end IsNew
+    FROM PRY_OBJETIVOS o  
+  INNER JOIN Pry_ObjetivosClase oc ON o.IdObjetivoClase = oc.IdObjetivoClase
+  INNER JOIN Pry_Indicadores i ON o.IdObjetivo = i.IdObjetivo
+  INNER JOIN PRY_PERIODOSPROYECTOS per on per.IdPeriodo = @idPeriodo
+               --(select * from FSELPERIODOPORFECHAS(i.FechaInicio,i.FechaFin,@idproyecto,@idTenant)) --ON i.IdPeriodo = per.IdPeriodo -- resultado
+  INNER JOIN Pry_Objetivos oResul ON o.IdPadre = oResul.IdObjetivo -- resultado
+  LEFT OUTER JOIN Sys_Usuarios u ON o.IdResponsable = u.IdUsuario 
+  LEFT OUTER JOIN Pry_DatosMuestras dm ON i.IdIndicador = dm.IdIndicador AND 
+  dm.IdDatosMuestra = (select top 1 IdDatosMuestra from Pry_DatosMuestras where IdIndicador = i.IdIndicador AND IdPeriodo in 
+  (SELECT top 1000 idperiodo FROM PRY_PERIODOSPROYECTOS WHERE idproyecto = @idProyecto AND idperiodo<= @idPeriodo order by idperiodo desc)  order by IdDatosMuestra desc)
+  LEFT OUTER JOIN Pry_EvaluacionHitos eh ON @idproyecto=eh.IdProyecto AND oResul.IdObjetivo = eh.IdResultado AND o.IdObjetivo = eh.IdActividad AND @idperiodo = eh.IdPeriodo
+  WHERE o.IdPadre IN (SELECT IdObjetivo from Pry_Objetivos WHERE IdPadre = @idProposito) 
+  --AND (i.IdPeriodo = @idperiodo
+  AND o.IdObjetivoClase = 5 --solo actvidades
+  AND o.Eliminado = 0
+  AND ((COALESCE(@FECHAINICIO,i.FechaInicio)  BETWEEN i.FechaInicio AND  i.FechaFin) 
+  OR (COALESCE(@FECHAFIN,i.FechaInicio) BETWEEN i.FechaInicio AND  i.FechaFin) 
+  OR (i.FechaFin <= @FECHAFIN AND 0 = COALESCE( (SELECT CASE WHEN Efectividad >=100 THEN 1 ELSE 0 end FROM Pry_DatosMuestras WHERE IdDatosMuestra = i.IdDatosMuestra), 0)))
+  AND o.IdTenant = @idTenant
+END
+
+****************************** 2018-09-11 ******************************
+
+ALTER PROCEDURE [dbo].[SELMOVIMIENTOEJECUTADOPROYECTO] 
+  -- Add the parameters for the stored procedure here
+  @idProyecto INT,
+  @idTenant INT
+AS
+BEGIN
+  SELECT  Pry_PresupuestoTipo.IdTipo, Pry_PresupuestoTipo.Descripcion, Pry_Presupuesto.IdPresupuesto, Pry_Presupuesto.IdObjetivo,
+            Pry_Presupuesto.IdDonante, Pry_Presupuesto.Monto, SUM(Pry_Movimientos.Monto) AS Ejecutado,
+      Pry_Objetivos.Codigo + ' -' + Pry_Objetivos.Descripcion AS Objetivodescripcion, Pry_Objetivos.IdObjetivoClase, Pry_Objetivos.IdPadre 
+  FROM  Pry_PresupuestoTipo INNER JOIN
+      Pry_Presupuesto ON Pry_PresupuestoTipo.IdTipo = Pry_Presupuesto.IdTipoPresupuesto LEFT OUTER JOIN
+      Pry_Objetivos ON Pry_Presupuesto.IdObjetivo = Pry_Objetivos.IdObjetivo LEFT OUTER JOIN
+      Pry_Movimientos ON Pry_Presupuesto.IdPresupuesto = Pry_Movimientos.IdPresupuesto 
+  WHERE (Pry_Presupuesto.IdProyecto = @idProyecto) AND (Pry_PresupuestoTipo.IdTipo < 6) 
+  AND Pry_Objetivos.IdTenant = @idTenant
+  GROUP BY Pry_PresupuestoTipo.IdTipo, Pry_PresupuestoTipo.Descripcion, Pry_Presupuesto.IdPresupuesto, Pry_Presupuesto.IdObjetivo, Pry_Presupuesto.IdProyecto,
+  Pry_Presupuesto.Monto, Pry_Presupuesto.IdDonante, Pry_Objetivos.Descripcion, Pry_Objetivos.Codigo, Pry_Objetivos.IdObjetivoClase, Pry_Objetivos.IdPadre 
+END

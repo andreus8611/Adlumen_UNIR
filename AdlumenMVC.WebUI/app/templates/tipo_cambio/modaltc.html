@@ -1,0 +1,65 @@
+﻿<div class="modal-header">
+    <h3 class="modal-title">Cargar Tipo de Cambio</h3>
+
+</div>
+
+<div class="modal-body">
+
+    <form role="form">
+        
+        <div class="form-group">
+
+            <!--<div class="dropdown" dropdown is-open="status.isopen">
+                <button type="button" class="btn btn-primary dropdown-toggle">
+                    {{translation.MONEDAS}} <span class="caret"></span>
+
+                </button>
+                <ul class="dropdown-menu" role="menu">
+
+                    <li ng-repeat="moneda in monedas">
+                        <a href="#!/exchange" ng-click="getIdCurrency(moneda)">{{moneda.nombre}}</a>
+
+                    </li>
+
+                </ul>
+
+
+            </div>-->
+            <div class="btn-group" role="group">
+                <div class="dropdown">
+                    <a data-toggle="dropdown" class="btn btn-primary dropdown-toggle ">
+
+                        <span class="glyphicon glyphicon-font"></span>
+
+                        <span class="current-font"> {{translation.MONEDAS}}</span>
+                        <b class="caret"></b>
+                    </a>
+          
+                    <ul class="dropdown-menu">
+                       
+                        <li ng-repeat="moneda in monedas">
+                            <a href="#!/exchange" ng-click="getIdCurrency(moneda)">{{moneda.nombre}}</a>
+
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <input type="file" id="exchangeCsvFile" style="width: 100%; margin-top: 8px;" on-read-file="getContent($fileContent)">
+            <p class="help-block">Debe seleccionar un archivo .csv</p>
+
+        </div>
+
+    </form>
+
+</div>
+
+<div class="modal-footer">
+
+    <alert ng-if="showAlert" type="{{alert.type}}">{{alert.msg}}</alert>
+
+    <button class="btn btn-primary" ng-click="ok()">Aceptar</button>
+    <button class="btn btn-warning" ng-click="cancel()">Cancelar</button>
+           
+</div>

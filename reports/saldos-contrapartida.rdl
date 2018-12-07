@@ -1,0 +1,1765 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns:cl="http://schemas.microsoft.com/sqlserver/reporting/2010/01/componentdefinition" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/reportdefinition">
+  <Description>Reporte en Revicion</Description>
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="RsSource01">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString>=Parameters!ConnectionString.Value</ConnectString>
+        <IntegratedSecurity>true</IntegratedSecurity>
+      </ConnectionProperties>
+      <rd:SecurityType>Integrated</rd:SecurityType>
+      <rd:DataSourceID>6941c8e5-8915-4baf-9c81-1982a469bd1a</rd:DataSourceID>
+    </DataSource>
+  </DataSources>
+  <DataSets>
+    <DataSet Name="InfoProjectReporte">
+      <Query>
+        <DataSourceName>RsSource01</DataSourceName>
+        <CommandText>SELECT
+   Vw_SaldosCP.IdProyecto,
+   Vw_SaldosCP.CodProyect,
+   Vw_SaldosCP.NomProyect,
+   Vw_SaldosCP.NomCountry,
+   Vw_SaldosCP.NomEjecuta,
+   Vw_SaldosCP.IdObjectiv,
+   Vw_SaldosCP.Resultados,
+   Vw_SaldosCP.PryFechini,
+   Vw_SaldosCP.PryFechFin,
+   Vw_SaldosCP.PryYear   ,
+   Vw_SaldosCP.Presupuest,
+   Vw_SaldosCP.ImpMov    
+FROM
+  (   
+	SELECT 
+	   Vw_Proyecto.IdProyecto,
+	   Vw_Proyecto.CodProyect,
+	   Vw_Proyecto.NomProyect,
+	   Vw_Proyecto.NomCountry,
+	   Vw_Proyecto.NomEjecuta,
+	   Vw_Proyecto.IdObjectiv,
+	   Vw_Proyecto.Resultados,
+	   Vw_Proyecto.PryFechini,
+	   Vw_Proyecto.PryFechFin,
+	   Vw_Ejecucion.PryYear  ,
+	   sum(Vw_Presupus.Presupuest) as Presupuest,
+	   sum(Vw_Ejecucion.ImpMov   ) as ImpMov
+	FROM
+	  (   		
+			SELECT
+			   Pry_Proyectos.IdProyecto                       ,
+			   Pry_Proyectos.Codigo              AS CodProyect,
+			   Pry_Proyectos.Nombre              AS NomProyect,
+			   M_Paises.Nombre                   AS NomCountry,        
+			   Org_Empresas.Nombre               AS NomEjecuta,
+			   Pry_Proyectos.FechaInicio         AS PryFechini,    
+			   Pry_Proyectos.FechaFin            AS PryFechFin,    
+			   Obj.Descripcion                   AS Resultados,
+			   obj.IdObjetivo                    AS IdObjectiv,
+			   obj1.IdObjetivo                   AS IdActivity,
+			   Obj1.Descripcion                  AS Actividads
+			FROM
+			   Pry_Proyectos INNER JOIN Pry_Objetivos            ON Pry_Objetivos.IdObjetivo  = Pry_Proyectos.IdProposito  
+							 INNER JOIN Pry_Objetivos   AS Obj   ON Obj.IdPadre               = Pry_Objetivos.IdObjetivo 
+							 INNER JOIN Pry_Objetivos   AS Obj1  ON Obj1.IdPadre              = Obj.IdObjetivo                  
+							 INNER JOIN Org_Empresas             ON Pry_Proyectos.IdEmpresa   = Org_Empresas.IdEmpresa 
+							 INNER JOIN M_Paises                 ON Org_Empresas.IdPais       = M_Paises.IdPais                  
+		 ) AS Vw_Proyecto 
+		 LEFT JOIN  -- Presupuestos
+		 (
+		   SELECT
+			   Pry_Proyectos.IdProyecto                   ,
+			   Pry_Presupuesto.IdObjetivo                 ,
+			   CASE
+				 WHEN Sum(Pry_Presupuesto.Monto) IS NULL THEN 0
+				 WHEN Sum(Pry_Presupuesto.Monto) &gt;=0     THEN Sum(Pry_Presupuesto.Monto)
+			   END as Presupuest
+		  FROM
+			   Pry_Proyectos 
+					INNER JOIN Pry_Presupuesto ON Pry_Proyectos.IdProyecto = Pry_Presupuesto.IdProyecto 
+		  Group by Pry_Proyectos.IdProyecto,
+				   Pry_Presupuesto.IdObjetivo 	
+		 ) Vw_Presupus ON Vw_Proyecto.IdProyecto = Vw_Presupus.IdProyecto 
+					  AND Vw_Proyecto.IdActivity = Vw_Presupus.IdObjetivo
+		 LEFT JOIN -- ejecucion por Año
+		 (
+ 		   SELECT
+			   Pry_Proyectos.IdProyecto                          ,
+			   YEAR(PRY_PERIODOSPROYECTOS.FechaInicio) as PryYear,
+			   Vw_Movimientos.IdObjetivo                         ,
+			   CASE
+				 WHEN Sum(Vw_Movimientos.ImpPres) IS NULL THEN 0
+				 WHEN Sum(Vw_Movimientos.ImpPres) &gt;=0     THEN Sum(Vw_Movimientos.ImpPres)
+			   END as ImpPre,
+			   CASE 
+				 WHEN sum(Vw_Movimientos.ImpMonv) IS NULL THEN 0
+				 WHEN sum(Vw_Movimientos.ImpMonv) &gt;= 0    THEN sum(Vw_Movimientos.ImpMonv)
+			   END as ImpMov  
+			FROM
+			   Pry_Proyectos 
+					INNER JOIN PRY_PERIODOSPROYECTOS ON Pry_Proyectos.IdProyecto = PRY_PERIODOSPROYECTOS.IdProyecto 
+					LEFT  JOIN (                          
+								SELECT 
+								   Pry_Presupuesto.IdProyecto      ,
+								   Pry_Presupuesto.IdPresupuesto   ,
+								   Pry_Presupuesto.IdObjetivo      ,
+								   Pry_Presupuesto.IdDonante       ,
+								   Org_Donantes.Nombre   as Donante,   
+								   Pry_Presupuesto.Monto as ImpPres,  
+								   Pry_Movimientos.IdPeriodo       ,
+								   Pry_Movimientos.Monto as ImpMonv        
+								FROM 
+								   Pry_Presupuesto 
+									   LEFT JOIN Org_Donantes    ON Pry_Presupuesto.IdDonante     = Org_Donantes.IdDonante 
+									   LEFT JOIN Pry_Movimientos ON Pry_Presupuesto.IdPresupuesto = Pry_Movimientos.IdPresupuesto
+							  ) Vw_Movimientos ON Pry_Proyectos.IdProyecto        = Vw_Movimientos.IdProyecto
+											  AND PRY_PERIODOSPROYECTOS.IdPeriodo = Vw_Movimientos.IdPeriodo    
+			 GROUP BY Pry_Proyectos.IdProyecto               ,
+					  Year(PRY_PERIODOSPROYECTOS.FechaInicio), 
+					   Vw_Movimientos.IdObjetivo
+		 )  AS Vw_Ejecucion ON  Vw_Proyecto.IdProyecto = Vw_Ejecucion.IdProyecto 
+							AND Vw_Proyecto.IdActivity = Vw_Ejecucion.IdObjetivo
+		 Group by Vw_Proyecto.IdProyecto,
+				  Vw_Proyecto.CodProyect,
+				  Vw_Proyecto.NomProyect,
+				  Vw_Proyecto.NomCountry,
+				  Vw_Proyecto.NomEjecuta,
+				  Vw_Proyecto.IdObjectiv,
+				  Vw_Proyecto.Resultados,
+				  Vw_Proyecto.PryFechini,
+				  Vw_Proyecto.PryFechFin,
+				  Vw_Ejecucion.PryYear  							 
+   ) as Vw_SaldosCP  
+order by Vw_SaldosCP.IdProyecto, 
+         Vw_SaldosCP.IdObjectiv  asc</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+      <Fields>
+        <Field Name="CodProyect">
+          <DataField>CodProyect</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="NomProyect">
+          <DataField>NomProyect</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="IdProyecto">
+          <DataField>IdProyecto</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="NomCountry">
+          <DataField>NomCountry</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="NomEjecuta">
+          <DataField>NomEjecuta</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="IdObjectiv">
+          <DataField>IdObjectiv</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Resultados">
+          <DataField>Resultados</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="PryFechini">
+          <DataField>PryFechini</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="PryFechFin">
+          <DataField>PryFechFin</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="PryYear">
+          <DataField>PryYear</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Presupuest">
+          <DataField>Presupuest</DataField>
+          <rd:TypeName>System.Double</rd:TypeName>
+        </Field>
+        <Field Name="ImpMov">
+          <DataField>ImpMov</DataField>
+          <rd:TypeName>System.Double</rd:TypeName>
+        </Field>
+      </Fields>
+      <Filters>
+        <Filter>
+          <FilterExpression>=Fields!IdProyecto.Value</FilterExpression>
+          <Operator>Equal</Operator>
+          <FilterValues>
+            <FilterValue>=Parameters!ParmProyectoID.Value</FilterValue>
+          </FilterValues>
+        </Filter>
+      </Filters>
+    </DataSet>
+    <DataSet Name="Proyectos">
+      <Query>
+        <DataSourceName>RsSource01</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="IdTenant">
+            <Value>=Parameters!IdTenant.Value</Value>
+            <rd:UserDefined>true</rd:UserDefined>
+          </QueryParameter>
+        </QueryParameters>
+        <CommandText>SELECT  DISTINCT
+     Pry_Proyectos.IdEmpresa,
+     Pry_Proyectos.IdProyecto,
+     upper(Pry_Proyectos.Nombre)     as nombre
+from
+  dbo.Pry_Proyectos INNER JOIN 
+  (SELECT 
+	  Org_Empresas.IdEmpresa          ,
+	  Org_Empresas.Nombre             ,
+	  Sys_Usuarios_Empresas.IdUsuario , 
+	  Sys_Usuarios.Nombre as username ,
+	  Sys_Usuarios.UserName  UserLogin,
+	  Sys_Usuarios.UserReport
+	from
+	  Sys_Usuarios_Empresas 
+		 inner join Sys_Usuarios ON Sys_Usuarios_Empresas.IdUsuario = Sys_Usuarios.IdUsuario 
+		 inner join dbo.Org_Empresas             ON Org_Empresas.IdEmpresa          = Sys_Usuarios_Empresas.IdEmpresa   
+  ) as Vw_Empresas ON Pry_Proyectos.IdEmpresa  = Vw_Empresas.IdEmpresa
+WHERE Pry_Proyectos.IdTenant = @IdTenant and Pry_Proyectos.Eliminado=0</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+      <Fields>
+        <Field Name="IdEmpresa">
+          <DataField>IdEmpresa</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="IdProyecto">
+          <DataField>IdProyecto</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="nombre">
+          <DataField>nombre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+  </DataSets>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <ReportItems>
+          <Chart Name="Chart1">
+            <ChartCategoryHierarchy>
+              <ChartMembers>
+                <ChartMember>
+                  <Group Name="Chart1_CategoryGroup">
+                    <GroupExpressions>
+                      <GroupExpression>=Fields!Resultados.Value</GroupExpression>
+                    </GroupExpressions>
+                  </Group>
+                  <SortExpressions>
+                    <SortExpression>
+                      <Value>=Fields!Resultados.Value</Value>
+                    </SortExpression>
+                  </SortExpressions>
+                  <Label>=Fields!Resultados.Value</Label>
+                </ChartMember>
+              </ChartMembers>
+            </ChartCategoryHierarchy>
+            <ChartSeriesHierarchy>
+              <ChartMembers>
+                <ChartMember>
+                  <Group Name="Chart1_SeriesGroup">
+                    <GroupExpressions>
+                      <GroupExpression>=Fields!PryYear.Value</GroupExpression>
+                    </GroupExpressions>
+                  </Group>
+                  <SortExpressions>
+                    <SortExpression>
+                      <Value>=Fields!PryYear.Value</Value>
+                    </SortExpression>
+                  </SortExpressions>
+                  <Label>=Fields!PryYear.Value</Label>
+                </ChartMember>
+              </ChartMembers>
+            </ChartSeriesHierarchy>
+            <ChartData>
+              <ChartSeriesCollection>
+                <ChartSeries Name="ImpMov">
+                  <ChartDataPoints>
+                    <ChartDataPoint>
+                      <ChartDataPointValues>
+                        <Y>=Sum(Fields!ImpMov.Value)</Y>
+                      </ChartDataPointValues>
+                      <ChartDataLabel>
+                        <Style />
+                        <UseValueAsLabel>true</UseValueAsLabel>
+                        <Visible>true</Visible>
+                      </ChartDataLabel>
+                      <ToolTip>#VALY</ToolTip>
+                      <Style />
+                      <ChartMarker>
+                        <Style />
+                      </ChartMarker>
+                      <DataElementOutput>Output</DataElementOutput>
+                    </ChartDataPoint>
+                  </ChartDataPoints>
+                  <Style />
+                  <ChartEmptyPoints>
+                    <Style />
+                    <ChartMarker>
+                      <Style />
+                    </ChartMarker>
+                    <ChartDataLabel>
+                      <Style />
+                    </ChartDataLabel>
+                  </ChartEmptyPoints>
+                  <ValueAxisName>Primary</ValueAxisName>
+                  <CategoryAxisName>Primary</CategoryAxisName>
+                  <ChartSmartLabel>
+                    <CalloutLineColor>Black</CalloutLineColor>
+                    <MinMovingDistance>0pt</MinMovingDistance>
+                  </ChartSmartLabel>
+                </ChartSeries>
+              </ChartSeriesCollection>
+            </ChartData>
+            <ChartAreas>
+              <ChartArea Name="Default">
+                <ChartCategoryAxes>
+                  <ChartAxis Name="Primary">
+                    <Style>
+                      <FontSize>8pt</FontSize>
+                    </Style>
+                    <ChartAxisTitle>
+                      <Caption>Axis Title</Caption>
+                      <Style>
+                        <FontSize>8pt</FontSize>
+                      </Style>
+                    </ChartAxisTitle>
+                    <ChartMajorGridLines>
+                      <Enabled>False</Enabled>
+                      <Style>
+                        <Border>
+                          <Color>Gainsboro</Color>
+                        </Border>
+                      </Style>
+                    </ChartMajorGridLines>
+                    <ChartMinorGridLines>
+                      <Style>
+                        <Border>
+                          <Color>Gainsboro</Color>
+                          <Style>Dotted</Style>
+                        </Border>
+                      </Style>
+                    </ChartMinorGridLines>
+                    <ChartMinorTickMarks>
+                      <Length>0.5</Length>
+                    </ChartMinorTickMarks>
+                    <CrossAt>NaN</CrossAt>
+                    <Minimum>NaN</Minimum>
+                    <Maximum>NaN</Maximum>
+                    <ChartAxisScaleBreak>
+                      <Style />
+                    </ChartAxisScaleBreak>
+                  </ChartAxis>
+                  <ChartAxis Name="Secondary">
+                    <Style>
+                      <FontSize>8pt</FontSize>
+                    </Style>
+                    <ChartAxisTitle>
+                      <Caption>Axis Title</Caption>
+                      <Style>
+                        <FontSize>8pt</FontSize>
+                      </Style>
+                    </ChartAxisTitle>
+                    <ChartMajorGridLines>
+                      <Enabled>False</Enabled>
+                      <Style>
+                        <Border>
+                          <Color>Gainsboro</Color>
+                        </Border>
+                      </Style>
+                    </ChartMajorGridLines>
+                    <ChartMinorGridLines>
+                      <Style>
+                        <Border>
+                          <Color>Gainsboro</Color>
+                          <Style>Dotted</Style>
+                        </Border>
+                      </Style>
+                    </ChartMinorGridLines>
+                    <ChartMinorTickMarks>
+                      <Length>0.5</Length>
+                    </ChartMinorTickMarks>
+                    <CrossAt>NaN</CrossAt>
+                    <Location>Opposite</Location>
+                    <Minimum>NaN</Minimum>
+                    <Maximum>NaN</Maximum>
+                    <ChartAxisScaleBreak>
+                      <Style />
+                    </ChartAxisScaleBreak>
+                  </ChartAxis>
+                </ChartCategoryAxes>
+                <ChartValueAxes>
+                  <ChartAxis Name="Primary">
+                    <Style>
+                      <FontSize>8pt</FontSize>
+                    </Style>
+                    <ChartAxisTitle>
+                      <Caption>Axis Title</Caption>
+                      <Style>
+                        <FontSize>8pt</FontSize>
+                      </Style>
+                    </ChartAxisTitle>
+                    <ChartMajorGridLines>
+                      <Style>
+                        <Border>
+                          <Color>Gainsboro</Color>
+                        </Border>
+                      </Style>
+                    </ChartMajorGridLines>
+                    <ChartMinorGridLines>
+                      <Style>
+                        <Border>
+                          <Color>Gainsboro</Color>
+                          <Style>Dotted</Style>
+                        </Border>
+                      </Style>
+                    </ChartMinorGridLines>
+                    <ChartMinorTickMarks>
+                      <Length>0.5</Length>
+                    </ChartMinorTickMarks>
+                    <CrossAt>NaN</CrossAt>
+                    <Minimum>NaN</Minimum>
+                    <Maximum>NaN</Maximum>
+                    <ChartAxisScaleBreak>
+                      <Style />
+                    </ChartAxisScaleBreak>
+                  </ChartAxis>
+                  <ChartAxis Name="Secondary">
+                    <Style>
+                      <FontSize>8pt</FontSize>
+                    </Style>
+                    <ChartAxisTitle>
+                      <Caption>Axis Title</Caption>
+                      <Style>
+                        <FontSize>8pt</FontSize>
+                      </Style>
+                    </ChartAxisTitle>
+                    <ChartMajorGridLines>
+                      <Style>
+                        <Border>
+                          <Color>Gainsboro</Color>
+                        </Border>
+                      </Style>
+                    </ChartMajorGridLines>
+                    <ChartMinorGridLines>
+                      <Style>
+                        <Border>
+                          <Color>Gainsboro</Color>
+                          <Style>Dotted</Style>
+                        </Border>
+                      </Style>
+                    </ChartMinorGridLines>
+                    <ChartMinorTickMarks>
+                      <Length>0.5</Length>
+                    </ChartMinorTickMarks>
+                    <CrossAt>NaN</CrossAt>
+                    <Location>Opposite</Location>
+                    <Minimum>NaN</Minimum>
+                    <Maximum>NaN</Maximum>
+                    <ChartAxisScaleBreak>
+                      <Style />
+                    </ChartAxisScaleBreak>
+                  </ChartAxis>
+                </ChartValueAxes>
+                <Style>
+                  <BackgroundGradientType>None</BackgroundGradientType>
+                </Style>
+              </ChartArea>
+            </ChartAreas>
+            <ChartLegends>
+              <ChartLegend Name="Default">
+                <Style>
+                  <BackgroundGradientType>None</BackgroundGradientType>
+                  <FontSize>8pt</FontSize>
+                </Style>
+                <ChartLegendTitle>
+                  <Caption />
+                  <Style>
+                    <FontSize>8pt</FontSize>
+                    <FontWeight>Bold</FontWeight>
+                    <TextAlign>Center</TextAlign>
+                  </Style>
+                </ChartLegendTitle>
+                <HeaderSeparatorColor>Black</HeaderSeparatorColor>
+                <ColumnSeparatorColor>Black</ColumnSeparatorColor>
+              </ChartLegend>
+            </ChartLegends>
+            <ChartTitles>
+              <ChartTitle Name="Default">
+                <Caption>Chart Title</Caption>
+                <Style>
+                  <BackgroundGradientType>None</BackgroundGradientType>
+                  <FontWeight>Bold</FontWeight>
+                  <TextAlign>General</TextAlign>
+                  <VerticalAlign>Top</VerticalAlign>
+                </Style>
+              </ChartTitle>
+            </ChartTitles>
+            <Palette>BrightPastel</Palette>
+            <ChartBorderSkin>
+              <Style>
+                <BackgroundColor>Gray</BackgroundColor>
+                <BackgroundGradientType>None</BackgroundGradientType>
+                <Color>White</Color>
+              </Style>
+            </ChartBorderSkin>
+            <ChartNoDataMessage Name="NoDataMessage">
+              <Caption>No Data Available</Caption>
+              <Style>
+                <BackgroundGradientType>None</BackgroundGradientType>
+                <TextAlign>General</TextAlign>
+                <VerticalAlign>Top</VerticalAlign>
+              </Style>
+            </ChartNoDataMessage>
+            <DataSetName>InfoProjectReporte</DataSetName>
+            <Top>1.55208in</Top>
+            <Left>0.42625in</Left>
+            <Height>6.21181in</Height>
+            <Width>13.07374in</Width>
+            <Style>
+              <Border>
+                <Color>LightGrey</Color>
+                <Style>Solid</Style>
+              </Border>
+              <BackgroundColor>White</BackgroundColor>
+              <BackgroundGradientType>None</BackgroundGradientType>
+            </Style>
+          </Chart>
+          <Tablix Name="Tablix2">
+            <TablixCorner>
+              <TablixCornerRows>
+                <TablixCornerRow>
+                  <TablixCornerCell>
+                    <CellContents>
+                      <Textbox Name="Textbox21">
+                        <CanGrow>true</CanGrow>
+                        <KeepTogether>true</KeepTogether>
+                        <Paragraphs>
+                          <Paragraph>
+                            <TextRuns>
+                              <TextRun>
+                                <Value>Resultados</Value>
+                                <Style>
+                                  <FontFamily>Times New Roman</FontFamily>
+                                  <FontWeight>Bold</FontWeight>
+                                </Style>
+                              </TextRun>
+                            </TextRuns>
+                            <Style />
+                          </Paragraph>
+                        </Paragraphs>
+                        <rd:DefaultName>Textbox21</rd:DefaultName>
+                        <Style>
+                          <Border>
+                            <Color>LightGrey</Color>
+                            <Style>Solid</Style>
+                          </Border>
+                          <BackgroundColor>DarkSeaGreen</BackgroundColor>
+                          <VerticalAlign>Bottom</VerticalAlign>
+                          <PaddingLeft>2pt</PaddingLeft>
+                          <PaddingRight>2pt</PaddingRight>
+                          <PaddingTop>2pt</PaddingTop>
+                          <PaddingBottom>2pt</PaddingBottom>
+                        </Style>
+                      </Textbox>
+                    </CellContents>
+                  </TablixCornerCell>
+                  <TablixCornerCell>
+                    <CellContents>
+                      <Textbox Name="Textbox19">
+                        <CanGrow>true</CanGrow>
+                        <KeepTogether>true</KeepTogether>
+                        <Paragraphs>
+                          <Paragraph>
+                            <TextRuns>
+                              <TextRun>
+                                <Value>Total </Value>
+                                <Style>
+                                  <FontFamily>Times New Roman</FontFamily>
+                                  <FontWeight>Bold</FontWeight>
+                                </Style>
+                              </TextRun>
+                            </TextRuns>
+                            <Style>
+                              <TextAlign>Center</TextAlign>
+                            </Style>
+                          </Paragraph>
+                          <Paragraph>
+                            <TextRuns>
+                              <TextRun>
+                                <Value>Presupuesto</Value>
+                                <Style>
+                                  <FontFamily>Times New Roman</FontFamily>
+                                  <FontWeight>Bold</FontWeight>
+                                </Style>
+                              </TextRun>
+                            </TextRuns>
+                            <Style>
+                              <TextAlign>Center</TextAlign>
+                            </Style>
+                          </Paragraph>
+                        </Paragraphs>
+                        <rd:DefaultName>Textbox19</rd:DefaultName>
+                        <Style>
+                          <Border>
+                            <Color>LightGrey</Color>
+                            <Style>Solid</Style>
+                          </Border>
+                          <BackgroundColor>DarkSeaGreen</BackgroundColor>
+                          <VerticalAlign>Bottom</VerticalAlign>
+                          <PaddingLeft>2pt</PaddingLeft>
+                          <PaddingRight>2pt</PaddingRight>
+                          <PaddingTop>2pt</PaddingTop>
+                          <PaddingBottom>2pt</PaddingBottom>
+                        </Style>
+                      </Textbox>
+                    </CellContents>
+                  </TablixCornerCell>
+                </TablixCornerRow>
+              </TablixCornerRows>
+            </TablixCorner>
+            <TablixBody>
+              <TablixColumns>
+                <TablixColumn>
+                  <Width>0.91625in</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>0.82292in</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>0.8125in</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>0.8125in</Width>
+                </TablixColumn>
+              </TablixColumns>
+              <TablixRows>
+                <TablixRow>
+                  <Height>0.25in</Height>
+                  <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="ImpMov">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Sum(Fields!ImpMov.Value)</Value>
+                                  <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <Format>n2</Format>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>ImpMov</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="ImpMov1">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Sum(Fields!ImpMov.Value)</Value>
+                                  <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <Format>n2</Format>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>ImpMov1</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox31">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!Presupuest.Value-Sum(Fields!ImpMov.Value)</Value>
+                                  <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <Format>n2</Format>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox31</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox33">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=((Fields!Presupuest.Value-Sum(Fields!ImpMov.Value))/Fields!Presupuest.Value)*100</Value>
+                                  <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <Format>n2</Format>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox33</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                  </TablixCells>
+                </TablixRow>
+              </TablixRows>
+            </TablixBody>
+            <TablixColumnHierarchy>
+              <TablixMembers>
+                <TablixMember>
+                  <Group Name="PryYear">
+                    <GroupExpressions>
+                      <GroupExpression>=Fields!PryYear.Value</GroupExpression>
+                    </GroupExpressions>
+                  </Group>
+                  <SortExpressions>
+                    <SortExpression>
+                      <Value>=Fields!PryYear.Value</Value>
+                    </SortExpression>
+                  </SortExpressions>
+                  <TablixHeader>
+                    <Size>0.375in</Size>
+                    <CellContents>
+                      <Textbox Name="PryYear">
+                        <CanGrow>true</CanGrow>
+                        <KeepTogether>true</KeepTogether>
+                        <Paragraphs>
+                          <Paragraph>
+                            <TextRuns>
+                              <TextRun>
+                                <Value>Ejecución</Value>
+                                <Style>
+                                  <FontFamily>Times New Roman</FontFamily>
+                                  <FontWeight>Bold</FontWeight>
+                                </Style>
+                              </TextRun>
+                            </TextRuns>
+                            <Style>
+                              <TextAlign>Center</TextAlign>
+                            </Style>
+                          </Paragraph>
+                          <Paragraph>
+                            <TextRuns>
+                              <TextRun>
+                                <Value>Año </Value>
+                                <Style>
+                                  <FontFamily>Times New Roman</FontFamily>
+                                  <FontWeight>Bold</FontWeight>
+                                </Style>
+                              </TextRun>
+                              <TextRun>
+                                <Value>=Fields!PryYear.Value</Value>
+                                <Style>
+                                  <FontFamily>Times New Roman</FontFamily>
+                                  <FontWeight>Bold</FontWeight>
+                                </Style>
+                              </TextRun>
+                            </TextRuns>
+                            <Style>
+                              <TextAlign>Center</TextAlign>
+                            </Style>
+                          </Paragraph>
+                        </Paragraphs>
+                        <rd:DefaultName>PryYear</rd:DefaultName>
+                        <Style>
+                          <Border>
+                            <Color>LightGrey</Color>
+                            <Style>Solid</Style>
+                          </Border>
+                          <BackgroundColor>Khaki</BackgroundColor>
+                          <VerticalAlign>Bottom</VerticalAlign>
+                          <PaddingLeft>2pt</PaddingLeft>
+                          <PaddingRight>2pt</PaddingRight>
+                          <PaddingTop>2pt</PaddingTop>
+                          <PaddingBottom>2pt</PaddingBottom>
+                        </Style>
+                      </Textbox>
+                    </CellContents>
+                  </TablixHeader>
+                  <TablixMembers>
+                    <TablixMember />
+                  </TablixMembers>
+                  <Visibility>
+                    <Hidden>=IIF(ISNOTHING(Fields!PryYear.Value), TRUE, FALSE)</Hidden>
+                  </Visibility>
+                </TablixMember>
+                <TablixMember>
+                  <TablixHeader>
+                    <Size>0.375in</Size>
+                    <CellContents>
+                      <Textbox Name="Textbox28">
+                        <CanGrow>true</CanGrow>
+                        <KeepTogether>true</KeepTogether>
+                        <Paragraphs>
+                          <Paragraph>
+                            <TextRuns>
+                              <TextRun>
+                                <Value>Total </Value>
+                                <Style>
+                                  <FontFamily>Times New Roman</FontFamily>
+                                  <FontWeight>Bold</FontWeight>
+                                </Style>
+                              </TextRun>
+                            </TextRuns>
+                            <Style>
+                              <TextAlign>Center</TextAlign>
+                            </Style>
+                          </Paragraph>
+                          <Paragraph>
+                            <TextRuns>
+                              <TextRun>
+                                <Value>Ejecucion</Value>
+                                <Style>
+                                  <FontFamily>Times New Roman</FontFamily>
+                                  <FontWeight>Bold</FontWeight>
+                                </Style>
+                              </TextRun>
+                            </TextRuns>
+                            <Style>
+                              <TextAlign>Center</TextAlign>
+                            </Style>
+                          </Paragraph>
+                        </Paragraphs>
+                        <rd:DefaultName>Textbox28</rd:DefaultName>
+                        <Style>
+                          <Border>
+                            <Color>LightGrey</Color>
+                            <Style>Solid</Style>
+                          </Border>
+                          <BackgroundColor>DarkSeaGreen</BackgroundColor>
+                          <VerticalAlign>Bottom</VerticalAlign>
+                          <PaddingLeft>2pt</PaddingLeft>
+                          <PaddingRight>2pt</PaddingRight>
+                          <PaddingTop>2pt</PaddingTop>
+                          <PaddingBottom>2pt</PaddingBottom>
+                        </Style>
+                      </Textbox>
+                    </CellContents>
+                  </TablixHeader>
+                </TablixMember>
+                <TablixMember>
+                  <TablixHeader>
+                    <Size>0.375in</Size>
+                    <CellContents>
+                      <Textbox Name="Textbox30">
+                        <CanGrow>true</CanGrow>
+                        <KeepTogether>true</KeepTogether>
+                        <Paragraphs>
+                          <Paragraph>
+                            <TextRuns>
+                              <TextRun>
+                                <Value>Saldo</Value>
+                                <Style>
+                                  <FontFamily>Times New Roman</FontFamily>
+                                  <FontWeight>Bold</FontWeight>
+                                </Style>
+                              </TextRun>
+                            </TextRuns>
+                            <Style>
+                              <TextAlign>Center</TextAlign>
+                            </Style>
+                          </Paragraph>
+                        </Paragraphs>
+                        <rd:DefaultName>Textbox30</rd:DefaultName>
+                        <Style>
+                          <Border>
+                            <Color>LightGrey</Color>
+                            <Style>Solid</Style>
+                          </Border>
+                          <BackgroundColor>DarkSeaGreen</BackgroundColor>
+                          <VerticalAlign>Bottom</VerticalAlign>
+                          <PaddingLeft>2pt</PaddingLeft>
+                          <PaddingRight>2pt</PaddingRight>
+                          <PaddingTop>2pt</PaddingTop>
+                          <PaddingBottom>2pt</PaddingBottom>
+                        </Style>
+                      </Textbox>
+                    </CellContents>
+                  </TablixHeader>
+                </TablixMember>
+                <TablixMember>
+                  <TablixHeader>
+                    <Size>0.375in</Size>
+                    <CellContents>
+                      <Textbox Name="Textbox32">
+                        <CanGrow>true</CanGrow>
+                        <KeepTogether>true</KeepTogether>
+                        <Paragraphs>
+                          <Paragraph>
+                            <TextRuns>
+                              <TextRun>
+                                <Value>% Saldo</Value>
+                                <Style>
+                                  <FontFamily>Times New Roman</FontFamily>
+                                  <FontWeight>Bold</FontWeight>
+                                </Style>
+                              </TextRun>
+                            </TextRuns>
+                            <Style>
+                              <TextAlign>Center</TextAlign>
+                            </Style>
+                          </Paragraph>
+                        </Paragraphs>
+                        <rd:DefaultName>Textbox32</rd:DefaultName>
+                        <Style>
+                          <Border>
+                            <Color>LightGrey</Color>
+                            <Style>Solid</Style>
+                          </Border>
+                          <BackgroundColor>DarkSeaGreen</BackgroundColor>
+                          <VerticalAlign>Bottom</VerticalAlign>
+                          <PaddingLeft>2pt</PaddingLeft>
+                          <PaddingRight>2pt</PaddingRight>
+                          <PaddingTop>2pt</PaddingTop>
+                          <PaddingBottom>2pt</PaddingBottom>
+                        </Style>
+                      </Textbox>
+                    </CellContents>
+                  </TablixHeader>
+                </TablixMember>
+              </TablixMembers>
+            </TablixColumnHierarchy>
+            <TablixRowHierarchy>
+              <TablixMembers>
+                <TablixMember>
+                  <Group Name="Resultados">
+                    <GroupExpressions>
+                      <GroupExpression>=Fields!Resultados.Value</GroupExpression>
+                    </GroupExpressions>
+                  </Group>
+                  <SortExpressions>
+                    <SortExpression>
+                      <Value>=Fields!IdObjectiv.Value</Value>
+                    </SortExpression>
+                  </SortExpressions>
+                  <TablixHeader>
+                    <Size>5.28346in</Size>
+                    <CellContents>
+                      <Textbox Name="Resultados">
+                        <CanGrow>true</CanGrow>
+                        <KeepTogether>true</KeepTogether>
+                        <Paragraphs>
+                          <Paragraph>
+                            <TextRuns>
+                              <TextRun>
+                                <Value>=Fields!Resultados.Value</Value>
+                                <Style>
+                                  <FontFamily>Times New Roman</FontFamily>
+                                </Style>
+                              </TextRun>
+                            </TextRuns>
+                            <Style />
+                          </Paragraph>
+                        </Paragraphs>
+                        <rd:DefaultName>Resultados</rd:DefaultName>
+                        <Style>
+                          <Border>
+                            <Color>LightGrey</Color>
+                            <Style>Solid</Style>
+                          </Border>
+                          <PaddingLeft>2pt</PaddingLeft>
+                          <PaddingRight>2pt</PaddingRight>
+                          <PaddingTop>2pt</PaddingTop>
+                          <PaddingBottom>2pt</PaddingBottom>
+                        </Style>
+                      </Textbox>
+                    </CellContents>
+                  </TablixHeader>
+                  <TablixMembers>
+                    <TablixMember>
+                      <Group Name="Presupuest">
+                        <GroupExpressions>
+                          <GroupExpression>=Fields!Presupuest.Value</GroupExpression>
+                        </GroupExpressions>
+                      </Group>
+                      <SortExpressions>
+                        <SortExpression>
+                          <Value>=Fields!Presupuest.Value</Value>
+                        </SortExpression>
+                      </SortExpressions>
+                      <TablixHeader>
+                        <Size>1.38015in</Size>
+                        <CellContents>
+                          <Textbox Name="Presupuest">
+                            <CanGrow>true</CanGrow>
+                            <KeepTogether>true</KeepTogether>
+                            <Paragraphs>
+                              <Paragraph>
+                                <TextRuns>
+                                  <TextRun>
+                                    <Value>=Fields!Presupuest.Value</Value>
+                                    <Style>
+                                      <FontFamily>Times New Roman</FontFamily>
+                                      <Format>n2</Format>
+                                    </Style>
+                                  </TextRun>
+                                </TextRuns>
+                                <Style />
+                              </Paragraph>
+                            </Paragraphs>
+                            <rd:DefaultName>Presupuest</rd:DefaultName>
+                            <Style>
+                              <Border>
+                                <Color>LightGrey</Color>
+                                <Style>Solid</Style>
+                              </Border>
+                              <PaddingLeft>2pt</PaddingLeft>
+                              <PaddingRight>2pt</PaddingRight>
+                              <PaddingTop>2pt</PaddingTop>
+                              <PaddingBottom>2pt</PaddingBottom>
+                            </Style>
+                          </Textbox>
+                        </CellContents>
+                      </TablixHeader>
+                      <TablixMembers>
+                        <TablixMember />
+                      </TablixMembers>
+                    </TablixMember>
+                  </TablixMembers>
+                </TablixMember>
+              </TablixMembers>
+            </TablixRowHierarchy>
+            <DataSetName>InfoProjectReporte</DataSetName>
+            <SortExpressions>
+              <SortExpression>
+                <Value>=Fields!IdProyecto.Value</Value>
+              </SortExpression>
+              <SortExpression>
+                <Value>=Fields!IdObjectiv.Value</Value>
+              </SortExpression>
+            </SortExpressions>
+            <Left>0.43875in</Left>
+            <Height>0.625in</Height>
+            <Width>10.02778in</Width>
+            <ZIndex>1</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+            </Style>
+          </Tablix>
+        </ReportItems>
+        <Height>7.83333in</Height>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+        </Style>
+      </Body>
+      <Width>13.63952in</Width>
+      <Page>
+        <PageHeader>
+          <Height>2.51736in</Height>
+          <PrintOnFirstPage>true</PrintOnFirstPage>
+          <PrintOnLastPage>true</PrintOnLastPage>
+          <ReportItems>
+            <Textbox Name="ExecutionTime">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>Pages </Value>
+                      <Style>
+                        <FontStyle>Italic</FontStyle>
+                        <FontFamily>Times New Roman</FontFamily>
+                      </Style>
+                    </TextRun>
+                    <TextRun>
+                      <Value>=Globals!PageNumber</Value>
+                      <Style>
+                        <FontFamily>Times New Roman</FontFamily>
+                      </Style>
+                    </TextRun>
+                    <TextRun>
+                      <Value> / </Value>
+                      <Style>
+                        <FontFamily>Times New Roman</FontFamily>
+                      </Style>
+                    </TextRun>
+                    <TextRun>
+                      <Value>=Globals!TotalPages</Value>
+                      <Style>
+                        <FontFamily>Times New Roman</FontFamily>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Left</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>ExecutionTime</rd:DefaultName>
+              <Top>0.14236in</Top>
+              <Left>12.57291in</Left>
+              <Height>0.1875in</Height>
+              <Width>0.92708in</Width>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Textbox Name="Textbox5">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>Proyecto</Value>
+                      <Style>
+                        <FontFamily>Times New Roman</FontFamily>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style />
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>Textbox3</rd:DefaultName>
+              <Top>1.90347in</Top>
+              <Left>0.43875in</Left>
+              <Height>0.22917in</Height>
+              <Width>0.94792in</Width>
+              <ZIndex>1</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Textbox Name="Textbox6">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>Programa</Value>
+                      <Style>
+                        <FontFamily>Times New Roman</FontFamily>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style />
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>Textbox3</rd:DefaultName>
+              <Top>1.54687in</Top>
+              <Left>0.43875in</Left>
+              <Height>0.22917in</Height>
+              <Width>0.94792in</Width>
+              <ZIndex>2</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Textbox Name="Textbox7">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>Pais</Value>
+                      <Style>
+                        <FontFamily>Times New Roman</FontFamily>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style />
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>Textbox3</rd:DefaultName>
+              <Top>1.90347in</Top>
+              <Left>10.85541in</Left>
+              <Height>0.22917in</Height>
+              <Width>0.31881in</Width>
+              <ZIndex>3</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Textbox Name="Textbox8">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>Periodo Inicio</Value>
+                      <Style>
+                        <FontFamily>Times New Roman</FontFamily>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Center</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>Textbox3</rd:DefaultName>
+              <Top>1.28299in</Top>
+              <Left>10.85541in</Left>
+              <Height>0.22917in</Height>
+              <Width>0.94792in</Width>
+              <ZIndex>4</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Textbox Name="Textbox9">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>Periodo vence</Value>
+                      <Style>
+                        <FontFamily>Times New Roman</FontFamily>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Center</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>Textbox3</rd:DefaultName>
+              <Top>1.2691in</Top>
+              <Left>11.97979in</Left>
+              <Height>0.22917in</Height>
+              <Width>1in</Width>
+              <ZIndex>5</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Textbox Name="Textbox10">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>Ejectutor</Value>
+                      <Style>
+                        <FontFamily>Times New Roman</FontFamily>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style />
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>Textbox3</rd:DefaultName>
+              <Top>2.20208in</Top>
+              <Left>0.43875in</Left>
+              <Height>0.22917in</Height>
+              <Width>0.94792in</Width>
+              <ZIndex>6</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Line Name="Line2">
+              <Top>2.47292in</Top>
+              <Left>0.42625in</Left>
+              <Height>0in</Height>
+              <Width>13.07374in</Width>
+              <ZIndex>7</ZIndex>
+              <Style>
+                <Border>
+                  <Style>Solid</Style>
+                </Border>
+              </Style>
+            </Line>
+            <Textbox Name="Nombre">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>=First(Fields!NomProyect.Value, "InfoProjectReporte")</Value>
+                      <Style>
+                        <FontFamily>Times New Roman</FontFamily>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style />
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>Nombre</rd:DefaultName>
+              <Top>1.90347in</Top>
+              <Left>2.28in</Left>
+              <Height>0.21806in</Height>
+              <Width>5.84278in</Width>
+              <ZIndex>8</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Textbox Name="Codigo">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>=First(Fields!CodProyect.Value, "InfoProjectReporte")</Value>
+                      <Style>
+                        <FontFamily>Times New Roman</FontFamily>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style />
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>Codigo</rd:DefaultName>
+              <Top>1.90347in</Top>
+              <Left>1.42834in</Left>
+              <Height>0.21806in</Height>
+              <Width>0.7857in</Width>
+              <ZIndex>9</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Textbox Name="Pais">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>=First(Fields!NomCountry.Value, "InfoProjectReporte")</Value>
+                      <Style>
+                        <FontFamily>Times New Roman</FontFamily>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style />
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>Pais</rd:DefaultName>
+              <Top>1.90347in</Top>
+              <Left>11.22978in</Left>
+              <Height>0.25in</Height>
+              <Width>1in</Width>
+              <ZIndex>10</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Textbox Name="ProInici">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>=First(Fields!PryFechini.Value, "InfoProjectReporte")</Value>
+                      <Style>
+                        <FontFamily>Times New Roman</FontFamily>
+                        <Format>dd-MMM-yy</Format>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Center</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>ProInici</rd:DefaultName>
+              <Top>1.55383in</Top>
+              <Left>10.85541in</Left>
+              <Height>0.25in</Height>
+              <Width>0.94792in</Width>
+              <ZIndex>11</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Textbox Name="ProVence">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>=First(Fields!PryFechFin.Value, "InfoProjectReporte")</Value>
+                      <Style>
+                        <FontFamily>Times New Roman</FontFamily>
+                        <Format>dd-MMM-yy</Format>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Center</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>ProVence</rd:DefaultName>
+              <Top>1.55383in</Top>
+              <Left>11.97979in</Left>
+              <Height>0.25in</Height>
+              <Width>1in</Width>
+              <ZIndex>12</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Textbox Name="Ejecutor">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>=First(Fields!NomEjecuta.Value, "InfoProjectReporte")</Value>
+                      <Style>
+                        <FontFamily>Times New Roman</FontFamily>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style />
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>Ejecutor</rd:DefaultName>
+              <Top>2.1868in</Top>
+              <Left>1.45611in</Left>
+              <Height>0.25in</Height>
+              <Width>6.66667in</Width>
+              <ZIndex>13</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Textbox Name="NomEjecuta">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>=First(Fields!NomEjecuta.Value, "InfoProjectReporte")</Value>
+                      <Style>
+                        <FontStyle>Italic</FontStyle>
+                        <FontFamily>Times New Roman</FontFamily>
+                        <FontSize>16pt</FontSize>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style />
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>NomEjecuta</rd:DefaultName>
+              <Top>0.37153in</Top>
+              <Left>1.45611in</Left>
+              <Height>0.3559in</Height>
+              <Width>4.25917in</Width>
+              <ZIndex>14</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Textbox Name="Textbox4">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>Informe Saldos Contra partida</Value>
+                      <Style>
+                        <FontStyle>Italic</FontStyle>
+                        <FontFamily>Times New Roman</FontFamily>
+                        <FontSize>16pt</FontSize>
+                        <FontWeight>Bold</FontWeight>
+                        <Color>Blue</Color>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style />
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>Textbox3</rd:DefaultName>
+              <Top>0.78299in</Top>
+              <Left>1.43527in</Left>
+              <Height>0.30035in</Height>
+              <Width>4.28694in</Width>
+              <ZIndex>15</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Image Name="Image1">
+              <Source>Embedded</Source>
+              <Value>diaconia</Value>
+              <Sizing>Fit</Sizing>
+              <Top>0.37153in</Top>
+              <Left>0.61513in</Left>
+              <Height>0.71181in</Height>
+              <Width>0.78542in</Width>
+              <ZIndex>16</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+              </Style>
+            </Image>
+          </ReportItems>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+          </Style>
+        </PageHeader>
+        <PageFooter>
+          <Height>0.46042in</Height>
+          <PrintOnFirstPage>true</PrintOnFirstPage>
+          <PrintOnLastPage>true</PrintOnLastPage>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+          </Style>
+        </PageFooter>
+        <PageHeight>8.5in</PageHeight>
+        <PageWidth>14in</PageWidth>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <ReportParameters>
+    <ReportParameter Name="ConnectionString">
+      <DataType>String</DataType>
+      <Prompt>ConnectionString</Prompt>
+      <Hidden>true</Hidden>
+      <UsedInQuery>False</UsedInQuery>
+    </ReportParameter>
+    <ReportParameter Name="IdTenant">
+      <DataType>Integer</DataType>
+      <Prompt>IdTenant</Prompt>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="ParmProyectoID">
+      <DataType>Integer</DataType>
+      <Nullable>true</Nullable>
+      <Prompt>Proyecto</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>Proyectos</DataSetName>
+          <ValueField>IdProyecto</ValueField>
+          <LabelField>nombre</LabelField>
+        </DataSetReference>
+      </ValidValues>
+    </ReportParameter>
+  </ReportParameters>
+  <EmbeddedImages>
+    <EmbeddedImage Name="Logo">
+      <MIMEType>image/jpeg</MIMEType>
+      <ImageData>/9j/4AAQSkZJRgABAQEAYABgAAD/4RDiRXhpZgAATU0AKgAAAAgABAE7AAIAAAAIAAAISodpAAQAAAABAAAIUpydAAEAAAAQAAAQyuocAAcAAAgMAAAAPgAAAAAc6gAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHZjaGF2ZXoAAAWQAwACAAAAFAAAEKCQBAACAAAAFAAAELSSkQACAAAAAzQzAACSkgACAAAAAzQzAADqHAAHAAAIDAAACJQAAAAAHOoAAAAIAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAyMDE0OjA5OjI3IDE0OjQ0OjE0ADIwMTQ6MDk6MjcgMTQ6NDQ6MTQAAAB2AGMAaABhAHYAZQB6AAAA/+ELGmh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8APD94cGFja2V0IGJlZ2luPSfvu78nIGlkPSdXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQnPz4NCjx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iPjxyZGY6UkRGIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53
+My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyI+PHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9InV1aWQ6ZmFmNWJkZDUtYmEzZC0xMWRhLWFkMzEtZDMzZDc1MTgyZjFiIiB4bWxuczpkYz0iaHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEuMS8iLz48cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0idXVpZDpmYWY1YmRkNS1iYTNkLTExZGEtYWQzMS1kMzNkNzUxODJmMWIiIHhtbG5zOnhtcD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLyI+PHhtcDpDcmVhdGVEYXRlPjIwMTQtMDktMjdUMTQ6NDQ6MTQuNDI4PC94bXA6Q3JlYXRlRGF0ZT48L3JkZjpEZXNjcmlwdGlvbj48cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0idXVpZDpmYWY1YmRkNS1iYTNkLTExZGEtYWQzMS1kMzNkNzUxODJmMWIiIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyI+PGRjOmNyZWF0b3I+PHJkZjpTZXEgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj48cmRmOmxpPnZjaGF2ZXo8L3JkZjpsaT48L3JkZjpTZXE+DQoJCQk8L2RjOmNyZWF0b3I+PC9yZGY6RGVzY3JpcHRpb24+PC9yZGY6UkRGPjwveDp4bXBtZXRhPg0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8P3hwYWNrZXQgZW5kPSd3Jz8+/9sAQwAHBQUGBQQHBgUGCAcHCAoRCwoJCQoVDxAMERgVGhkYFRgXGx4nIRsdJR0XGCIuIiUoKSssKxogLzMvKjInKisq/9sAQwEHCAgKCQoUCwsUKhwYHCoqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioq/8AAEQgAbACbAwEiAAIRAQMRAf/EAB8AAAEFAQEBAQEBAAAAAAAAAAABAgMEBQYHCAkKC//EALUQAAIBAwMCBAMFBQQEAAABfQECAwAEEQUSITFBBhNRYQcicRQygZGhCCNCscEVUtHwJDNicoIJChYXGBkaJSYnKCkqNDU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6g4SFhoeIiYqSk5SV
+lpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2drh4uPk5ebn6Onq8fLz9PX29/j5+v/EAB8BAAMBAQEBAQEBAQEAAAAAAAABAgMEBQYHCAkKC//EALURAAIBAgQEAwQHBQQEAAECdwABAgMRBAUhMQYSQVEHYXETIjKBCBRCkaGxwQkjM1LwFWJy0QoWJDThJfEXGBkaJicoKSo1Njc4OTpDREVGR0hJSlNUVVZXWFlaY2RlZmdoaWpzdHV2d3h5eoKDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uLj5OXm5+jp6vLz9PX29/j5+v/aAAwDAQACEQMRAD8A+kaKKKACiiigAooooAKTPtS0zmgB2aQtgdM0zfggHgmuGT4n2gt7e4vbGeKG4vJbVmUZNqyNtAlB5DHGcehHWhRbJclFXZ3fmDOMc+maUPntXK6lpPiCfUkn0nW/KtWnWcpIM4GMFPQoevrk9a6dM/xdaGrAndkoOaKQUtBQUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAwtjOcYx69Kq3czvZS/ZZo0leNhE5YYDEHB/PmmavZHUtIvLJJDE1xC8QkHBQspANeERW86+B7XwV4lU6VqWhMVt3lQiC8TnBVgMZIPfrWlOHPKxnUnyRudB4j1/xPptjo32WS8sb9Y8X1s0RdJZe7b8FWB7BW79K7nRNE0/W7GHVtX0OGDULtFkuAykFmHQkZ5P15qL4bXl/e+FQNTJdoJDDFKf+WiADHPfHTPtXWblGNxC/U1dSVvdXQypwcveZIqBcBcAAcAUoQDpSL96n1gdIAYooooAKKKKACiiigApKWkoAWiiigAooooAKaetOppoA8y1fx7f3fxgg8C6VLHpqxx+fc3sqCR5QVDCOMdASO5zT9e+KiaBr8unz6TJNHAdrSeYAzcdcYqx8SPhpH4ylt9U0
+2f7BrlmAIbjkLIoOdjY5HPII5H0rmtRsdfvrVbfxj4YuL+5iG2O+sGUM317H8hXXQjTb944sRKovhOn8deO20j4T3nibw/tkmZEjhJAIid2C5I/2SentXNfAmxs9S8K3XifUSdT164uZVuLm6PmSJt+6gJ+6Mc8Yzmup8NeCETwRf6N4ghDQ6pu8y3B5jQqAFz/eGM59a8ksdL8TfBXxXI0YNxpkzbEnZf3VzHnIV8fccf484rCcY87UXdHbQvOCT3Om1L4o+JLPVZMGMQxuQYRF90D1r0jwb4zt/FVmfl8m7jUGSPdkEeoPpXC6rceFvGcf237SdIv+N63C5Vj65HB+oo+HuleT44UWFwt1bWUbia4jBCNkYCgnr6/hWkorlO6pGm4XtZnsS96fTEPXNPzXOcIUUUUAFFFFABSHrS0h60gFooopgFFFFABRRRQAhrwDXfHesar8fY/Cs+q3Gk+H4JxHIkEn2d5sJuJMow4DHjhgMCvoA15b8WfhQPGyxatpBij1m1TYBIcJcp12Mex9D+HSqja9mTK9rorePPF+uaBqEVroZMNuqg+YY/M83Iz95s5/mfWo/CPxSbUnFj4ojjeOU7DMyKApPHzDGMe9V9MufEseijQfG3hu+vbWEKiXNvGNyADAGfuvj1Hasmfwh59039g6dqdwznCrNbeWi+zMeAK9SnHDyp8s9H3PKlKtGpzRbPQ/Fa+C/Cnhe51/UtGsHtogCPJtkZpWbgKvGCSag0/xppvh/wAIadqGo2EWnRagvmwWtgokEankBmHBOCM4+natJPCFnd/DePwvr+JYGthFOQcbTnIKnsQeh9q4jSfCXibQ9Gl8N6rpseu6HbMRaTxTJHMq5yCBnjk9CK4IKLlZvQ9CpUnyXR6ZovibS9egWXTbuOTd/wAsywDj6r1rYryPwj4C1G08U2eoCxmsrSB2kZrmRPMbgjbhee/U8V64Acc0q0YxlaDuFGU5RvNajhRQKKxNwooo
+oAKKKQ9aAFooooAKKKKACiiigAppp1NpPYBhXj3pMDvz9aRpR90/eIzjIrzzXPEup6X8UksNTl+y6VPYbtLcqRDJd5wVmb+Q6VUU2RJpK5X+K19daXrnhS9vklm8NR3rDUoo84Dlf3bvjqqnJx04rM/4TPW9F8dStLcf2ho13KGgA5UxtjaYz2xnp3rd8IeMNdvvEUmieJbCJXKvtliU4OPXsQR3rrbbwtolrffbbbSrWG4zkOkQGPfHQH3roTVK6mrnPLmq2cWa0JDLkdD0qWmoMDufc06uY6wooooAKKKKACkNLSHrQAtFZWu6z/YumG7aHzBvVOW2quTjczdlHrUSa+sESjVQltceWZWii3TAIDjdlV6UDszaorCHiqwF1sknj8tzGIHj3OZS6lgAqg9hTrPxNa3WoCyyROxkKBUYgqj7ck4wOaAszborntT13UrHVILaHTI5o7hyscpuAvRdxJGOOM1OPFOlFY2N4irIG2OyMqvtGThiMHoarlZnzxNquX8QeMP7B1AW0lhNMrWclxGyHHnMjAGJc/xAEtz2HFWbzxZZ2sVrKokkjuJ0i3eU643ZwQCvPToKfL4m0mH5Zbry281YgvlPu3sNyjG3PIB/KjlYc6OK8YeFtW17URrOjS3ElvqFhHBNCk3lzW5B3o8ZOBznDL3rrfCen6hB4UtbPxE/2q5RSshlwxZc/Lu6gnFWl8Q6W5QRXO5nZkVVjcsCv3gVxkY9/aq58W2C3yxmRRbtbtMbjnAIcJt24znJ9KtuTjy2M7RT5mzSs9I0/T2b7BZ29rv+95MQTP5VeC+9ZLeI9MjWVpLtYhCqs4kjZSA3A4IBOT6U+18Qafd6gbKC4DXABJjaNlPTPcDsQaz957micehqgYorEv8AxJBa6JNqVqPtUccnlYX5QGDbTliOADnJ6cUsGvbI4F1NYre5nBaOKBjPvUfxgqOnPU0WY3JI2qKyIPENncSwLHKCk52Rvg/M+SCuMZBG
+D1xSXniSwsr5LSWVjO8ix7EiZsEgkdB6A0WYc0bXNiisK18UWU8KmSULIys+yNHkwoYqG4Xvjvig+LtHG7/TVYLEJiyRSMFQ8AkhcCjlYcyN2jFULXV7S8upILabzHiYo+EbAYdRnGM9O9Xc0ik0ypdpLLD5cUcMqNxIk2dpXuOP68VzOm6NqWl6hLFbLCY1tHWHezmOMNJlUB6kD09+K7LA9BS4HpTuNNo4/TPCdxp99Zym5jdLZlP3TuYCLZx6ckn6VZ0vQLyw1kXjTQSK0cqMvzZ+eYyZ/LiunwPSjA9KLj5mYuqaVJf31lKJFVIFlD8Hcdybcj86wV8ED+whYNDZLOIfLW6QNncOjY/nXb7R6D8qMD0FPmktjF04t3MG40y9v201pzbp9juFmfYWIfCsMDI9Tmq83h6ebxKuomWLyxMj7CDu+WNlx+bZ/CumwPQUYA6AflQpNA6cWcrYeHr2w8QXGoxzQS/aHlLI24YV2DLggdeMGqI8IX51A3xubbzzIJygVgjSCXfj/d28euea7jaPQflRtHoPyp88iXRizjtY0S7uNWi1eae3T7IY/LjAdgyhiW34GScnjA7Vny22qXN7c3VnGUvZL8PaSNG2xYjGEZmz2AJ98gV6DgDsKMD0FCmwdJGVBp/2HR4dPso4XjjQRFZyQGXHPTPX+tY2l+G77StS+0wzW5hVZESA79sMbMGCqevBz+dddgegowPQflS5mW4JnJw+Gr2K4humnt2uEvHupF2sFO7IwO4wCP1pG8P6lLro1KWa0yt0sqxgP9xYigGcdckmut2j0H5UbQeoH5U+dk+yicnomhajoaP5E1pK0kKo27cAHUsRjA+7836Uyx8K3FnpOo2guY3e8gSJX2kYODkn2yTjFdhgelJtHoPyo52HsonPado1zZa0LqKSKKB4tk8KFiJWAAVwDwDxyR1zzW9in4HoKWpbuWopH//Z</ImageData>
+    </EmbeddedImage>
+    <EmbeddedImage Name="diaconia">
+      <MIMEType>image/png</MIMEType>
+      <ImageData>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</ImageData>
+    </EmbeddedImage>
+  </EmbeddedImages>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>a9d4b109-f4cb-4b37-848b-99f8306b6003</rd:ReportID>
+</Report>

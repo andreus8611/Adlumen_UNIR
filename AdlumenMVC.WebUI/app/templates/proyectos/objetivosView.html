@@ -1,0 +1,181 @@
+﻿<script type="text/ng-template" id="modalIndicadorContent.html">
+    <div class="modal-header">
+        <h3 class="modal-title">{{ translation.INDICADOR }}</h3>
+    </div>
+    <div class="modal-body" ng-include="'app/templates/proyectos/indicadorView.html'"></div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="close()">{{ translation.CERRAR }}</button>
+    </div>
+</script>
+
+<script type="text/ng-template" id="assumption_modal.html">
+    <div class="modal-content">
+        <form name="form">
+            <div class="modal-header">
+                <button type="button"
+                        class="close"
+                        ng-click="cancel()"
+                        data-dismiss="modal"
+                        aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h3 class="modal-title">{{headerTitle}}</h3>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">{{translation.DESCRIPCION}}</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" ng-model="supuesto.descripcion" required />
+                        </div>
+                        <label class="control-label col-sm-2">{{translation.IMPACTO}}</label>
+                        <div class="col-sm-10">
+                            <div class="form-inline">
+                                <label class="col-sm-4">{{translation.ALTO}} <input type="radio" value="1" ng-model="supuesto.impacto" /></label>
+                                <label class="col-sm-4">{{translation.BAJO}} <input type="radio" value="0" ng-model="supuesto.impacto" /></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button"
+                        ng-click="save()"
+                        ng-disabled="form.$invalid"
+                        class="btn btn-success">
+                    {{translation.GUARDAR}}
+                </button>
+                <button type="button"
+                        ng-click="cancel()"
+                        class="btn btn-danger"
+                        data-dismiss="modal">
+                    {{translation.CANCELAR}}
+                </button>
+            </div>
+        </form>
+    </div>
+    
+</script>
+
+<div class="box box-solid">
+    <div class="box-header">
+        <h3 class="box-title">{{translation.OBJETIVOS}}</h3>
+    </div>
+    
+    <div class="box-body">
+        <section class="col-lg-7 col-xs-12">
+            <div class="container-fluid" ng-include="'app/templates/proyectos/arbolObjetivos.html'"></div>
+        </section>
+        <section class="col-lg-5 col-xs-12" ng-show="selectedObjetivo">
+            <div class="row">
+
+                <h4 class="h4">{{selectedObjetivo.objetivoClase.descripcion}}</h4>
+
+                <table class="table table-responsive">
+                    <tbody>
+                        <tr>
+                            <td><textarea class="form-control" rows="5" ng-model="selectedObjetivo.descripcion" ng-disabled="!editMode"></textarea></td>
+                            <td ng-if="!editMode || editModeSupuesto">
+                                <button type="button" class="btn btn-primary" ng-click="Edit()" uib-tooltip="{{translation.EDITAR}}">
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                </button>
+                            </td>
+                            <td ng-if="editMode && !editModeSupuesto">
+                                <div class="form-inline">
+                                    <button style="margin-bottom: 4px;" type="button" class="btn btn-primary" ng-click="SaveObjetivo()" uib-tooltip="{{translation.GUARDAR}}">
+                                        <span class="glyphicon glyphicon-floppy-disk"></span>
+                                    </button>
+                                    <button style="margin-bottom: 4px;" type="button" class="btn btn-primary" ng-click="CancelEdit()" uib-tooltip="{{translation.CANCELAR}}">
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                    </button>
+                                </div>
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="row">
+                <h4 class="h4">{{translation.INDICADORES}}</h4>
+
+                <table class="table table-responsive">
+                    <thead>
+                        <tr>
+                            <th>{{translation.DESCRIPCION}}</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="indicador in selectedObjetivo.indicadores">
+                            <td>{{indicador.descripcion}}</td>
+                            <td>
+                                <button type="button" style="margin-bottom: 4px;" class="btn btn-primary" ng-click="deleteIndicador()" ng-show="!editMode" uib-tooltip="{{translation.ELIMINAR}}">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </button>
+                                <button type="button" style="margin-bottom: 4px;" class="btn btn-primary" ng-click="showIndicadorDetails();" ng-show="!editMode" uib-tooltip="{{translation.VER_DETALLE}}">
+                                    <span class="glyphicon glyphicon-list-alt"></span>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div>
+                    <button type="button" class="btn btn-primary" ng-click="crearNuevoIndicador();" ng-show="!editMode" uib-tooltip="{{translation.NUEVOINDICADOR}}">
+                        {{translation.NUEVOINDICADOR}}
+                    </button>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <h4 class="h4">{{translation.SUPUESTOS}}</h4>
+                <table class="table table-responsive">
+                    <thead>
+                        <tr>
+                            <th>{{translation.DESCRIPCION}}</th>
+                            <th colspan="2">{{translation.IMPACTO}}</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="supuesto in selectedObjetivo.supuestos">
+                            <td>{{supuesto.descripcion}}</td>
+                            <td>
+                                <input type="radio" value="1" ng-model="supuesto.impacto" ng-disabled="true">{{translation.ALTO}}
+                            </td>
+                            <td>
+                                <input type="radio" value="0" ng-model="supuesto.impacto" ng-disabled="true">{{translation.BAJO}}
+                            </td>
+                            <td>
+                                <div class="form-inline">
+                                    <button style="margin-bottom: 4px;" ng-if="editMode" type="button" class="btn btn-primary" ng-click="SaveSupuesto()" uib-tooltip="{{translation.GUARDAR}}">
+                                        <span class="glyphicon glyphicon-floppy-disk"></span>
+                                    </button>
+                                    <button style="margin-bottom: 4px;" ng-if="!editMode" type="button" class="btn btn-primary" ng-click="deleteSupuesto()" uib-tooltip="{{translation.ELIMINAR}}">
+                                        <span class="glyphicon glyphicon-trash"></span>
+                                    </button>
+                                    <button style="margin-bottom: 4px;" ng-if="!editMode" type="button" class="btn btn-primary" ng-click="editSupuesto()" uib-tooltip="{{translation.EDITAR}}">
+                                        <span class="glyphicon glyphicon-pencil"></span>
+                                    </button>
+                                    <button style="margin-bottom: 4px;" ng-if="editMode" type="button" class="btn btn-primary" ng-click="CancelEdit()" uib-tooltip="{{translation.CANCELAR}}">
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="form-group">
+                    <button type="button" class="btn btn-primary" ng-click="crearNuevoSupuesto();" ng-show="!editMode" uib-tooltip="{{translation.NUEVOSUPUESTO}}">
+                        {{translation.NUEVOSUPUESTO}}
+                    </button>
+                </div>
+            </div>
+                    
+        </section>
+    </div>       
+    
+</div>
+

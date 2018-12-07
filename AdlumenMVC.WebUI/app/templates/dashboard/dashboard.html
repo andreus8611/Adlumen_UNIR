@@ -1,0 +1,301 @@
+﻿<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        {{translation.DASHBOARD_TITLE}}
+
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> {{translation.HOME}}</a></li>
+        <li class="active">{{translation.DASHBOARD_TITLE}}</li>
+    </ol>
+</section>
+<!-- Main content -->
+<section class="content">
+    <!-- Small boxes (Stat box) -->
+    <div class="row">
+        <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-aqua">
+                <div class="inner">
+                    <h3>{{projectsCount(projects, "a")}}</h3>
+                    <p>{{translation.ACTIVE_PROJECTS}}</p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-checkmark-circled"></i>
+                </div>
+                <a href="#!/projects/2" class="small-box-footer">{{translation.MORE_INFO}} <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div><!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-green">
+                <div class="inner">
+                    <h3>{{projectsCount(projects, "f")}}</h3>
+                    <p>{{translation.FORMULATED_PROJECTS}}</p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-plus-circled"></i>
+                </div>
+                <a href="#!/projects/1" class="small-box-footer">{{translation.MORE_INFO}} <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div><!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-red">
+                <div class="inner">
+                    <h3>{{projectsCount(projects, "c")}}</h3>
+                    <p>{{translation.CLOSED_PROJECTS}}</p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-close-circled"></i>
+                </div>
+                <a href="#!/projects/3" class="small-box-footer">{{translation.MORE_INFO}} <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div><!-- ./col -->
+
+    </div><!-- /.row -->
+
+    <div class="row">
+        <div class="container-fluid">
+            <div class="box box-primary">
+                <div class="box-header">
+                    <div class="form-inline">
+                        <div class="form-group">
+                            <label for="projects-select">{{translation.PROYECTO}}</label>
+                            <select id="projects-select" class="form-control" ng-model="selectedProject" ng-options="project.nombre for project in projects | filter: {idEstado: 2}"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-body">
+
+                    <div class="col-lg-6 col-xs-12">
+                        <b>{{translation.GERENTE_PROYECTO}}</b>
+                        <p>{{selectedProject.manager}}</p>
+                        <b>{{translation.PRESUPUESTO}}</b>
+                        <p>{{selectedProject.presupuesto | currency : selectedProject.m_Monedas.representacion : 2}}</p>
+                        <b>{{translation.AREA}}</b>
+                        <p>{{selectedProject.area}}</p>
+                        <b>{{translation.REGION}}</b>
+                        <p>{{selectedProject.region}}</p>
+                        <b>{{translation.BENEFICIARIOS}}</b>
+                        <p>{{selectedProject.beneficiarios}}</p>
+                    </div>
+      
+                    <div class="col-lg-6 col-xs-12">
+
+                        <uib-tabset class="nav-tabs-custom">
+                            <uib-tab heading="{{translation.ESTADO}}">
+                                <div>
+                                    <div>
+                                        <small><em>{{translation.PROGRESO}}:</em></small>
+                                        <uib-progressbar class="progress-striped" animate="false" value="projectGoal.progreso"><b style="color: white;">{{projectGoal.progreso | number:2}}%</b></uib-progressbar>
+                                    </div>
+                                    <div class="raphael-easypie-chart-container" uib-tooltip="{{translation.EFECTIVIDAD_CONCEPTO}}">
+                                        <ng-gauge size="175" type="full" thick="15" min="0" max="100" value="pryefectividadChart.value" label="{{pryefectividadChart.text}}" foreground-color="#2980b9" append="%" fraction-size="0"></ng-gauge>
+                                    </div>
+                                    <div class="raphael-easypie-chart-container" uib-tooltip="{{translation.EFICACIA_CONCEPTO}}">
+                                        <ng-gauge size="175" type="full" thick="15" min="0" max="100" value="pryeficaciaChart.value" label="{{pryeficaciaChart.text}}" foreground-color="#2ecc71" append="%" fraction-size="0"></ng-gauge>
+                                    </div>
+                                    <div class="raphael-easypie-chart-container" uib-tooltip="{{translation.EFICIENCIA_CONCEPTO}}">
+                                        <ng-gauge size="175" type="full" thick="15" min="0" max="100" value="pryeficienciaChart.value" label="{{pryeficienciaChart.text}}" foreground-color="#e74c3c" append="%" fraction-size="0"></ng-gauge>
+                                    </div>
+                                </div>
+                            </uib-tab>
+                            <uib-tab heading="{{translation.PRESUPUESTO}}">
+                                <div class="container-fluid">
+                                    <canvas id="bar" class="chart chart-bar"
+                                            chart-data="projectData" chart-labels="projectLabels"
+                                            chart-series="projectSeries" chart-colours="barColors"></canvas>
+                                </div>
+                            </uib-tab>
+                            <uib-tab heading="{{translation.CALENDARIO_DESEMBOLSOS}}" ng-click="renderCalendar('myCalendar')">
+                                <div class="container-fluid">
+                                    <div ui-calendar="uiConfig.calendar" class="calendar" ng-model="eventSources"></div>
+                                </div>
+                            </uib-tab>
+                        </uib-tabset>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    
+    <!-- Main row -->
+    <div class="row">
+        <section class="container-fluid db-chart-section">
+
+            
+            <div class="box box-primary">
+                <div class="box-header">
+                    <h3 class="box-title">{{translation.OBJETIVOS}}</h3>
+                </div>
+
+                <div class="box-body">
+                    
+                    <div class="col-lg-4 col-xs-12">
+                        <div class="box box-info">
+                            <div class="box-header text-center">
+                                <h3 class="box-title"><strong>{{translation.EFECTIVIDAD}}</strong> ({{translation.EFECTIVIDAD_CONCEPTO}})</h3>
+                            </div>
+                            <div class="box-body">
+                                <nvd3 options="MultiBarOptions" data="dataMultiBarEfectividad"></nvd3>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-4 col-xs-12">
+                        <div class="box box-info">
+                            <div class="box-header text-center">
+                                <h3 class="box-title"><strong>{{translation.EFICACIA}}</strong> ({{translation.EFICACIA_CONCEPTO}})</h3>
+                            </div>
+                            <div class="box-body">
+                                <nvd3 options="MultiBarOptions" data="dataMultiBarEficacia"></nvd3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-xs-12">
+                        <div class="box box-info">
+                            <div class="box-header text-center">
+                                <h3 class="box-title"><strong>{{translation.EFICIENCIA}}</strong> ({{translation.EFICIENCIA_CONCEPTO}})</h3>
+                            </div>
+                            <div class="box-body">
+                                <nvd3 options="MultiBarOptions" data="dataMultiBarEficiencia"></nvd3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-xs-12">
+                        <get-objectives ui-objectives="selectedProject.objectives"></get-objectives>
+                    </div>
+                    <div class="col-lg-6 col-xs-12">
+
+                        <uib-tabset class="nav-tabs-custom">
+                            <uib-tab heading="{{translation.ESTADO}}">
+                                <div>
+                                    <div>
+                                        <small><em>{{translation.PROGRESO}}:</em></small>
+                                        <uib-progressbar class="progress-striped" animate="false" value="treeviewObjective.eficacia">
+                                            <!--type="{{progressbarColor(treeviewObjective.progressColor)}}"-->
+                                            <b style="color: white;">{{treeviewObjective.eficacia | number:2}}%</b>
+                                        </uib-progressbar>
+                                    </div>
+                                    <div class="box-header">
+                                        <i class="fa fa-bar-chart-o"></i>
+                                        <h3 class="box-title">{{translation.INDICADORES_IMPACTO}}</h3>
+                                    </div>
+                                    <div class="box-body">
+                                        <div class="raphael-easypie-chart-container" uib-tooltip="{{translation.EFECTIVIDAD_CONCEPTO}}">
+                                            <ng-gauge size="175" type="full" thick="15" min="0" max="100" value="efectividadChart.value" label="{{efectividadChart.text}}" foreground-color="#2980b9" append="%" fraction-size="0"></ng-gauge>
+                                        </div>
+                                        <div class="raphael-easypie-chart-container" uib-tooltip="{{translation.EFICACIA_CONCEPTO}}">
+                                            <ng-gauge size="175" type="full" thick="15" min="0" max="100" value="eficaciaChart.value" label="{{eficaciaChart.text}}" foreground-color="#2ecc71" append="%" fraction-size="0"></ng-gauge>
+                                        </div>
+                                        <div class="raphael-easypie-chart-container" uib-tooltip="{{translation.EFICIENCIA_CONCEPTO}}">
+                                            <ng-gauge size="175" type="full" thick="15" min="0" max="100" value="eficienciaChart.value" label="{{eficienciaChart.text}}" foreground-color="#e74c3c" append="%" fraction-size="0"></ng-gauge>
+                                        </div>
+                                    </div>
+                                </div>
+                            </uib-tab>
+                            <uib-tab heading="{{translation.INDICADORES}}">
+                                <div>
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center">{{translation.CODIGO}}</th>
+                                                <th class="text-center">{{translation.TIPO}}</th>
+                                                <th class="text-center">{{translation.SUBTIPO}}</th>
+                                                <th class="text-center">{{translation.DESCRIPCION}}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="indicator in treeviewObjective.indicators" ng-click="setIndicator(indicator)" ng-class="{'active': indicator.idIndicador === selectedIndicator.idIndicador}">
+                                                <td>{{indicator.codigo}}</td>
+                                                <td>{{indicator.type}}</td>
+                                                <td>{{indicator.subtype}}</td>
+                                                <td>{{indicator.descripcion}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div ng-if="lastSample">
+                                        <div>
+                                            <small><em>{{translation.PROGRESO}}:</em></small>
+                                            <uib-progressbar class="progress-striped" animate="false" value="lastSample.eficacia"><b style="color: white;">{{lastSample.eficacia | number:2}}%</b></uib-progressbar>
+                                        </div>
+                                        <div class="chart">
+                                            <indicators-graph indicator="selectedIndicator" translation="translation"></indicators-graph>
+                                        </div>
+                                    </div>
+                                    <div ng-if="!lastSample">
+                                        No hay Muestras
+                                    </div>
+                                </div>
+                            </uib-tab>
+                            <uib-tab heading="{{translation.SUPUESTOS}}">
+                                <div>
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center">{{translation.DESCRIPCION}}</th>
+                                                <th class="text-center">{{translation.PLANES_CONTINGENCIA}}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="assumption in treeviewObjective.assumptions">
+                                                <td>{{assumption.descripcion}}</td>
+                                                <td class="text-center"><a ng-if="assumption.planContingencia" href="{{assumption.planContingencia}}">{{translation.DESCARGAR}}</a></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </uib-tab>
+                            <uib-tab heading="{{translation.RECURSOS}}" ng-if="treeviewObjective.resources">
+                                <div>
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center">{{translation.DESCRIPCION}}</th>
+                                                <th class="text-center">{{translation.TIPO}}</th>
+                                                <th class="text-center">{{translation.CANTIDAD}}</th>
+                                                <th class="text-center">{{translation.UNIDADMEDIDA}}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="resource in treeviewObjective.resources">
+                                                <td>{{resource.descripcion}}</td>
+                                                <td>{{resource.tipo}}</td>
+                                                <td>{{resource.cantidad}}</td>
+                                                <td>{{resource.unidadMedida}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </uib-tab>
+                        </uib-tabset>
+
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        <!-- Left col -->
+    </div><!-- /.row (main row) -->
+
+    <div class="row">
+        <section class="container-fluid">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">{{translation.PROYECTOS}}</h3>
+                </div>
+
+                <div style="height: 250px;" class="box-body">
+                    <angular-jvectormap projects="projects" id="world-map-markers"></angular-jvectormap>
+                </div>
+            </div>
+        </section>
+    </div>
+
+
+</section><!-- /.content -->
+

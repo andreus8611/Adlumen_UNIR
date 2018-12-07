@@ -1,0 +1,87 @@
+﻿<script type="text/ng-template" id="displayCalendarioDonacionesTemplate">
+    <td>{{calendarioDonaciones.monto | number: 2}}</td>
+    <td>{{calendarioDonaciones.fechaProgramada | date: short}}</td>
+    <td>
+        <button type="button" class="btn btn-primary" ng-show="!editMode" ng-click="editCalendarioDonaciones()" uib-tooltip="{{translation.EDITAR}}">
+            <span class="glyphicon glyphicon-pencil"></span>
+        </button>
+    </td>
+    <td>
+        <button type="button" class="btn btn-primary" ng-show="!editMode" ng-click="deleteCalendarioDonaciones()" uib-tooltip="{{translation.ELIMINAR}}">
+            <span class="glyphicon glyphicon-trash"></span>
+        </button>
+    </td>
+</script>
+<script type="text/ng-template" id="editCalendarioDonacionesTemplate">
+    <td><input class="large-input-full" type="number" onkeypress="return validateNumber(event);" ng-model="selectedCalendarioDonacion.monto"></td>
+    <td>
+        <p class="input-group">
+            <input type="text" class="form-control" uib-datepicker-popup ng-model="selectedCalendarioDonacion.fechaProgramada" is-open="popup2.opened" close-text="{{translation.CERRAR}}" />
+            <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+            </span>
+        </p>
+        
+    </td>
+    <td>
+        <button type="button" class="btn btn-primary" ng-show="editMode" ng-click="SaveCalendarioDonacion()" uib-tooltip="{{translation.GUARDAR}}">
+            <span class="glyphicon glyphicon-floppy-disk"></span>
+        </button>
+    </td>
+    <td>
+        <button type="button" class="btn btn-primary" ng-show="editMode" ng-click="CancelEdit()" uib-tooltip="{{translation.CANCELAR}}">
+            <span class="glyphicon glyphicon-remove"></span>
+        </button>
+    </td>
+</script>
+<div class="row">
+    <uib-accordion close-others="!open">
+        <div uib-accordion-group ng-repeat="donante in donantes | filter: {idCliente: bdClient.id}" is-open="open" is-disabled="false" class="panel-default">
+            <uib-accordion-heading>
+                <b>{{donante.nombre}}</b>
+            </uib-accordion-heading>
+            <div class="row">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>{{translation.PRESUPUESTO_TOTAL}}</th>
+                            <th>{{translation.TOTAL_PROGRAMADO}}</th>
+                            <th>{{translation.PENDIENTE}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{getPresupuestoDonante(donante) | number:2}}</td>
+                            <td>{{getProgramadoDonante(donante) | number:2}}</td>
+                            <td>{{getPendienteDonante(donante) | number:2}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row">
+                <div uib-alert ng-class="'alert-danger'" ng-if="getPendienteDonante(donante) != 0">{{translation.DISTRIBUIR_DONACIONES}}</div>
+            </div>
+            <div class="row">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>{{translation.MONTO}}</th>
+                            <th>{{translation.FECHA}}</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="calendarioDonaciones in getCalendarioDonaciones(donante)" ng-include="getCalendarioDonacionesTemplate(calendarioDonaciones)"></tr>
+                        <tr ng-show="selectedCalendarioDonacion && selectedCalendarioDonacion.idDonacion === 0 && selectedCalendarioDonacion.idDonante === donante.idDonante" ng-include="getNewCalendarioDonacionesTemplate(donante)"></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <button type="button" class="btn btn-primary" ng-click="crearNuevoCalendarioDonacion();" ng-show="!editMode && getPendienteDonante(donante) > 0" uib-tooltip="{{translation.NUEVO}}">
+                    {{translation.NUEVO}}
+                </button>
+            </div>
+        </div>
+    </uib-accordion>
+</div>

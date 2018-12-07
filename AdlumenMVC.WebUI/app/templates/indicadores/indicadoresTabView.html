@@ -1,0 +1,107 @@
+﻿<script type="text/ng-template" id="modalHistoryContent.html">
+    <div class="modal-header">
+        <h3 class="modal-title">{{ translation.HISTORIAL_INDICADOR }}</h3>
+    </div>
+    <div class="modal-body" ng-include="'app/templates/indicadores/indicatorHistory.html'"></div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="close()">{{ translation.CERRAR }}</button>
+    </div>
+</script>
+
+<div class="box box-solid">
+    <div class="box-header">
+        <h3 class="box-title">
+            {{translation.INDICADORES}}
+        </h3>
+    </div>
+    <div class="box-body table-responsive">
+        <table class="table table-hover">
+
+            <thead>
+                <tr>
+                    <th>{{translation.CODIGO}}</th>
+                    <th>{{translation.TIPO}}</th>
+                    <th>{{translation.SUBTIPO}}</th>
+                    <th>{{translation.DESCRIPCION}}</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="indicador in indicadoresObjetivo">
+                    <td>{{indicador.codigo}}</td>
+                    <td>{{indicador.tipo}}</td>
+                    <td>{{indicador.subtipo}}</td>
+                    <td>{{indicador.descripcion}}</td>
+                    <td>
+                        <button type="button" class="btn btn-primary" ng-click="changeSelectedIndicator();" uib-tooltip="{{translation.VER_DETALLE}}">
+                            <span class="glyphicon glyphicon-list-alt"></span>
+                        </button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-primary" ng-click="viewIndicatorHistory();" uib-tooltip="{{translation.VER_HISTORICO}}">
+                            <span class="glyphicon glyphicon-time"></span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="box-solid">
+    <div class="box-header">
+        <h3 class="box-title">{{translation.INFORMACION}} {{indicador.codigo}}</h3>
+    </div>
+    <div class="box-body table-responsive">
+        <section class="col-lg-6 col-xs-12">
+            <table class="table no-border">
+                <tbody>
+                    <tr>
+                        <td><label>{{translation.FECHAINICIO}}:</label></td>
+                        <td>{{selectedIndicator.fechaInicio | date:'fullDate' }}</td>
+                    </tr>
+                    <tr>
+                        <td><label>{{translation.FECHAFIN}}:</label></td>
+                        <td>{{selectedIndicator.fechaFin | date:'fullDate' }}</td>
+                    </tr>
+                    <tr>
+                        <td><label>{{translation.UNIDADMEDIDA}}:</label></td>
+                        <td>{{selectedIndicator.unidadMedida}}</td>
+                    </tr>
+                    <tr>
+                        <td><label>{{translation.UNIDADOPERACIONAL}}:</label></td>
+                        <td>{{selectedIndicator.unidadOperativa}}</td>
+                    </tr>
+                    <tr>
+                        <td><label>{{translation.BASE}}:</label></td>
+                        <td>{{selectedIndicator.base}}</td>
+                    </tr>
+                    <tr>
+                        <td><label>{{translation.META}}:</label></td>
+                        <td>{{selectedIndicator.meta}}</td>
+                    </tr>
+                    <tr>
+                        <td><label>{{translation.ACTUAL}}:</label></td>
+                        <td>{{actual}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        <section class="col-lg-6 col-xs-12">
+            <div>
+                <small><em>{{translation.PROGRESO}}: {{valorProgressVar | number:2}}%</em></small>
+                <uib-progressbar class="progress-striped" animate="false" value="valorProgressVar"></uib-progressbar>
+            </div>
+            <div>
+                <canvas id="line" class="chart chart-line" 
+                        chart-data="data"
+                        chart-labels="labels" 
+                        chart-options="options" 
+                        chart-series="series" objectequality="true"></canvas>
+            </div>
+        </section>
+        
+        
+    </div>
+</div>

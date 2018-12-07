@@ -1,0 +1,189 @@
+﻿<!-- Nested node template -->
+
+<script type="text/ng-template" id="nodesDocumento_renderer.html">
+    <div class="tree-node tree-node-content">
+        <a class="btn btn-success btn-xs" ng-if="true" data-nodrag>
+            <span class="glyphicon" ng-class="{ 'glyphicon-file': collapsed, 'glyphicon-file': !collapsed }"></span>
+        </a>
+        {{ nodeDocumento.title }}
+        <a class="pull-right btn btn-primary btn-xs" data-nodrag ng-click="showDocumentoDetails();" uib-tooltip="{{translation.VER_DETALLE}}" ng-show="!editMode">
+            <span class="glyphicon glyphicon-list-alt"></span>
+        </a>
+        <a class="pull-right btn btn-danger btn-xs" data-nodrag ng-click="removeDocument()" style="margin-right: 8px;" uib-tooltip="{{translation.ELIMINAR}}" ng-show="!editMode">
+            <span class="glyphicon glyphicon-remove"></span>
+        </a>
+    </div>
+</script>
+<script type="text/ng-template" id="nodesCategorias_renderer.html">
+    <div class="tree-node tree-node-content">
+        <a class="btn btn-success btn-xs" ng-if="node.children && node.children.length > 0" data-nodrag ng-click="toggle(this)">
+            <span class="glyphicon" ng-class="{ 'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed }"></span>
+        </a>
+        {{ node.name }}
+        <a class="pull-right btn btn-primary btn-xs" data-nodrag ng-click="showCategoryDetails();" uib-tooltip="{{translation.VER_DETALLE}}" ng-show="!editMode">
+            <span class="glyphicon glyphicon-list-alt"></span>
+        </a>
+        <a class="pull-right btn btn-danger btn-xs" data-nodrag ng-click="removeCategory()" style="margin-right: 8px;" uib-tooltip="{{translation.ELIMINAR}}" ng-show="!editMode && node.parentId != 0">
+            <span class="glyphicon glyphicon-remove"></span>
+        </a>
+        <a class="pull-right btn btn-primary btn-xs" data-nodrag ng-click="newSubCategoria(node.id)" style="margin-right: 8px;" uib-tooltip="{{translation.ADICIONAR_SUB_CATEGORIA}}" ng-show="!editMode">
+            <span class="glyphicon glyphicon-plus"></span>
+        </a>
+        <a class="pull-right btn btn-primary btn-xs" data-nodrag ng-click="newDocumento(node.id)" style="margin-right: 8px;" uib-tooltip="{{translation.ADICIONAR_DOCUMENTO}}" ng-show="!editMode">
+            <span class="glyphicon glyphicon-file"></span>
+        </a>
+    </div>
+    <ul ui-tree-nodes="" class="tree-node-item" ng-model="node.documents" ng-class="{hidden: collapsed}">
+        <li ng-repeat="nodeDocumento in node.documents" ui-tree-node ng-include="'nodesDocumento_renderer.html'"></li>
+    </ul>
+    <ul ui-tree-nodes="" class="tree-node-item" ng-model="node.children" ng-class="{hidden: collapsed}">
+        <li ng-repeat="node in node.children" ui-tree-node ng-include="'nodesCategorias_renderer.html'"></li>
+    </ul>
+</script>
+
+<section class="col-lg-6 col-xs-12">
+    
+    <div ui-tree id="tree-root" data-drag-enabled="false">
+        <ul ui-tree-nodes class="tree-node-item" ng-model="empresa.publicaciones">
+            <li ng-repeat="node in empresa.publicaciones" ui-tree-node ng-include="'nodesCategorias_renderer.html'"></li>
+        </ul>
+    </div>
+
+</section>
+
+<section ng-if="categoriaSelected" class="col-lg-6 col-xs-12">
+    <form class="form-horizontal">
+        <fieldset>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-categoryName">{{translation.NOMBRE}}:</label>
+                <div class="col-sm-10">
+                    <input id="input-categoryName" class="form-control" type="text" ng-model="categoriaActual.name" ng-disabled="!editMode && tabSelected == 5" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-categoryDescription">{{translation.DESCRIPCION}}:</label>
+                <div class="col-sm-10">
+                    <input id="input-categoryDescription" class="form-control" type="text" ng-model="categoriaActual.description" ng-disabled="!editMode && tabSelected == 5" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="checkbox-categoryState">{{translation.ESTADO}}:</label>
+                <div class="col-sm-10">
+                    <div class="checkbox">
+                        <label>
+                            <input id="checkbox-categoryState" type="checkbox" aria-label="..." ng-model="categoriaActual.status" ng-disabled="!editMode && tabSelected == 5" />
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group form-inline">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="button" class="btn btn-primary" ng-show="!editMode && categoriaSelected" ng-click="Edit()">
+                        {{translation.EDITAR}}
+                    </button>
+                    <button type="button" class="btn btn-primary" ng-show="editMode" ng-click="SaveCategoria()">
+                        {{translation.GUARDAR}}
+                    </button>
+                    <button type="button" class="btn btn-primary" ng-show="editMode" ng-click="CancelEdit()">
+                        {{translation.CANCELAR}}
+                    </button>
+                </div>
+            </div>
+        </fieldset>
+
+    </form>
+</section>
+
+<section ng-if="documentoSelected" class="col-lg-6 col-xs-12">
+    <form class="form-horizontal">
+        <fieldset>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="input-documentTitle">{{translation.TITULO}}:</label>
+                <div class="col-sm-9">
+                    <input id="input-documentTitle" class="form-control" type="text" ng-model="documentoActual.title" ng-disabled="!editMode && tabSelected == 5" />
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="input-documentResume">{{translation.RESUMEN}}:</label>
+                <div class="col-sm-9">
+                    <input id="input-documentResume" class="form-control" type="text" ng-model="documentoActual.resume" ng-disabled="!editMode && tabSelected == 5"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="input-documentKeywords">{{translation.PALABLAS_CLAVES}}:</label>
+                <div class="col-sm-9">
+                    <input id="input-documentKeywords" class="form-control" type="text" ng-model="documentoActual.keyWords" ng-disabled="!editMode && tabSelected == 5"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="checkbox-documentSetTask">{{translation.GENERA_TAREA}}:</label>
+                <div class="col-sm-9">
+                    <div class="checkbox">
+                        <label>
+                            <input id="checkbox-documentSetTask" type="checkbox" ng-model="documentoActual.generaTarea" ng-disabled="!editMode && tabSelected == 5" />
+                        </label>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            <div ng-if="documentoActual.generaTarea" class="form-group">
+                <label class="col-sm-3 control-label" for="select-documentResponsible">{{translation.RESPONSABLE}}:</label>
+                <div class="col-sm-9">
+                    <select id="select-documentResponsible" class="form-control" ng-model="documentoActual.idResponsable" ng-options="usuario.idUsuario as usuario.nombre for usuario in usuarios" ng-disabled="!editMode && tabSelected == 5"></select>
+                </div>
+            </div>
+
+            <div ng-if="documentoActual.generaTarea" class="form-group">
+                <label class="col-sm-3 control-label" for="select-documentTasklist">{{translation.LISTADOS_TAREAS}}:</label>
+                <div class="col-sm-9">
+                    <select id="select-documentTasklist" class="form-control" ng-model="documentoActual.idLista" ng-options="lista.idLista as lista.descripcion for lista in listastareas" ng-disabled="!editMode && tabSelected == 5"></select>
+                </div>
+            </div>
+
+            <div ng-if="documentoActual.generaTarea" class="form-group">
+                <label class="col-sm-3 control-label" for="input-documentTask">{{translation.TAREA}}:</label>
+                <div class="col-sm-9">
+                    <input id="input-documentTask" class="form-control" type="text" ng-model="documentoActual.tarea" ng-disabled="!editMode && tabSelected == 5">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="input-documentFile">{{translation.ARCHIVO}}:</label>
+                <div class="col-sm-9">
+                    <input id="input-documentFile" type="file" name="file" accept="*" onchange="angular.element(this).scope().selectFileforUpload(this.files)" ng-disabled="!editMode && tabSelected == 5" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="checkbox-documentRoles">{{translation.ROLES}}:</label>
+                <div class="col-sm-9">
+                    <div id="checkbox-documentRoles" class="checkbox" ng-repeat="rol in documentoActual.rolesList">
+                        <label>
+                            <input type="checkbox" ng-model="rol.included" ng-disabled="!editMode && tabSelected == 5" /> {{rol.rol}}
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group form-inline">
+                <div class="col-sm-offset-3 col-sm-9">
+                    <button type="button" class="btn btn-primary" ng-show="!editMode && documentoSelected" ng-click="Edit()">
+                        {{translation.EDITAR}}
+                    </button>
+                    <button type="button" class="btn btn-primary" ng-show="editMode" ng-click="SaveDocumento()">
+                        {{translation.GUARDAR}}
+                    </button>
+                    <button type="button" class="btn btn-primary" ng-show="editMode" ng-click="CancelEdit()">
+                        {{translation.CANCELAR}}
+                    </button>
+                </div>
+            </div>
+        </fieldset>
+
+    </form>
+</section>

@@ -1,0 +1,177 @@
+﻿<div class="box box-solid project-general">
+    <div class="box-header with-border">
+        <h3 class="box-title">{{translation.PROYECTO_GENERAL_INFO}}</h3>
+    </div>
+
+    <div class="box-body">
+
+        <form class="form-horizontal" role="form">
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-projectCode">{{translation.CODIGO}}:</label>
+                <div class="col-sm-10 required">
+                    <input id="input-projectCode" class="form-control" type="text" ng-model="proyecto.proyecto.codigo" ng-disabled="!editMode"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="select-projectProgram">{{translation.PROGRAMA}}:</label>
+                <div class="col-sm-10">
+                    <select id="select-projectProgram" class="form-control" ng-model="proyecto.proyecto.idproyectopadre" ng-options="parent.idProyecto as parent.nombre for parent in parents" ng-disabled="!editMode"></select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-projectName">{{translation.NOMBRE}}:</label>
+                <div class="col-sm-10 required">
+                    <input id="input-projectname" class="form-control" type="text" ng-model="proyecto.proyecto.nombre" ng-disabled="!editMode" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="select-projectCompany">{{translation.EMPRESA}}:</label>
+                <div class="col-sm-10 required">
+                    <select id="select-projectCompany" class="form-control" ng-model="proyecto.proyecto.idEmpresa" ng-options="empresa.idEmpresa as empresa.nombre for empresa in empresas | filter: {idCliente: bdClient.id}" ng-disabled="!editMode" ng-change="getUsersbyCompany()"></select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="select-projectManager">{{translation.GERENTE_PROYECTO}}:</label>
+                <div class="col-sm-10 required">
+                    <select id="select-projectManager" class="form-control" ng-model="proyecto.proyecto.idUsuarioResponsable" ng-options="usuario.idUsuario as usuario.nombre for usuario in usuarios2 | filter: { role: 'gerente' }" ng-disabled="!editMode"></select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="select-projectTypper">{{translation.DIGITADOR}}:</label>
+                <div class="col-sm-10 required">
+                    <select id="select-projectTypper" class="form-control" ng-model="proyecto.proyecto.idUsuarioDigitador" ng-options="usuario.idUsuario as usuario.nombre for usuario in usuarios2 | filter: { role: 'digitador' }" ng-disabled="!editMode"></select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="select-projectEvaluator">{{translation.EVALUADOR}}:</label>
+                <div class="col-sm-10 required">
+                    <select id="select-projectEvaluator" class="form-control" ng-model="proyecto.proyecto.idUsuarioEvaluador" ng-options="usuario.idUsuario as usuario.nombre for usuario in usuarios2 | filter: { role: 'evaluador' }" ng-disabled="!editMode"></select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-projectFonding">{{translation.FINANCIAMIENTO}}:</label>
+                <div class="col-sm-10 required">
+                    <input id="input-projectFonding" class="form-control" type="number" onkeypress="return validateNumber(event);" ng-model="proyecto.proyecto.montofinanciamiento" ng-change="setPresupuesto()" ng-disabled="!editMode" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-projectCounterpart">{{translation.CONTRAPARTIDA}}:</label>
+                <div class="col-sm-10 required">
+                    <input id="input-projectCounterpart" class="form-control" type="number" onkeypress="return validateNumber(event);" ng-model="proyecto.proyecto.montocontrapartida" ng-change="setPresupuesto()" ng-disabled="!editMode" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-projectBudget">{{translation.PRESUPUESTO}}:</label>
+                <div class="col-sm-10">
+                    <div id="input-projectBudget" class="form-inline">
+                        <label>{{proyecto.proyecto.presupuesto}}</label>
+                        <select class="form-control" ng-model="proyecto.proyecto.idMoneda" ng-options="moneda.idMoneda as moneda.nombre for moneda in monedas" ng-disabled="!editMode">
+                            <option value="">-- {{translation.NOAPLICA}} --</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-projectArea">{{translation.AREA}}:</label>
+                <div class="col-sm-10 required">
+                    <input id="input-projectArea" class="form-control" type="text" ng-model="proyecto.proyecto.area" ng-disabled="!editMode" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" id="input-projectRegion">{{translation.REGION}}:</label>
+                <div class="col-sm-10 required">
+                    <input id="input-projectRegion" class="form-control" type="text" ng-model="proyecto.proyecto.region" ng-disabled="!editMode" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-projectBeneficiaries">{{translation.BENEFICIARIO}}:</label>
+                <div class="col-sm-10 required">
+                    <input id="input-projectBeneficiaries" class="form-control" type="text" ng-model="proyecto.proyecto.beneficiarios" ng-disabled="!editMode" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-projectInitialDate">{{translation.FECHAINICIO}}:</label>
+                <div class="form-inline col-sm-8 required">
+                    <!--<p id="input-projectInitialDate" class="input-group">-->
+                        <input type="date" class="form-control" input-date ng-model="proyecto.proyecto.fechaInicio" clear-text="{{translation.LIMPIAR}}" current-text="{{translation.HOY}}" is-open="datePicker1.opened" close-text="{{translation.CERRAR}}" ng-disabled="!editMode" />
+                        <!--<span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="open1($event)" ng-disabled="!editMode"><i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                    </p>-->
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-projectFinalDate">{{translation.FECHAFIN}}:</label>
+                <div class="form-inline col-sm-8 required">
+                    <!--<p id="input-projectFinalDate" class="input-group">-->
+                        <input type="date" class="form-control" input-date ng-model="proyecto.proyecto.fechaFin" clear-text="{{translation.LIMPIAR}}" current-text="{{translation.HOY}}" is-open="datePicker.opened" close-text="{{translation.CERRAR}}" ng-disabled="!editMode" />
+                        <!--<span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="open($event)" ng-disabled="!editMode"><i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                    </p>-->
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-projectNotifications">{{translation.NOTIFICAR_TAREAS}}:</label>
+                <div class="form-inline col-sm-8 required">
+                    <input id="input-projectNotifications" class="form-control" type="number" onkeypress="return validateIntegerNumber(event);" ng-model="proyecto.proyecto.diasNotificacion" ng-disabled="!editMode" /> 
+                    <label>{{translation.DIAS}}</label>
+                </div>
+            </div>
+
+            <div class="form-group" ng-if="editMode && newProject">
+                <label class="col-sm-2 control-label" for="input-projectAcceptLevel">{{translation.NIVEL_ACEPTACION}}:</label>
+                <div class="col-sm-10">
+                    <div class="form-inline row">
+                        <div ng-style-="form-group" ng-repeat="nivelAceptacion in nivelesAceptacion">
+                            <label class="col-xs-2" for="input-projectAcceptLevel{{$index}}">{{nivelAceptacion.nombre}}</label>
+                            <div class="col-xs-4 required">
+                                <input id="input-projectAcceptLevel{{$index}}" class="form-control" type="number" ng-model="nivelAceptacion.valor" ng-disabled="!editMode" />
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group" ng-if="!newProject">
+                <label class="col-sm-2 control-label" for="input-projectAcceptLevel">{{translation.NIVEL_ACEPTACION}}:</label>
+                <div class="col-sm-10">
+                    <div class="form-inline row">
+                        <div ng-style-="form-group" ng-repeat="nivelAceptacion in proyecto.nivelesAceptacion">
+                            <label class="col-xs-2" for="input-projectAcceptLevel{{$index}}">{{nivelAceptacion.nombre}}</label>
+                            <div class="col-xs-4 required">
+                                <input id="input-projectAcceptLevel{{$index}}" class="form-control" type="number" ng-model="nivelAceptacion.valor" ng-disabled="!editMode" />
+                            </div>
+                            
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">{{translation.LOGO}}:</label>
+                <div class="col-sm-10">
+                    <img class="thumbnail" ng-src="{{proyecto.proyecto.logo}}" />
+                    <input type="file" name="file" accept="image/*" onchange="angular.element(this).scope().selectFileforUpload(this.files)" ng-disabled="!editMode" />
+                </div>
+            </div>
+            <div class="form-group col-sm-offset-2 col-sm-10">
+                <button type="button" class="btn btn-primary" ng-show="!editMode" ng-click="Edit()">
+                    {{translation.EDITAR}}
+                </button>
+                <button type="button" class="btn btn-primary" ng-show="editMode" ng-click="SaveGeneral()">
+                    {{translation.GUARDAR}}
+                </button>
+                <button type="button" class="btn btn-primary" ng-show="editMode" ng-click="CancelEdit()">
+                    {{translation.CANCELAR}}
+                </button>
+                <button type="button" class="btn btn-primary" ng-show="!editMode" ng-click="EliminarProyecto()">
+                    {{translation.ELIMINAR}}
+                </button>
+            </div>
+        </form>        
+    </div>
+
+</div>

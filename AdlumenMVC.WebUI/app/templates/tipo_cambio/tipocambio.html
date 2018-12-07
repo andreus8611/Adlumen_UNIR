@@ -1,0 +1,156 @@
+﻿<section class="content-header">
+    <h1>
+        {{translation.TIPO_CAMBIO}}
+
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i> {{translation.HOME}}</a></li>
+        <li><a href="#">{{translation.ADMIN}}</a></li>
+        <li><a href="#">{{translation.TABLAS_CATALOGO}}</a></li>
+        <li class="active">{{translation.TIPO_CAMBIO}}</li>
+    </ol>
+</section>
+
+<section class="content" ng-init="init()">
+    <div class=" row">
+        <div class="container-fluid">
+            <div class="box box-primary">
+                <div class="box-body">
+                    <div class="row">
+                        <section class="col-lg-4 col-xs-12">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <span class="label label-primary">{{translation.MONEDAS}}</span>
+                                </div>
+                                <div class="panel-body">
+                                    <ul class="list-group">
+                                        <li class="list-group-item" ng-repeat="moneda in arrayMonedas">
+                                            <div class="radio" style="margin-bottom:1px; margin-top: 1px;">
+                                                <label><input type="radio" value="" ng-click="changeRadio(arrayMonedas, moneda)" ng-checked="moneda.value">{{moneda.nombre}}</label>
+                                            </div>
+
+                                        </li>
+
+                                    </ul>
+
+                                </div>
+
+                            </div>
+                        </section>
+                        <section class="col-lg-4 col-xs-12">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <span class="label label-primary">{{translation.MESES}}</span>
+                                </div>
+                                <div class="panel-body">
+                                    <ul class="list-group scrollable-menu">
+                                        <li class="list-group-item" ng-repeat="month in arrayMeses | orderBy: 'id'">
+                                            <div class="radio" style="margin-bottom:1px; margin-top: 1px;">
+                                                <label>
+                                                    <input type="radio" value="" ng-click="changeRadio(arrayMeses, month)" ng-checked="month.value">{{month.nombre}}
+
+                                                </label>
+
+                                            </div>
+
+                                        </li>
+
+                                    </ul>
+
+                                </div>
+
+                            </div>
+                        </section>
+                        <section class="col-lg-4 col-xs-12">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <span class="label label-primary">{{translation.ANIOS}}</span>
+                                </div>
+                                <div class="panel-body">
+                                    <ul class="list-group scrollable-menu">
+                                        <li class="list-group-item" ng-repeat="year in arrayYears">
+                                            <div class="radio" style="margin-bottom:1px; margin-top: 1px;">
+                                                <label><input type="radio" value="" ng-checked="year.value" ng-click="changeRadio(arrayYears, year)">{{year.nombre}}</label>
+
+                                            </div>
+
+                                        </li>
+
+                                    </ul>
+
+                                </div>
+
+                            </div>
+                        </section>
+                    </div>
+
+                    <div class="row">
+                        <div class="container-fluid">
+                            <div class="form-inline">
+                                <button type="button" class="btn btn-primary" ng-click="searchExchange()">
+                                    <span class="glyphicon glyphicon-search"></span>{{translation.BUSCAR_TIPO_CAMBIO}}
+
+                                </button>
+
+                                <button type="button" class="btn btn-primary" ng-click="openModal()">
+                                    <span class="glyphicon glyphicon-plus"></span> {{translation.NUEVO}}
+
+                                </button>
+                                <label><a ng-href="{{getMovTemplate()}}">{{translation.IMPORTAR}} {{translation.PLANTILLA}}</a></label>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="container-fluid">
+            <div class="box box-primary">
+                <div class="box-header">
+                    <h3 class="box-title">{{translation.DETALLE}}</h3>
+                </div>
+                <div class="box-body table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>{{translation.DESCRIPCION}}</th>
+                                <th>{{translation.PREGUNTA_TIPO_FECHA}}</th>
+                                <th>{{translation.COMPRA}}</th>
+                                <th>{{translation.VENTA}}</th>
+
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            <tr ng-model="exchanges" ng-repeat="exchange in exchanges">
+                                <td>{{$index + 1}}</td>
+                                <td>{{exchange.nombre}}</td>
+                                <td>{{exchange.fecTipCambio | date:'short'}}</td>
+                                <td>{{exchange.valCompra | number:4}}</td>
+                                <td>{{exchange.valVenta | number:4}}</td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="container-fluid">
+            <alert ng-if="showAlert" type="{{alert.type}}">{{alert.msg}}</alert>
+        </div>
+    </div>
+
+</section>

@@ -1,0 +1,102 @@
+﻿<script type="text/ng-template" id="displayEvaluacionIndicador">
+    <td>{{evaluacionindicador.ml}}</td>
+    <td>{{evaluacionindicador.hito}}</td>
+    <td>{{evaluacionindicador.peso}}</td>
+    <td>{{evaluacionindicador.observacionED}}</td>
+    <td>{{evaluacionindicador.porcentajeHito}}</td>
+    <td>{{evaluacionindicador.cv}}</td>
+    <td>{{evaluacionindicador.adh}}</td>
+    <td>{{evaluacionindicador.observacionUrip}}</td>
+    <td>
+        <button type="button" class="btn btn-primary" ng-click="editSelectedEvaluacionIndicador();" uib-tooltip="{{translation.EDITAR}}">
+            <span class="glyphicon glyphicon-pencil"></span>
+        </button>
+    </td>
+    <td></td>
+</script>
+<script type="text/ng-template" id="editEvaluacionIndicador">
+    <td>{{evaluacionIndicadorNueva.ml}}</td>
+    <td>{{evaluacionIndicadorNueva.hito}}</td>
+    <td>{{evaluacionIndicadorNueva.peso}}</td>
+    <td><textarea rows="3" ng-model="evaluacionIndicadorNueva.observacionED"></textarea></td>
+    <td>{{evaluacionIndicadorNueva.porcentajeHito}}</td>
+    <td>{{evaluacionIndicadorNueva.cv}}</td>
+    <td>{{evaluacionIndicadorNueva.adh}}</td>
+    <td><textarea rows="3" ng-model="evaluacionIndicadorNueva.observacionUrip"></textarea></td>
+    <td>
+        <button type="button" class="btn btn-primary" ng-click="modifyEvaluacionIndicador()" uib-tooltip="{{translation.GUARDAR}}">
+            <span class="glyphicon glyphicon-floppy-disk"></span>
+        </button>
+    </td>
+    <td>
+        <button type="button" class="btn btn-primary" ng-click="resetEvaluacionIndicador()" uib-tooltip="{{translation.CANCELAR}}">
+            <span class="glyphicon glyphicon-remove"></span>
+        </button>
+    </td>
+</script>
+
+<div class="box" ng-controller="evaluacionIndicadoresCtrl">
+    <div class="box-header">
+        <section class="col-lg-6 col-xs-12">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="select-evaluationProjectIndicators">{{translation.PROYECTO}}:</label>
+                    <div class="col-sm-10">
+                        <select id="select-evaluationProjectIndicators" class="form-control" ng-model="evaluacionparams.idProyecto" ng-options="project.idProyecto as project.nombre for project in projects" ng-change="showPeriods()"></select>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="col-lg-6 col-xs-12">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="select-evaluationPeriodIndicators">{{translation.PERIODO}}:</label>
+                    <div class="col-sm-4">
+                        <select id="select-evaluationPeriodIndicators" class="form-control" ng-model="evaluacionparams.idPeriodo" ng-options="period.idPeriodo as period.nombre for period in periodsByProject" ng-change="showEvaluacionesIndicador()"></select>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div class="box-body table-responsive">
+        <table class="table table-hover">
+
+            <thead>
+                <tr>
+                    <th>{{translation.OBJETIVOML}}</th>
+                    <th>{{translation.INDICADOR}}</th>
+                    <th>{{translation.PONDERADO_INDICADOR}}</th>
+                    <th>{{translation.OBSERVACIONES_ED}}</th>
+                    <th>{{translation.ADI}}</th>
+                    <th>{{translation.CV}}</th>
+                    <th>{{translation.ADI_ADJ}}</th>
+                    <th>{{translation.OBSERVACIONES_URIP}}</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+                <tr ng-repeat="evaluacionindicador in filteredIndicadores" ng-include="getTemplate(evaluacionindicador)"></tr>
+            </tbody>
+
+        </table>
+
+        <ul uib-pagination 
+            items-per-page="8"
+            boundary-links="true"
+            total-items="evaluacionesindicadores.length"
+            ng-model="currentPage"
+            class="pagination-sm"
+            previous-text="&lsaquo;"
+            next-text="&rsaquo;"
+            first-text="&laquo;"
+            last-text="&raquo;">
+        </ul>
+
+        <div class="row">
+            <div uib-alert ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)" dismiss-on-timeout="8000" ng-repeat="alert in alerts" ng-if="showAlert">{{alert.msg}}</div>
+        </div>
+    </div>
+</div>

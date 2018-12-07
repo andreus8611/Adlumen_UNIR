@@ -1,0 +1,335 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{215DFFB9-18BA-4A93-A886-936FD1F528B8}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AdlumenMVC.Models</RootNamespace>
+    <AssemblyName>AdlumenMVC.Models</AssemblyName>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.DynamicFilters, Version=3.0.1.0, Culture=neutral, PublicKeyToken=59b66d028979105b, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.DynamicFilters.3.0.1\lib\net40\EntityFramework.DynamicFilters.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AbstractRepository\IContextRepository.cs" />
+    <Compile Include="AdlumenDbInitializer.cs" />
+    <Compile Include="ITenant.cs" />
+    <Compile Include="Migrations\201803300730384_Initial.cs" />
+    <Compile Include="Migrations\201803300730384_Initial.Designer.cs">
+      <DependentUpon>201803300730384_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Accione.cs" />
+    <Compile Include="Models\Adlumen2SocEntities.cs" />
+    <Compile Include="Models\AspNetRole.cs" />
+    <Compile Include="Models\AspNetUser.cs" />
+    <Compile Include="Models\AspNetUserClaim.cs" />
+    <Compile Include="Models\AspNetUserLogin.cs" />
+    <Compile Include="Models\BudgetType.cs" />
+    <Compile Include="Models\Cms_MenuNodos.cs" />
+    <Compile Include="Models\Cms_Menus.cs" />
+    <Compile Include="Models\Com_Mensajes.cs" />
+    <Compile Include="Models\Com_MensajesEstado.cs" />
+    <Compile Include="Models\Documentos_Tareas.cs" />
+    <Compile Include="Models\Doc_ArchivosTipos.cs" />
+    <Compile Include="Models\Doc_Categorias.cs" />
+    <Compile Include="Models\Doc_Clientes_Categorias.cs" />
+    <Compile Include="Models\Doc_Documentos.cs" />
+    <Compile Include="Models\FSELPERIODOPORFECHAS_Result.cs" />
+    <Compile Include="Models\FSELPERIODOSPROYECTO_Result.cs" />
+    <Compile Include="Models\Mapping\AccioneMap.cs" />
+    <Compile Include="Models\Mapping\AspNetRoleMap.cs" />
+    <Compile Include="Models\Mapping\AspNetUserClaimMap.cs" />
+    <Compile Include="Models\Mapping\AspNetUserLoginMap.cs" />
+    <Compile Include="Models\Mapping\AspNetUserMap.cs" />
+    <Compile Include="Models\Mapping\Cms_MenuNodosMap.cs" />
+    <Compile Include="Models\Mapping\Cms_MenusMap.cs" />
+    <Compile Include="Models\Mapping\Com_MensajesEstadoMap.cs" />
+    <Compile Include="Models\Mapping\Com_MensajesMap.cs" />
+    <Compile Include="Models\Mapping\Documentos_TareasMap.cs" />
+    <Compile Include="Models\Mapping\Doc_ArchivosTiposMap.cs" />
+    <Compile Include="Models\Mapping\Doc_CategoriasMap.cs" />
+    <Compile Include="Models\Mapping\Doc_Clientes_CategoriasMap.cs" />
+    <Compile Include="Models\Mapping\Doc_DocumentosMap.cs" />
+    <Compile Include="Models\Mapping\ModuloMap.cs" />
+    <Compile Include="Models\Mapping\M_EncuestasMap.cs" />
+    <Compile Include="Models\Mapping\M_EncuestasResueltasMap.cs" />
+    <Compile Include="Models\Mapping\M_IdiomasMap.cs" />
+    <Compile Include="Models\Mapping\M_MonedasMap.cs" />
+    <Compile Include="Models\Mapping\M_PaisesMap.cs" />
+    <Compile Include="Models\Mapping\M_PeriodosMap.cs" />
+    <Compile Include="Models\Mapping\M_PlantillasMap.cs" />
+    <Compile Include="Models\Mapping\M_PosiblesRespuestasMap.cs" />
+    <Compile Include="Models\Mapping\M_PreguntasMap.cs" />
+    <Compile Include="Models\Mapping\M_PreguntasResueltasMap.cs" />
+    <Compile Include="Models\Mapping\M_TemasMap.cs" />
+    <Compile Include="Models\Mapping\m_TipCambioMap.cs" />
+    <Compile Include="Models\Mapping\M_ValoresRespuestaMap.cs" />
+    <Compile Include="Models\Mapping\Org_AreasMap.cs" />
+    <Compile Include="Models\Mapping\Org_CargosMap.cs" />
+    <Compile Include="Models\Mapping\Org_DonantesMap.cs" />
+    <Compile Include="Models\Mapping\Org_Donantes_EmpresasMap.cs" />
+    <Compile Include="Models\Mapping\Org_EmpleadosCargosHistoricoMap.cs" />
+    <Compile Include="Models\Mapping\Org_EmpleadosMap.cs" />
+    <Compile Include="Models\Mapping\Org_EmpresasMap.cs" />
+    <Compile Include="Models\Mapping\Org_IdentificacionTiposMap.cs" />
+    <Compile Include="Models\Mapping\Org_ProveedoresMap.cs" />
+    <Compile Include="Models\Mapping\Pry_BeneficiariosMap.cs" />
+    <Compile Include="Models\Mapping\Pry_BitacorasMap.cs" />
+    <Compile Include="Models\Mapping\Pry_CalendarioDonacionesMap.cs" />
+    <Compile Include="Models\Mapping\Pry_CapacitacionBeneficiarioMap.cs" />
+    <Compile Include="Models\Mapping\Pry_CapacitacionesMap.cs" />
+    <Compile Include="Models\Mapping\Pry_DatosMuestrasMap.cs" />
+    <Compile Include="Models\Mapping\Pry_DatosVariablesMap.cs" />
+    <Compile Include="Models\Mapping\Pry_DatosVerificadoresMap.cs" />
+    <Compile Include="Models\Mapping\PRY_EVALUACIONESACTIVIDADESPERIODOMap.cs" />
+    <Compile Include="Models\Mapping\Pry_EvaluacionHitosMap.cs" />
+    <Compile Include="Models\Mapping\PRY_EVALUACIONINDICADORESPERIODOMap.cs" />
+    <Compile Include="Models\Mapping\PRY_EVALUACIONPROYECTOPERIODOMap.cs" />
+    <Compile Include="Models\Mapping\Pry_FacilitadoresMap.cs" />
+    <Compile Include="Models\Mapping\Pry_IndicadoresMap.cs" />
+    <Compile Include="Models\Mapping\Pry_IndicadoresProyecto_ProgramaMap.cs" />
+    <Compile Include="Models\Mapping\Pry_IndicadoresTiposMap.cs" />
+    <Compile Include="Models\Mapping\Pry_IndicadoresVerificadoresMap.cs" />
+    <Compile Include="Models\Mapping\Pry_Indicadores_VariablesMap.cs" />
+    <Compile Include="Models\Mapping\Pry_InformesEstadosMap.cs" />
+    <Compile Include="Models\Mapping\PRY_INFORMESICADETALLEMap.cs" />
+    <Compile Include="Models\Mapping\PRY_INFORMESICADOCUMENTOSMap.cs" />
+    <Compile Include="Models\Mapping\PRY_INFORMESICAESTADOSMap.cs" />
+    <Compile Include="Models\Mapping\PRY_INFORMESICAINDICADORESMap.cs" />
+    <Compile Include="Models\Mapping\PRY_INFORMESICAMap.cs" />
+    <Compile Include="Models\Mapping\PRY_INFORMESICAOBJETIVOSMap.cs" />
+    <Compile Include="Models\Mapping\PRY_INFORMESICATIPOSMap.cs" />
+    <Compile Include="Models\Mapping\Pry_InformesMap.cs" />
+    <Compile Include="Models\Mapping\Pry_Informes_DonantesMap.cs" />
+    <Compile Include="Models\Mapping\Pry_Informes_EncuestasMap.cs" />
+    <Compile Include="Models\Mapping\Pry_Informes_IndicadorMap.cs" />
+    <Compile Include="Models\Mapping\Pry_Informes_PresupuestosMap.cs" />
+    <Compile Include="Models\Mapping\Pry_Informes_SupuestosMap.cs" />
+    <Compile Include="Models\Mapping\Pry_MontoDonacionMap.cs" />
+    <Compile Include="Models\Mapping\Pry_MovimientosMap.cs" />
+    <Compile Include="Models\Mapping\Pry_NivelAceptacionMap.cs" />
+    <Compile Include="Models\Mapping\Pry_ObjetivosClaseMap.cs" />
+    <Compile Include="Models\Mapping\Pry_ObjetivosMap.cs" />
+    <Compile Include="Models\Mapping\PRY_PARTIDAGASTOSMap.cs" />
+    <Compile Include="Models\Mapping\PRY_PERIODOSPROYECTOSMap.cs" />
+    <Compile Include="Models\Mapping\Pry_PresupuestoMap.cs" />
+    <Compile Include="Models\Mapping\Pry_PresupuestoTipoMap.cs" />
+    <Compile Include="Models\Mapping\Pry_ProductividadBeneficiarioMap.cs" />
+    <Compile Include="Models\Mapping\Pry_ProyectosEstadosMap.cs" />
+    <Compile Include="Models\Mapping\Pry_ProyectosMap.cs" />
+    <Compile Include="Models\Mapping\Pry_ProyectosTiposMap.cs" />
+    <Compile Include="Models\Mapping\Pry_Proyectos_DonantesMap.cs" />
+    <Compile Include="Models\Mapping\Pry_Proyectos_NivelAceptacionMap.cs" />
+    <Compile Include="Models\Mapping\Pry_RecursosMap.cs" />
+    <Compile Include="Models\Mapping\Pry_SupuestosMap.cs" />
+    <Compile Include="Models\Mapping\Pry_VariablesMap.cs" />
+    <Compile Include="Models\Mapping\sysdiagramMap.cs" />
+    <Compile Include="Models\Mapping\Sys_ClientesMap.cs" />
+    <Compile Include="Models\Mapping\Sys_UsuariosMap.cs" />
+    <Compile Include="Models\Mapping\Sys_Usuarios_DonantesMap.cs" />
+    <Compile Include="Models\Mapping\Sys_Usuarios_EmpresasMap.cs" />
+    <Compile Include="Models\Mapping\Tar_BitacoraMap.cs" />
+    <Compile Include="Models\Mapping\Tar_ListasMap.cs" />
+    <Compile Include="Models\Mapping\Tar_Permisos_BitacoraMap.cs" />
+    <Compile Include="Models\Mapping\Tar_TareasMap.cs" />
+    <Compile Include="Models\Mapping\Tar_VisitasMap.cs" />
+    <Compile Include="Models\Mapping\TenantMap.cs" />
+    <Compile Include="Models\Mapping\View_ejecutado_resultado_tipoMap.cs" />
+    <Compile Include="Models\Mapping\View_InformeAdministrativoITFUNIPMap.cs" />
+    <Compile Include="Models\Mapping\View_InformeAvanceHitosMap.cs" />
+    <Compile Include="Models\Mapping\View_InformeCronogramaHitos1Map.cs" />
+    <Compile Include="Models\Mapping\View_InformeCronogramaHitosMap.cs" />
+    <Compile Include="Models\Mapping\View_InformeRendicionGastos1ferMap.cs" />
+    <Compile Include="Models\Mapping\View_InformeRendicionGastos1Map.cs" />
+    <Compile Include="Models\Mapping\View_InformeTecnicoAvanceHitosMap.cs" />
+    <Compile Include="Models\Mapping\View_Informe_de_SaldosMap.cs" />
+    <Compile Include="Models\Mapping\View_Informe_ITFSemestralMap.cs" />
+    <Compile Include="Models\Mapping\View_Informe_Saldos_FERMap.cs" />
+    <Compile Include="Models\Mapping\View_InfromeDetalleEjecucionGastoMap.cs" />
+    <Compile Include="Models\Mapping\View_ppto_resultado_tipoMap.cs" />
+    <Compile Include="Models\Mapping\View_saldoppto_resultado_tipoMap.cs" />
+    <Compile Include="Models\Modulo.cs" />
+    <Compile Include="Models\M_Encuestas.cs" />
+    <Compile Include="Models\M_EncuestasResueltas.cs" />
+    <Compile Include="Models\M_Idiomas.cs" />
+    <Compile Include="Models\M_Monedas.cs" />
+    <Compile Include="Models\M_Paises.cs" />
+    <Compile Include="Models\M_Periodos.cs" />
+    <Compile Include="Models\M_Plantillas.cs" />
+    <Compile Include="Models\M_PosiblesRespuestas.cs" />
+    <Compile Include="Models\M_Preguntas.cs" />
+    <Compile Include="Models\M_PreguntasResueltas.cs" />
+    <Compile Include="Models\M_Temas.cs" />
+    <Compile Include="Models\m_TipCambio.cs" />
+    <Compile Include="Models\M_ValoresRespuesta.cs" />
+    <Compile Include="Models\ObjectiveClass.cs" />
+    <Compile Include="Models\Org_Areas.cs" />
+    <Compile Include="Models\Org_Cargos.cs" />
+    <Compile Include="Models\Org_Donantes.cs" />
+    <Compile Include="Models\Org_Donantes_Empresas.cs" />
+    <Compile Include="Models\Org_Empleados.cs" />
+    <Compile Include="Models\Org_EmpleadosCargosHistorico.cs" />
+    <Compile Include="Models\Org_Empresas.cs" />
+    <Compile Include="Models\Org_IdentificacionTipos.cs" />
+    <Compile Include="Models\Org_Proveedores.cs" />
+    <Compile Include="Models\Pry_Beneficiarios.cs" />
+    <Compile Include="Models\Pry_Bitacoras.cs" />
+    <Compile Include="Models\Pry_CalendarioDonaciones.cs" />
+    <Compile Include="Models\Pry_CapacitacionBeneficiario.cs" />
+    <Compile Include="Models\Pry_Capacitaciones.cs" />
+    <Compile Include="Models\Pry_DatosMuestras.cs" />
+    <Compile Include="Models\Pry_DatosVariables.cs" />
+    <Compile Include="Models\Pry_DatosVerificadores.cs" />
+    <Compile Include="Models\PRY_EVALUACIONESACTIVIDADESPERIODO.cs" />
+    <Compile Include="Models\Pry_EvaluacionHitos.cs" />
+    <Compile Include="Models\PRY_EVALUACIONINDICADORESPERIODO.cs" />
+    <Compile Include="Models\PRY_EVALUACIONPROYECTOPERIODO.cs" />
+    <Compile Include="Models\Pry_Facilitadores.cs" />
+    <Compile Include="Models\Pry_Indicadores.cs" />
+    <Compile Include="Models\Pry_IndicadoresProyecto_Programa.cs" />
+    <Compile Include="Models\Pry_IndicadoresTipos.cs" />
+    <Compile Include="Models\Pry_IndicadoresVerificadores.cs" />
+    <Compile Include="Models\Pry_Indicadores_Variables.cs" />
+    <Compile Include="Models\Pry_Informes.cs" />
+    <Compile Include="Models\Pry_InformesEstados.cs" />
+    <Compile Include="Models\PRY_INFORMESICA.cs" />
+    <Compile Include="Models\PRY_INFORMESICADETALLE.cs" />
+    <Compile Include="Models\PRY_INFORMESICADOCUMENTOS.cs" />
+    <Compile Include="Models\PRY_INFORMESICAESTADOS.cs" />
+    <Compile Include="Models\PRY_INFORMESICAINDICADORES.cs" />
+    <Compile Include="Models\PRY_INFORMESICAOBJETIVOS.cs" />
+    <Compile Include="Models\PRY_INFORMESICATIPOS.cs" />
+    <Compile Include="Models\Pry_Informes_Donantes.cs" />
+    <Compile Include="Models\Pry_Informes_Encuestas.cs" />
+    <Compile Include="Models\Pry_Informes_Indicador.cs" />
+    <Compile Include="Models\Pry_Informes_Presupuestos.cs" />
+    <Compile Include="Models\Pry_Informes_Supuestos.cs" />
+    <Compile Include="Models\Pry_MontoDonacion.cs" />
+    <Compile Include="Models\Pry_Movimientos.cs" />
+    <Compile Include="Models\Pry_NivelAceptacion.cs" />
+    <Compile Include="Models\Pry_Objetivos.cs" />
+    <Compile Include="Models\Pry_ObjetivosClase.cs" />
+    <Compile Include="Models\PRY_PARTIDAGASTOS.cs" />
+    <Compile Include="Models\PRY_PERIODOSPROYECTOS.cs" />
+    <Compile Include="Models\Pry_Presupuesto.cs" />
+    <Compile Include="Models\Pry_PresupuestoTipo.cs" />
+    <Compile Include="Models\Pry_ProductividadBeneficiario.cs" />
+    <Compile Include="Models\Pry_Proyectos.cs" />
+    <Compile Include="Models\Pry_ProyectosEstados.cs" />
+    <Compile Include="Models\Pry_ProyectosTipos.cs" />
+    <Compile Include="Models\Pry_Proyectos_Donantes.cs" />
+    <Compile Include="Models\Pry_Proyectos_NivelAceptacion.cs" />
+    <Compile Include="Models\Pry_Recursos.cs" />
+    <Compile Include="Models\Pry_Supuestos.cs" />
+    <Compile Include="Models\Pry_Variables.cs" />
+    <Compile Include="Models\SELEVALUACIONESACTIVIDADESPERIODO_Result.cs" />
+    <Compile Include="Models\SELEVALUACIONESHITOS_Result.cs" />
+    <Compile Include="Models\SELEVALUACIONESINDICADORES_Result.cs" />
+    <Compile Include="Models\SELEVALUACIONPROYECTOPERIODO_Result.cs" />
+    <Compile Include="Models\SELMOVIMIENTOEJECUTADOPROYECTO_Result.cs" />
+    <Compile Include="Models\SELOBJETIVOSPORPERIODOINDICADOR_Result.cs" />
+    <Compile Include="Models\SELTOTALESMOVIMIENTOPROYECTO_Result.cs" />
+    <Compile Include="Models\sysdiagram.cs" />
+    <Compile Include="Models\Sys_Clientes.cs" />
+    <Compile Include="Models\Sys_Usuarios.cs" />
+    <Compile Include="Models\Sys_Usuarios_Donantes.cs" />
+    <Compile Include="Models\Sys_Usuarios_Empresas.cs" />
+    <Compile Include="Models\Tar_Bitacora.cs" />
+    <Compile Include="Models\Tar_Listas.cs" />
+    <Compile Include="Models\Tar_Permisos_Bitacora.cs" />
+    <Compile Include="Models\Tar_Tareas.cs" />
+    <Compile Include="Models\Tar_Visitas.cs" />
+    <Compile Include="Models\Tenant.cs" />
+    <Compile Include="Models\View_ejecutado_resultado_tipo.cs" />
+    <Compile Include="Models\View_InformeAdministrativoITFUNIP.cs" />
+    <Compile Include="Models\View_InformeAvanceHitos.cs" />
+    <Compile Include="Models\View_InformeCronogramaHitos.cs" />
+    <Compile Include="Models\View_InformeCronogramaHitos1.cs" />
+    <Compile Include="Models\View_InformeRendicionGastos1.cs" />
+    <Compile Include="Models\View_InformeRendicionGastos1fer.cs" />
+    <Compile Include="Models\View_InformeTecnicoAvanceHitos.cs" />
+    <Compile Include="Models\View_Informe_de_Saldos.cs" />
+    <Compile Include="Models\View_Informe_ITFSemestral.cs" />
+    <Compile Include="Models\View_Informe_Saldos_FER.cs" />
+    <Compile Include="Models\View_InfromeDetalleEjecucionGasto.cs" />
+    <Compile Include="Models\View_ppto_resultado_tipo.cs" />
+    <Compile Include="Models\View_saldoppto_resultado_tipo.cs" />
+    <Compile Include="Model\Adlumen2SocEntities.cs" />
+    <Compile Include="NonTenantDbContext.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TenantDbContext.cs" />
+    <Compile Include="TenantDiscovery.cs" />
+    <Compile Include="TenantUtil.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201803300730384_Initial.resx">
+      <DependentUpon>201803300730384_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="sql-changes.txt" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

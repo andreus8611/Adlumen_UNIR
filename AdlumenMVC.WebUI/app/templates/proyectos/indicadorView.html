@@ -1,0 +1,183 @@
+﻿<script type="text/ng-template" id="modalFormulaContent.html">
+    <div class="modal-header">
+        <h3 class="modal-title">{{ translation.FORMULA }}</h3>
+    </div>
+    <div class="modal-body" ng-include="'app/templates/proyectos/formulaView.html'"></div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="close()">{{ translation.CERRAR }}</button>
+    </div>
+</script>
+
+<div class="box box-solid">
+    <div class="box-body">
+        <form class="form-horizontal" role="form">
+            <div class="form-group">
+                <label for="" class="control-label col-sm-2">{{translation.CODIGO}}:</label>
+                <div class="col-sm-10">
+                    {{indicador.codigo}}
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="" class="control-label col-sm-2">{{translation.TIPO}}:</label>
+                <div class="col-sm-10">
+                    <select class="form-control" ng-model="indicador.idTipo" ng-options="indicadorTipo.idTipo as indicadorTipo.descripcion for indicadorTipo in indicadorestipos" ng-disabled="true"></select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="" class="control-label col-sm-2">{{translation.SUBTIPO}}:</label>
+                <div class="col-sm-10">
+                    <select class="form-control" ng-model="indicador.idSubTipo" ng-options="indicadorTipo.idTipo as indicadorTipo.descripcion for indicadorTipo in indicadorestipos" ng-disabled="true"></select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="" class="control-label col-sm-2">{{translation.DESCRIPCION}}:</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control" rows="4" ng-model="indicador.descripcion" ng-disabled="!editMode"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="" class="control-label col-sm-2">{{translation.DEFINICION}}:</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control" rows="4" ng-model="indicador.definicion" ng-disabled="!editMode"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="" class="control-label col-sm-2">{{translation.OBJETIVO}}:</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control" rows="4" ng-model="indicador.objetivo" ng-disabled="!editMode"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="" class="control-label col-sm-2">{{translation.CUALIDADES}}:</label>
+                <div class="col-sm-10">
+                    <input class="form-control" type="text" ng-model="indicador.cualidades">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="" class="control-label col-sm-2">{{translation.COBERTURA}}:</label>
+                <div class="col-sm-10">
+                    <input class="form-control" type="text" ng-model="indicador.cobertura">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="" class="control-label col-sm-2">{{translation.RESPONSABLE}}:</label>
+                <div class="col-sm-10">
+                    <select class="form-control" ng-model="indicador.idResponsableIndicador" ng-options="empleado.employeeId as empleado.fullName for empleado in empleados" ng-disabled="!editMode"></select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="" class="control-label col-sm-2">{{translation.FECHAINICIO}}:</label>
+                <div class="col-sm-10">
+                    <p class="input-group">
+                        <input type="date" class="form-control" ng-model="indicador.fechaInicio" is-open="datePicker.opened" close-text="{{translation.CERRAR}}" ng-disabled="!editMode" />
+                        <!--<span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="open($event)" ng-disabled="!editMode"><i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>-->
+                    </p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="" class="control-label col-sm-2">{{translation.FECHAFIN}}:</label>
+                <div class="col-sm-10">
+                    <p class="input-group">
+                        <input type="date" class="form-control" ng-model="indicador.fechaFin" is-open="datePicker1.opened" close-text="{{translation.CERRAR}}" ng-disabled="!editMode" />
+                        <!--<span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="open1($event)" ng-disabled="!editMode"><i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>-->
+                    </p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="" class="control-label col-sm-2">{{translation.BASE}}:</label>
+                <div class="col-sm-10">
+                    <input class="form-control" type="number" onkeypress="return validateNumber(event);" ng-model="indicador.base" ng-disabled="!editMode">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="" class="control-label col-sm-2">{{translation.META}}:</label>
+                <div class="col-sm-10">
+                    <input class="form-control" type="number" onkeypress="return validateNumber(event);" ng-model="indicador.meta" ng-disabled="!editMode" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="" class="control-label col-sm-2">{{translation.UNIDADMEDIDA}}:</label>
+                <div class="col-sm-10 form-inline">
+                    <input type="text" class="form-control" ng-disabled="!editMode" ng-model="indicador.unidadMedida" />
+                    <input type="checkbox" ng-model="indicador.porcentual" ng-disabled="!editMode" /> %
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="" class="control-label col-sm-2">{{translation.UNIDADOPERACIONAL}}:</label>
+                <div class="col-sm-10">
+                    <button type="button" class="btn btn-default" ng-click="showUnidadOperacionalFormula()" ng-show="editMode">{{translation.EDITAR_FORMULA}}</button> {{indicador.unidadOperativa}}
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="" class="control-label col-sm-2">{{translation.PALABLAS_CLAVES}}:</label>
+                <div class="col-sm-10">
+                    <input class="form-control" type="text" ng-model="indicador.palabrasClave" ng-disabled="!editMode" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <div class="box box-primary">
+                        <div class="box-header">
+                            <h3 class="box-title">{{translation.FUENTES_VERIFICACION}}</h3>
+
+                        </div>
+                        <div class="box-body table-responsive">
+                            <table class="table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>{{translation.DESCRIPCION}}</th>
+                                        <th>{{translation.ACCIONES}}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="verificator in indicador.pry_IndicadoresVerificadores">
+                                        <td> <input type="text" class="form-control" ng-model="verificator.descripcion" ng-disabled="!editMode" /></td>
+                                        <td>
+                                            <button ng-if="$last" class="btn btn-primary" ng-click="newRow()">
+                                                <span class="glyphicon glyphicon-plus"></span>
+                                            </button>
+                                            <button class="btn btn-primary" ng-click="deleteRow(verificator)">
+                                                <span class="glyphicon glyphicon-remove"></span>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>    
+            
+            </div>
+            <div class="form-group">
+
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="button" class="btn btn-primary" ng-show="!editMode" ng-click="Edit()">
+                        {{translation.EDITAR}}
+                    </button>
+                    <button type="button" class="btn btn-primary" ng-show="editMode" ng-click="SaveIndicador()">
+                        {{translation.GUARDAR}}
+                    </button>
+                    <button type="button" class="btn btn-primary" ng-show="editMode" ng-click="CancelEdit()">
+                        {{translation.CANCELAR}}
+                    </button>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <div uib-alert ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)" dismiss-on-timeout="8000" ng-repeat="alert in alerts" ng-if="showAlert">{{alert.msg}}</div>
+
+                </div>
+            </div>
+
+        </form>
+
+        
+    </div>
+</div>
+
+
+

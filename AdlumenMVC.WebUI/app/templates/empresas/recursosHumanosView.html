@@ -1,0 +1,194 @@
+﻿<!-- Nested node template -->
+
+<script type="text/ng-template" id="nodesEmpleado_renderer.html">
+    <div class="tree-node tree-node-content">
+        <a class="btn btn-success btn-xs" ng-if="true" data-nodrag>
+            <span class="glyphicon" ng-class="{ 'glyphicon-user': collapsed, 'glyphicon-user': !collapsed }"></span>
+        </a>
+        {{ nodeEmpleado.fullName }}
+        <a class="pull-right btn btn-primary btn-xs" data-nodrag ng-click="showEmpleadoDetails();" uib-tooltip="{{translation.VER_DETALLE}}" ng-show="!editMode">
+            <span class="glyphicon glyphicon-list-alt"></span>
+        </a>
+        <a class="pull-right btn btn-danger btn-xs" data-nodrag ng-click="removeEmpleado()" style="margin-right: 8px;" uib-tooltip="{{translation.ELIMINAR}}" ng-show="!editMode">
+            <span class="glyphicon glyphicon-remove"></span>
+        </a>
+    </div>
+</script>
+
+<script type="text/ng-template" id="nodesCargos_renderer.html">
+    <div class="tree-node tree-node-content" ng-hide="node.eliminado">
+        <a class="btn btn-success btn-xs" ng-if="node.children && node.children.length > 0" data-nodrag ng-click="toggle(this)">
+            <span class="glyphicon" ng-class="{ 'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed }"></span>
+        </a>
+        {{ node.nombre }}
+        <a class="pull-right btn btn-primary btn-xs" data-nodrag ng-click="showCargoDetails();" uib-tooltip="{{translation.VER_DETALLE}}" ng-show="!editMode">
+            <span class="glyphicon glyphicon-list-alt"></span>
+        </a>
+        <a class="pull-right btn btn-danger btn-xs" data-nodrag ng-click="removeCargo()" style="margin-right: 8px;" uib-tooltip="{{translation.ELIMINAR}}" ng-show="!editMode">
+            <span class="glyphicon glyphicon-remove"></span>
+        </a>
+        <a class="pull-right btn btn-primary btn-xs" data-nodrag ng-click="newSubCargo(node.idCargo)" style="margin-right: 8px;" uib-tooltip="{{translation.ADICIONAR_SUB_CARGO}}" ng-show="!editMode">
+            <span class="glyphicon glyphicon-plus"></span>
+        </a>
+        <a class="pull-right btn btn-primary btn-xs" data-nodrag ng-click="newEmpleado(node.idCargo)" style="margin-right: 8px;" uib-tooltip="{{translation.ADICIONAR_EMPLEADO}}" ng-show="!editMode">
+            <span class="glyphicon glyphicon-user"></span>
+        </a>
+    </div>
+    <ul ui-tree-nodes="" class="tree-node-item" ng-model="node.empleados" ng-class="{hidden: collapsed}">
+        <li ng-repeat="nodeEmpleado in node.empleados" ui-tree-node ng-include="'nodesEmpleado_renderer.html'"></li>
+    </ul>
+    <ul ui-tree-nodes="" class="tree-node-item" ng-model="node.children" ng-class="{hidden: collapsed}">
+        <li ng-repeat="node in node.children" ui-tree-node ng-include="'nodesCargos_renderer.html'"></li>
+    </ul>
+</script>
+
+<section class="col-lg-6 col-xs-12">
+    <form class="form-horizontal">
+        <div class="form-group">
+            <div class="col-sm-10">
+                <button type="button" class="btn btn-primary" ng-show="!editMode" ng-click="newSubCargo(0)">
+                    {{translation.NUEVO_CARGO_PRINCIPAL}}
+                </button>
+            </div>
+        </div>
+    </form>
+
+    <div ui-tree id="tree-root" data-drag-enabled="false">
+        <ul ui-tree-nodes class="tree-node-item" ng-model="empresa.cargos">
+            <li ng-repeat="node in empresa.cargos" ui-tree-node ng-include="'nodesCargos_renderer.html'"></li>
+        </ul>
+    </div>
+
+</section>
+
+<section ng-if="cargoSelected" class="col-lg-6 col-xs-12">
+    <form class="form-horizontal">
+        <fieldset>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-positionName">{{translation.NOMBRE}}:</label>
+                <div class="col-sm-10">
+                    <input id="input-positionName" class="form-control" type="text" ng-model="cargoActual.nombre" ng-disabled="!editMode && tabSelected == 3">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="select-positionArea">{{translation.AREA}}:</label>
+                <div class="col-sm-10">
+                    <select id="select-positionArea" class="form-control" ng-model="cargoActual.idArea" ng-options="area.idArea as area.displayName for area in allAreas" ng-disabled="!editMode && tabSelected == 3"></select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-positionDescription">{{translation.DESCRIPCION}}:</label>
+                <div class="col-sm-10">
+                    <input id="input-positionDescription" class="form-control" type="text" ng-model="cargoActual.descripcion" ng-disabled="!editMode && tabSelected == 3">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-positionProfile">{{translation.PERFIL}}:</label>
+                <div class="col-sm-10">
+                    <input id="input-positionProfile" class="form-control" type="text" ng-model="cargoActual.perfil" ng-disabled="!editMode && tabSelected == 3">
+                </div>
+            </div>
+
+            <div class="form-group form-inline">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="button" class="btn btn-primary" ng-show="!editMode && cargoSelected" ng-click="Edit()">
+                        {{translation.EDITAR}}
+                    </button>
+                    <button type="button" class="btn btn-primary" ng-show="editMode" ng-click="SaveCargos()">
+                        {{translation.GUARDAR}}
+                    </button>
+                    <button type="button" class="btn btn-primary" ng-show="editMode" ng-click="CancelEdit()">
+                        {{translation.CANCELAR}}
+                    </button>
+                </div>
+            </div>
+        </fieldset>
+
+    </form>
+</section>
+
+<section ng-if="empleadoSelected" class="col-lg-6 col-xs-12">
+    <form name="forms.employee" class="form-horizontal">
+        <fieldset>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="input-image">{{translation.FOTO}}:</label>
+                <div class="col-sm-9">
+                    <input id="input-image" class="img-thumbnail" type="image" src="{{empleadoActual.picture}}" ng-disabled="!editMode && tabSelected == 3" ng-if="empleadoActual.picture" />
+                </div>
+                
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-offset-3 col-sm-9">
+                    <input type="file" name="file" accept="image/*" onchange="angular.element(this).scope().selectPhotoforUpload(this.files)" ng-disabled="!editMode && tabSelected == 3" ng-show="editMode" />
+                </div>
+                
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="input-employeeName">{{translation.NOMBRE}}:</label>
+                <div class="col-sm-9">
+                    <input id="input-employeeName" class="form-control" type="text" ng-model="empleadoActual.name" ng-disabled="!editMode && tabSelected == 3" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="input-employeeLastName">{{translation.APELLIDO}}:</label>
+                <div class="col-sm-9">
+                    <input id="input-employeeLastName" class="form-control" type="text" ng-model="empleadoActual.lastName" ng-disabled="!editMode && tabSelected == 3" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="input-employeeMail">{{translation.CORREO}}:</label>
+                <div class="col-sm-9">
+                    <input id="input-employeeMail" class="form-control" type="email" ng-model="empleadoActual.email" ng-disabled="!editMode && tabSelected == 3" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="select-employeeId">{{translation.IDENTIFICACION}}:</label>
+                <div class="form-inline col-sm-9">
+                    <select id="select-employeeId" class="form-control" ng-model="empleadoActual.idType" ng-options="tipo.idIdentificacionTipo as tipo.nombre for tipo in identificacionTipos" ng-disabled="!editMode && tabSelected == 3"></select>
+                    <input id="input-employeeId" class="form-control" type="text" ng-model="empleadoActual.idNumber" ng-disabled="!editMode && tabSelected == 3" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="textarea-employeeObservations">{{translation.OBSERVACIONES}}:</label>
+                <div class="col-sm-9">
+                    <textarea id="textarea-employeeObservations" class="form-control" type="text" ng-model="empleadoActual.observations" ng-disabled="!editMode && tabSelected == 3" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="textarea-employeeCompetency">{{translation.COMPETENCIA}}:</label>
+                <div class="col-sm-9">
+                    <textarea id="textarea-employeeCompetency" class="form-control" type="text" ng-model="empleadoActual.competencies" ng-disabled="!editMode && tabSelected == 3" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="input-employeeCV">{{translation.HOJADEVIDA}}:</label>
+                <div class="col-sm-9">
+                    <a href="{{empleadoActual.cv}}" target="_blank" ng-if="empleadoActual.cv">{{translation.HOJADEVIDA}}</a>
+                    <br>
+                    <input id="input-employeeCV" type="file" name="file" accept="*" onchange="angular.element(this).scope().selectFileforUpload(this.files)" ng-disabled="!editMode && tabSelected == 3" ng-show="editMode" />
+                </div>
+            </div>
+
+            <div class="form-group form-inline">
+                <div class="col-sm-offset-3 col-sm-9">
+                    <button type="button" class="btn btn-primary" ng-show="!editMode && empleadoSelected" ng-click="Edit()">
+                        {{translation.EDITAR}}
+                    </button>
+                    <button type="button" class="btn btn-primary" ng-show="editMode" ng-click="SaveEmpleado()">
+                        {{translation.GUARDAR}}
+                    </button>
+                    <button type="button" class="btn btn-primary" ng-show="editMode" ng-click="CancelEdit()">
+                        {{translation.CANCELAR}}
+                    </button>
+                </div>
+            </div>
+        </fieldset>
+
+    </form>  
+</section>

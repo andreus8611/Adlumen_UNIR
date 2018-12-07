@@ -1,0 +1,81 @@
+﻿<!-- Nested node template -->
+<script type="text/ng-template" id="nodes_renderer.html">
+    <div class="tree-node tree-node-content" ng-hide="node.eliminado">
+        <a class="btn btn-success btn-xs" ng-if="node.children && node.children.length > 0" data-nodrag ng-click="toggle(this)">
+            <span class="glyphicon" ng-class="{ 'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed }"></span>
+        </a>
+        {{ node.nombre }}
+        <a class="pull-right btn btn-primary btn-xs" data-nodrag ng-click="showAreaDetails();" uib-tooltip="{{translation.VER_DETALLE}}" ng-show="!editMode">
+            <span class="glyphicon glyphicon-list-alt"></span>
+        </a>
+        <a class="pull-right btn btn-danger btn-xs" data-nodrag ng-click="removeArea()" style="margin-right: 8px;" uib-tooltip="{{translation.ELIMINAR}}" ng-show="!editMode">
+            <span class="glyphicon glyphicon-remove"></span>
+        </a>
+        <a class="pull-right btn btn-primary btn-xs" data-nodrag ng-click="newSubArea(node.idArea)" style="margin-right: 8px;" uib-tooltip="{{translation.ADICIONAR_SUB_AREA}}" ng-show="!editMode">
+            <span class="glyphicon glyphicon-plus"></span>
+        </a>
+    </div>
+    <ul ui-tree-nodes="" class="tree-node-item" ng-model="node.children" ng-class="{hidden: collapsed}">
+        <li ng-repeat="node in node.children" ui-tree-node ng-include="'nodes_renderer.html'">
+        </li>
+    </ul>
+</script>
+
+<section class="col-lg-6 col-xs-12">
+    <div ui-tree id="tree-root" data-drag-enabled="false">
+        <ul ui-tree-nodes class="tree-node-item" ng-model="empresa.areas">
+            <li ng-repeat="node in empresa.areas" ui-tree-node ng-include="'nodes_renderer.html'"></li>
+        </ul>
+    </div>
+</section>
+
+<section class="col-lg-6 col-xs-12">
+    <form class="form-horizontal">
+        <fieldset>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-areaName">{{translation.NOMBRE}}:</label>
+                <div class="col-sm-10">
+                    <input id="input-areaName" class="form-control" type="text" ng-model="areaActual.nombre" ng-disabled="!editMode && tabSelected == 2">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-areaObjective">{{translation.OBJETIVO}}:</label>
+                <div class="col-sm-10">
+                    <input id="input-areaObjective" class="form-control" type="text" ng-model="areaActual.objetivo" ng-disabled="!editMode && tabSelected == 2">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-areaDescription">{{translation.DESCRIPCION}}:</label>
+                <div class="col-sm-10">
+                    <input id="input-areaDescription" class="form-control" type="text" ng-model="areaActual.descripcion" ng-disabled="!editMode && tabSelected == 2">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="select-areaResponsible">{{translation.RESPONSABLE}}:</label>
+                <div class="col-sm-10">
+                    <select id="select-areaResponsible" class="form-control" ng-model="areaActual.idResponsable" ng-options="empleado.employeeId as empleado.fullName for empleado in empleados" ng-disabled="!editMode && tabSelected == 2" required></select>
+                </div>
+            </div>
+
+            <div class="form-group form-inline">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="button" class="btn btn-primary" ng-show="!editMode" ng-click="newSubArea(0)">
+                        {{translation.NUEVA_AREA_PRINCIPAL}}
+                    </button>
+
+                    <button type="button" class="btn btn-primary" ng-show="!editMode" ng-click="Edit()">
+                        {{translation.EDITAR}}
+                    </button>
+                    <button type="button" class="btn btn-primary" ng-show="editMode" ng-click="SaveAreas()">
+                        {{translation.GUARDAR}}
+                    </button>
+                    <button type="button" class="btn btn-primary" ng-show="editMode" ng-click="CancelEdit()">
+                        {{translation.CANCELAR}}
+                    </button>
+                </div>
+            </div>
+        </fieldset>
+        
+    </form>
+</section>
+

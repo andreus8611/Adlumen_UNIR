@@ -1,0 +1,1656 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ACCIONES" xml:space="preserve">
+    <value>Actions</value>
+  </data>
+  <data name="ACEPTAR" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="ACTIVE_PROJECTS" xml:space="preserve">
+    <value>Active Projects</value>
+  </data>
+  <data name="ACTIVIDAD" xml:space="preserve">
+    <value>Activity</value>
+  </data>
+  <data name="ACTUAL" xml:space="preserve">
+    <value>Current</value>
+  </data>
+  <data name="ADH" xml:space="preserve">
+    <value>ADH</value>
+  </data>
+  <data name="ADH_ADJ" xml:space="preserve">
+    <value>ADH ADJ</value>
+  </data>
+  <data name="ADI" xml:space="preserve">
+    <value>ADI</value>
+  </data>
+  <data name="ADICIONAR" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="ADICIONAR_DOCUMENTO" xml:space="preserve">
+    <value>Add document</value>
+  </data>
+  <data name="ADICIONAR_EMPLEADO" xml:space="preserve">
+    <value>Add new employee</value>
+  </data>
+  <data name="ADICIONAR_SUB_AREA" xml:space="preserve">
+    <value>Add new sub-area</value>
+  </data>
+  <data name="ADICIONAR_SUB_CARGO" xml:space="preserve">
+    <value>Add new sub-position</value>
+  </data>
+  <data name="ADICIONAR_SUB_CATEGORIA" xml:space="preserve">
+    <value>Add sub-category</value>
+  </data>
+  <data name="ADICIONAR_SUB_OBJETIVO" xml:space="preserve">
+    <value>Add new child</value>
+  </data>
+  <data name="ADICIONAR_VARIABLE_FORMULA" xml:space="preserve">
+    <value>Add variable to formula</value>
+  </data>
+  <data name="ADICIONAR_VERIFICADOR" xml:space="preserve">
+    <value>Upload file and add verificator to the list</value>
+  </data>
+  <data name="ADI_ADJ" xml:space="preserve">
+    <value>ADI ADJ</value>
+  </data>
+  <data name="ADMIN" xml:space="preserve">
+    <value>Administration</value>
+  </data>
+  <data name="ALMACENAMIENTO" xml:space="preserve">
+    <value>Storage</value>
+  </data>
+  <data name="ALTO" xml:space="preserve">
+    <value>High</value>
+  </data>
+  <data name="AL_MENOS_UNA_RESPUESTA_REQUERIDA" xml:space="preserve">
+    <value>At least one Possible Response is required.</value>
+  </data>
+  <data name="ANIOS" xml:space="preserve">
+    <value>Years</value>
+  </data>
+  <data name="APELLIDO" xml:space="preserve">
+    <value>Last Name</value>
+  </data>
+  <data name="APORTEMONEDALOCAL" xml:space="preserve">
+    <value>Program contribution - local currency</value>
+  </data>
+  <data name="APORTEPROGRAMA" xml:space="preserve">
+    <value>Program contribution</value>
+  </data>
+  <data name="APORTE_PROGRAMA" xml:space="preserve">
+    <value>Program Revenue</value>
+  </data>
+  <data name="ARCHIVO" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="ARCHIVO_CONTIENE_ENCABEZADOS" xml:space="preserve">
+    <value>First row contains file headers?</value>
+  </data>
+  <data name="ARCHIVO_DOCUMENTO_INVALIDO" xml:space="preserve">
+    <value>File type not supported. Supported types are: </value>
+  </data>
+  <data name="ARCHIVO_IMAGEN_INVALIDO" xml:space="preserve">
+    <value>Selected file is Invalid. (only file type png, jpeg and gif and 512 kb size allowed)</value>
+  </data>
+  <data name="ARCHIVO_REQUERIDO" xml:space="preserve">
+    <value>File required.</value>
+  </data>
+  <data name="AREA" xml:space="preserve">
+    <value>Area</value>
+  </data>
+  <data name="AREAS" xml:space="preserve">
+    <value>Area</value>
+  </data>
+  <data name="ASIGNAR_PERMISOS" xml:space="preserve">
+    <value>Asignar permisos a Roles</value>
+  </data>
+  <data name="ASISTENTE_PRESUPUESTO" xml:space="preserve">
+    <value>Bugdet Assistant</value>
+  </data>
+  <data name="ASUNTO" xml:space="preserve">
+    <value>Subject</value>
+  </data>
+  <data name="AVANCE_META" xml:space="preserve">
+    <value>Goal Progress</value>
+  </data>
+  <data name="BAJO" xml:space="preserve">
+    <value>Low</value>
+  </data>
+  <data name="BASE" xml:space="preserve">
+    <value>Base</value>
+  </data>
+  <data name="BENEFICIARIO" xml:space="preserve">
+    <value>Beneficiary</value>
+  </data>
+  <data name="BENEFICIARIOS" xml:space="preserve">
+    <value>Beneficiaries</value>
+  </data>
+  <data name="BITACORA" xml:space="preserve">
+    <value>Logbook</value>
+  </data>
+  <data name="BLOQUEAR_ENCUESTA" xml:space="preserve">
+    <value>Lock Inquiry</value>
+  </data>
+  <data name="BLOQUEAR_ENCUESTA_CONFIRMACION" xml:space="preserve">
+    <value>Are you sure you want to lock the inquiry? This shall not be modified.</value>
+  </data>
+  <data name="BORRADOR" xml:space="preserve">
+    <value>Eraser</value>
+  </data>
+  <data name="BORRAR_AREA_CONFIRMACION" xml:space="preserve">
+    <value>Are you sure you want to delete the area?</value>
+  </data>
+  <data name="BORRAR_CALENDARIO_DONACION_CONFIRMACION" xml:space="preserve">
+    <value>Are you sure you want to delete the scheduled donation?</value>
+  </data>
+  <data name="BORRAR_CARGO_CONFIRMACION" xml:space="preserve">
+    <value>Are you sure you want to delete the position?</value>
+  </data>
+  <data name="BORRAR_CATEGORY_CONFIRMACION" xml:space="preserve">
+    <value>Are you sure you want to delete the category?</value>
+  </data>
+  <data name="BORRAR_DOCUMENTO_CONFIRMACION" xml:space="preserve">
+    <value>Are you sure you want to delete the document?</value>
+  </data>
+  <data name="BORRAR_EMPLEADO_CONFIRMACION" xml:space="preserve">
+    <value>Are you sure you want to delete the employee?</value>
+  </data>
+  <data name="BORRAR_EMPRESA_CONFIRMACION" xml:space="preserve">
+    <value>Are you sure you want to delete the company?</value>
+  </data>
+  <data name="BORRAR_ENCUESTA_CONFIRMACION" xml:space="preserve">
+    <value>Are you sure you want to delete the inquiry?</value>
+  </data>
+  <data name="BORRAR_INDICADOR_CONFIRMACION" xml:space="preserve">
+    <value>Are you sure you want to delete the Indicator?</value>
+  </data>
+  <data name="BORRAR_INFORME_CONFIRMACION" xml:space="preserve">
+    <value>Are you sure you want to delete the report?</value>
+  </data>
+  <data name="BORRAR_MOVIMIENTO_CONFIRMACION" xml:space="preserve">
+    <value>Are you sure you want to delete the movement?</value>
+  </data>
+  <data name="BORRAR_MUESTRA_CONFIRMACION" xml:space="preserve">
+    <value>Are you sure you want to delete the sample?</value>
+  </data>
+  <data name="BORRAR_PREGUNTA_CONFIRMACION" xml:space="preserve">
+    <value>Are you sure you want to delete the question?</value>
+  </data>
+  <data name="BORRAR_PROVEEDOR_CONFIRMACION" xml:space="preserve">
+    <value>Are you sure you want to delete the supplier?</value>
+  </data>
+  <data name="BORRAR_RECURSO_CONFIRMACION" xml:space="preserve">
+    <value>Are you sure you want to delete the resource?</value>
+  </data>
+  <data name="BORRAR_REGISTRO_DONANTE_CONFIRMACION" xml:space="preserve">
+    <value>Are you sure you want to delete the record?</value>
+  </data>
+  <data name="BORRAR_SUPUESTO_CONFIRMACION" xml:space="preserve">
+    <value>Are you sure you want to delete the assumption?</value>
+  </data>
+  <data name="BORRAR_VISITA_CONFIRMACION" xml:space="preserve">
+    <value>Are you sure you want to delete the visit?</value>
+  </data>
+  <data name="BUSCAR" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="BUSCAR_MAIL" xml:space="preserve">
+    <value>Search Mail</value>
+  </data>
+  <data name="BUSCAR_UBICACION" xml:space="preserve">
+    <value>Search location: </value>
+  </data>
+  <data name="BUZON_ENTRADA" xml:space="preserve">
+    <value>Mail box</value>
+  </data>
+  <data name="CALENDARIO_ACTIVIDADES" xml:space="preserve">
+    <value>Activities Calendar</value>
+  </data>
+  <data name="CALENDARIO_DESEMBOLSOS" xml:space="preserve">
+    <value>Disbursement Calendar</value>
+  </data>
+  <data name="CALENDARIO_HITOS" xml:space="preserve">
+    <value>Milestones Calendar</value>
+  </data>
+  <data name="CALENDARIO_INDICADORES" xml:space="preserve">
+    <value>Indicators Calendar</value>
+  </data>
+  <data name="CALENDARIO_INFORMES" xml:space="preserve">
+    <value>Progress Reports Calendar</value>
+  </data>
+  <data name="CAMBIAR_CONTRASENIA" xml:space="preserve">
+    <value>Change Password</value>
+  </data>
+  <data name="CANCELADO_POR_USUARIO" xml:space="preserve">
+    <value>The process has been canceled by the user</value>
+  </data>
+  <data name="CANCELAR" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="CANTIDAD" xml:space="preserve">
+    <value>Quantity</value>
+  </data>
+  <data name="CARGO" xml:space="preserve">
+    <value>Position</value>
+  </data>
+  <data name="CARPETAS" xml:space="preserve">
+    <value>Folders</value>
+  </data>
+  <data name="CERRAR" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="CERRAR_PROYECTO" xml:space="preserve">
+    <value>Close project</value>
+  </data>
+  <data name="CERRAR_SESION" xml:space="preserve">
+    <value>Sign Out</value>
+  </data>
+  <data name="CERRAR_VENTANA_CONFIRMACION" xml:space="preserve">
+    <value>Information has not been saved. Are you sure you want to close?</value>
+  </data>
+  <data name="CLIENTE" xml:space="preserve">
+    <value>Customer</value>
+  </data>
+  <data name="CLOSED_PROJECTS" xml:space="preserve">
+    <value>Closed Projects</value>
+  </data>
+  <data name="COBERTURA" xml:space="preserve">
+    <value>Coverage</value>
+  </data>
+  <data name="CODIGO" xml:space="preserve">
+    <value>Code</value>
+  </data>
+  <data name="COMENTARIO" xml:space="preserve">
+    <value>Comment</value>
+  </data>
+  <data name="COMPETENCIA" xml:space="preserve">
+    <value>Competency</value>
+  </data>
+  <data name="COMPLETAR_VISITA" xml:space="preserve">
+    <value>Complete visit</value>
+  </data>
+  <data name="COMPLETAR_VISITA_CONFIRMACION" xml:space="preserve">
+    <value>Are you sure you want to complete the visit? This shall not be modified.</value>
+  </data>
+  <data name="COMPRA" xml:space="preserve">
+    <value>Buy</value>
+  </data>
+  <data name="CONFIRMACION" xml:space="preserve">
+    <value>Confirmation</value>
+  </data>
+  <data name="CONFIRMAR_CONTRASENIA" xml:space="preserve">
+    <value>Confirm New Password</value>
+  </data>
+  <data name="CONTACTO" xml:space="preserve">
+    <value>Contact</value>
+  </data>
+  <data name="CONTACTO_DIRECCION" xml:space="preserve">
+    <value>Contact Address</value>
+  </data>
+  <data name="CONTACTO_EMAIL" xml:space="preserve">
+    <value>Contact Email</value>
+  </data>
+  <data name="CONTACTO_NOMBRE" xml:space="preserve">
+    <value>Contact Name</value>
+  </data>
+  <data name="CONTACTO_TELEFONO" xml:space="preserve">
+    <value>Contact Phone</value>
+  </data>
+  <data name="CONTRAPARTIDA" xml:space="preserve">
+    <value>Counterpart</value>
+  </data>
+  <data name="CONTRASENIA" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="CONTRASENIAS_NO_COINCIDEN" xml:space="preserve">
+    <value>The password confirmation doesn't match the new password</value>
+  </data>
+  <data name="CONTRASENIA_ACTUAL" xml:space="preserve">
+    <value>Current Password</value>
+  </data>
+  <data name="CONTRASENIA_ACTUAL_NO_COINCIDE" xml:space="preserve">
+    <value>The actual password is invalid</value>
+  </data>
+  <data name="CONTRASENIA_NUEVA" xml:space="preserve">
+    <value>New Password</value>
+  </data>
+  <data name="CORREO" xml:space="preserve">
+    <value>email</value>
+  </data>
+  <data name="COSTO" xml:space="preserve">
+    <value>Cost</value>
+  </data>
+  <data name="CREADOPOR" xml:space="preserve">
+    <value>Created By</value>
+  </data>
+  <data name="CUALIDADES" xml:space="preserve">
+    <value>Attributes</value>
+  </data>
+  <data name="CUESTIONARIO_GUARDADO" xml:space="preserve">
+    <value>Inquiry has been saved successfully!!</value>
+  </data>
+  <data name="CV" xml:space="preserve">
+    <value>CV</value>
+  </data>
+  <data name="DASHBOARD_TITLE" xml:space="preserve">
+    <value>Dashboard</value>
+  </data>
+  <data name="DEFINICION" xml:space="preserve">
+    <value>Definition</value>
+  </data>
+  <data name="DENEGADO" xml:space="preserve">
+    <value>Access Denied!!</value>
+  </data>
+  <data name="DESCARGAR" xml:space="preserve">
+    <value>Download</value>
+  </data>
+  <data name="DESCARTAR" xml:space="preserve">
+    <value>Discard</value>
+  </data>
+  <data name="DESCRIPCION" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="DESCRIPCION_PROBLEMA" xml:space="preserve">
+    <value>Problem Description</value>
+  </data>
+  <data name="DESHACER" xml:space="preserve">
+    <value>Undo</value>
+  </data>
+  <data name="DETALLE_GASTOS" xml:space="preserve">
+    <value>Expenses Detail</value>
+  </data>
+  <data name="DIAS" xml:space="preserve">
+    <value>Days</value>
+  </data>
+  <data name="DIFERENCIA" xml:space="preserve">
+    <value>Difference</value>
+  </data>
+  <data name="DIGITADOR" xml:space="preserve">
+    <value>Data Entry Operator</value>
+  </data>
+  <data name="DIRECCION" xml:space="preserve">
+    <value>Address</value>
+  </data>
+  <data name="DISTRIBUCION_DONANTES" xml:space="preserve">
+    <value>Donor Distribution</value>
+  </data>
+  <data name="DISTRIBUIR_DONACIONES" xml:space="preserve">
+    <value>Please distribute entire donation amount.</value>
+  </data>
+  <data name="DISTRIBUIR_PRESUPUESTO" xml:space="preserve">
+    <value>Please distribute entire budget.</value>
+  </data>
+  <data name="DONACION_EXCEDE_PRESUPUESTO" xml:space="preserve">
+    <value>Total donation amount exceeds the budget.</value>
+  </data>
+  <data name="DONANTE" xml:space="preserve">
+    <value>Donor</value>
+  </data>
+  <data name="DONANTE_ERROR_CAMPOS_VACIOS" xml:space="preserve">
+    <value>Name, and identification are mandatory.</value>
+  </data>
+  <data name="EDITAR" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="EDITAR_FORMULA" xml:space="preserve">
+    <value>Edit formula</value>
+  </data>
+  <data name="EFECTIVIDAD" xml:space="preserve">
+    <value>Efectiveness</value>
+  </data>
+  <data name="EFECTIVIDAD_CONCEPTO" xml:space="preserve">
+    <value>The effectiveness is the relationship between performance and the proposed outcome.</value>
+  </data>
+  <data name="EFICACIA" xml:space="preserve">
+    <value>Efficacy</value>
+  </data>
+  <data name="EFICACIA_CONCEPTO" xml:space="preserve">
+    <value>The Effectiveness Over Time is the extent to which the targets are met, in a certain period of time, regardless of the cost implication.</value>
+  </data>
+  <data name="EFICIENCIA" xml:space="preserve">
+    <value>Efficiency</value>
+  </data>
+  <data name="EFICIENCIA_CONCEPTO" xml:space="preserve">
+    <value>The economic efficiency as we understand the relationship between costs and results.</value>
+  </data>
+  <data name="EJECUTADO" xml:space="preserve">
+    <value>Executed</value>
+  </data>
+  <data name="ELIMINADOS" xml:space="preserve">
+    <value>Trash</value>
+  </data>
+  <data name="ELIMINAR" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="EMAIL_NO_CONFIRMADO" xml:space="preserve">
+    <value>User did not confirm email.</value>
+  </data>
+  <data name="EMPLEADO_YA_EXISTE" xml:space="preserve">
+    <value>An employee with the same identification already exists.</value>
+  </data>
+  <data name="EMPRESA" xml:space="preserve">
+    <value>Company</value>
+  </data>
+  <data name="EMPRESAS" xml:space="preserve">
+    <value>Companies</value>
+  </data>
+  <data name="EMPRESA_AREA_ERROR_CAMPOS_VACIOS" xml:space="preserve">
+    <value>Name and target are mandatory.</value>
+  </data>
+  <data name="EMPRESA_CARGO_ERROR_CAMPOS_VACIOS" xml:space="preserve">
+    <value>Name, area and profile are mandatory.</value>
+  </data>
+  <data name="EMPRESA_CATEGORIA_ERROR_CAMPOS_VACIOS" xml:space="preserve">
+    <value>Name and description are mandatory.</value>
+  </data>
+  <data name="EMPRESA_DOCUMENTO_ERROR_CAMPOS_VACIOS" xml:space="preserve">
+    <value>Title, summary, keywords and a file are mandatory.</value>
+  </data>
+  <data name="EMPRESA_EMPLEADO_ERROR_CAMPOS_VACIOS" xml:space="preserve">
+    <value>Name, last name and identification are mandatory.</value>
+  </data>
+  <data name="EMPRESA_EMPLEADO_ERROR_CORREO_INVALIDO" xml:space="preserve">
+    <value>Email is not valid.</value>
+  </data>
+  <data name="EMPRESA_GENERAL_ERROR_CAMPOS_VACIOS" xml:space="preserve">
+    <value>Name, address, identification and country are mandatory.</value>
+  </data>
+  <data name="EMPRESA_PROVEEDOR_ERROR_CAMPOS_VACIOS" xml:space="preserve">
+    <value>Name and identification are mandatory.</value>
+  </data>
+  <data name="EMPRESA_PROVEEDOR_ERROR_CORREO_INVALIDO" xml:space="preserve">
+    <value>Email is not valid.</value>
+  </data>
+  <data name="ENCUESTAS" xml:space="preserve">
+    <value>Surveys</value>
+  </data>
+  <data name="ENCUESTA_ABIERTA" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="ENCUESTA_BLOQUEADA" xml:space="preserve">
+    <value>Lock</value>
+  </data>
+  <data name="ENCUESTA_ELIMINADA" xml:space="preserve">
+    <value>Deleted</value>
+  </data>
+  <data name="ENCUESTA_TERMINADA" xml:space="preserve">
+    <value>Finished</value>
+  </data>
+  <data name="ENVIADOS" xml:space="preserve">
+    <value>Sent</value>
+  </data>
+  <data name="ENVIAR" xml:space="preserve">
+    <value>Submit</value>
+  </data>
+  <data name="ERROR_ARCHIVO_ACTIVIDAD_INVALIDA" xml:space="preserve">
+    <value>No Activity type found with the code: </value>
+  </data>
+  <data name="ERROR_ARCHIVO_COLUMNAS_INSUFICIENTES" xml:space="preserve">
+    <value>Has not enough columns.</value>
+  </data>
+  <data name="ERROR_ARCHIVO_COLUMNA_COMENTARIO_VACIO" xml:space="preserve">
+    <value>Comment is mandatory</value>
+  </data>
+  <data name="ERROR_ARCHIVO_COLUMNA_FECHA_INVALIDA" xml:space="preserve">
+    <value>Date is not valid. Date format must be yyyy/mm/dd or yyyy/mm/dd hh:mm, example: 2015/06/28 17:10.</value>
+  </data>
+  <data name="ERROR_ARCHIVO_COLUMNA_FECHA_MOVIMIENTO_INVALIDA" xml:space="preserve">
+    <value>Date is not valid. Date format must be yyyy/mm/dd, example: 2015/06/28.</value>
+  </data>
+  <data name="ERROR_ARCHIVO_COLUMNA_FECHA_VACIA" xml:space="preserve">
+    <value>Date is mandatory</value>
+  </data>
+  <data name="ERROR_ARCHIVO_COLUMNA_HORA_INVALIDA" xml:space="preserve">
+    <value>Time is not valid. Time format must be hh:mm, example: 17:10.</value>
+  </data>
+  <data name="ERROR_ARCHIVO_COLUMNA_VACIA" xml:space="preserve">
+    <value>is mandatory.</value>
+  </data>
+  <data name="ERROR_ARCHIVO_EXCESO_COLUMNAS" xml:space="preserve">
+    <value>Has many columns.</value>
+  </data>
+  <data name="ERROR_ARCHIVO_MONEDA_INVALIDA" xml:space="preserve">
+    <value>No Currency found with the name: </value>
+  </data>
+  <data name="ERROR_ARCHIVO_NUMERO_INVALIDO" xml:space="preserve">
+    <value>Value is not a valid number.</value>
+  </data>
+  <data name="ERROR_ARCHIVO_PARTIDA_GASTO_INVALIDO" xml:space="preserve">
+    <value>No Expenditure Item found with the name: </value>
+  </data>
+  <data name="ERROR_ARCHIVO_PERIODO_INVALIDO" xml:space="preserve">
+    <value>No Period found with the name: </value>
+  </data>
+  <data name="ERROR_ARCHIVO_TIPO_MOVIMIENTO_INVALIDO" xml:space="preserve">
+    <value>No Movement type found with the name: </value>
+  </data>
+  <data name="ERROR_ARCHIVO_VERIFICAR_ORTOGRAFIA" xml:space="preserve">
+    <value>Check data spelling.</value>
+  </data>
+  <data name="ERROR_CAMPOS_VACIOS" xml:space="preserve">
+    <value>All fields are mandatory</value>
+  </data>
+  <data name="ERROR_CAMPOS_VACIOS_CUESTIONARIO" xml:space="preserve">
+    <value>Please answer all the question.</value>
+  </data>
+  <data name="ERROR_FECHAINICIO_FECHAFIN_INVALIDAS" xml:space="preserve">
+    <value>Start date must be less than End date</value>
+  </data>
+  <data name="ERROR_FORMULA_DEBE_VALIDARSE" xml:space="preserve">
+    <value>Formula should be validated before exit.</value>
+  </data>
+  <data name="ERROR_GUARDADO" xml:space="preserve">
+    <value>Critical error, the record has not be saved</value>
+  </data>
+  <data name="ERROR_INESPERADO_IMPORTANDO_LOG" xml:space="preserve">
+    <value>Unexpected error importing the file, please load the file again.</value>
+  </data>
+  <data name="ERROR_INESPERADO_IMPORTANDO_MOVIMIENTO" xml:space="preserve">
+    <value>Unexpected error importing the file, please load the file again.</value>
+  </data>
+  <data name="ERROR_INFORME_METAS_INVALIDAS" xml:space="preserve">
+    <value>Goal Budget and Goal Progress must be greater than 0.</value>
+  </data>
+  <data name="ERROR_MONTO_REQUERIDO" xml:space="preserve">
+    <value>Amount is mandatory and must be greater than 0.</value>
+  </data>
+  <data name="ERROR_PONDERADO_INVALIDO" xml:space="preserve">
+    <value>Weighted must be a valid value greater than or equals to 0</value>
+  </data>
+  <data name="ERROR_RECURSOS_SOBREPASA_PRESUPUESTO" xml:space="preserve">
+    <value>Resource Program contribution exceeds the budget.</value>
+  </data>
+  <data name="ERROR_UBICACION_VACIA" xml:space="preserve">
+    <value>Location is mandatory. Please search a location in the map and click on search button to stablish the location.</value>
+  </data>
+  <data name="ERROR_VARIABLE_YA_EXISTE" xml:space="preserve">
+    <value>A variable with the same name already exists in the formula</value>
+  </data>
+  <data name="ESCRIBIR_MENSAJE" xml:space="preserve">
+    <value>Write Message</value>
+  </data>
+  <data name="ESCRITURA" xml:space="preserve">
+    <value>Writte</value>
+  </data>
+  <data name="ESTADO" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="ETIQUETAS" xml:space="preserve">
+    <value>Labels</value>
+  </data>
+  <data name="EVALUACION" xml:space="preserve">
+    <value>Evaluation</value>
+  </data>
+  <data name="EVALUACION_ACTIVIDADES" xml:space="preserve">
+    <value>Evaluation of Activities</value>
+  </data>
+  <data name="EVALUACION_HITOS" xml:space="preserve">
+    <value>Evaluation of Milestones</value>
+  </data>
+  <data name="EVALUACION_INDICADORES" xml:space="preserve">
+    <value>Evaluation of Indicators</value>
+  </data>
+  <data name="EVALUADOR" xml:space="preserve">
+    <value>Evaluator</value>
+  </data>
+  <data name="EVALUATION_ACTIVITIES_DETAILS" xml:space="preserve">
+    <value>Specific observations for period: </value>
+  </data>
+  <data name="FECHA" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="FECHACREACION" xml:space="preserve">
+    <value>Created Date</value>
+  </data>
+  <data name="FECHAFIN" xml:space="preserve">
+    <value>End Date</value>
+  </data>
+  <data name="FECHAINICIO" xml:space="preserve">
+    <value>Start Date</value>
+  </data>
+  <data name="FECHAMODIFICACION" xml:space="preserve">
+    <value>Modified Date</value>
+  </data>
+  <data name="FECHAPAGO" xml:space="preserve">
+    <value>Payment date</value>
+  </data>
+  <data name="FECHA_CADUCA" xml:space="preserve">
+    <value>Expiration Date</value>
+  </data>
+  <data name="FECHA_CREACION" xml:space="preserve">
+    <value>Create Date</value>
+  </data>
+  <data name="FECHA_PROGRAMADA" xml:space="preserve">
+    <value>Scheduled Date</value>
+  </data>
+  <data name="FECHA_REGISTRO" xml:space="preserve">
+    <value>Ordered Date</value>
+  </data>
+  <data name="FILTRAR" xml:space="preserve">
+    <value>Filter</value>
+  </data>
+  <data name="FILTRARMOVIMIENTOS" xml:space="preserve">
+    <value>Filter movements</value>
+  </data>
+  <data name="FINANCIAL_DATA" xml:space="preserve">
+    <value>Financial Data</value>
+  </data>
+  <data name="FINANCIAMIENTO" xml:space="preserve">
+    <value>Funding</value>
+  </data>
+  <data name="FINANCIERO" xml:space="preserve">
+    <value>Expenses</value>
+  </data>
+  <data name="FINISH_ENCUESTA_CONFIRMACION" xml:space="preserve">
+    <value>Are you sure you want to finish the inquiry? This shall not be modified.</value>
+  </data>
+  <data name="FISICO" xml:space="preserve">
+    <value>Physical</value>
+  </data>
+  <data name="FORMATO_FECHA" xml:space="preserve">
+    <value>MM/dd/yyyy</value>
+  </data>
+  <data name="FORMULA" xml:space="preserve">
+    <value>Formula</value>
+  </data>
+  <data name="FORMULATED_PROJECTS" xml:space="preserve">
+    <value>Formulated Projects</value>
+  </data>
+  <data name="FORMULA_CORRECTA" xml:space="preserve">
+    <value>Formula validated, close the window to continue</value>
+  </data>
+  <data name="FORMULA_ERROR_SIMBOLO_NO_VALIDO" xml:space="preserve">
+    <value>Symbol is not valid: </value>
+  </data>
+  <data name="FORMULA_ERROR_VALOR_NO_PERMITIDO" xml:space="preserve">
+    <value>Value is not allowed: </value>
+  </data>
+  <data name="FOTO" xml:space="preserve">
+    <value>Photo</value>
+  </data>
+  <data name="FUENTES_VERIFICACION" xml:space="preserve">
+    <value>Verification sources</value>
+  </data>
+  <data name="GASTOS_ACTIVIDAD" xml:space="preserve">
+    <value>Expenditures by Activity</value>
+  </data>
+  <data name="GASTOS_PARTIDA" xml:space="preserve">
+    <value>Expenditures</value>
+  </data>
+  <data name="GENERAL" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="GENERA_TAREA" xml:space="preserve">
+    <value>Generates task</value>
+  </data>
+  <data name="GEOREFERENCIA" xml:space="preserve">
+    <value>Georeference</value>
+  </data>
+  <data name="GERENTE_PROYECTO" xml:space="preserve">
+    <value>Project Manager</value>
+  </data>
+  <data name="GUARDAR" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="HISTORIAL_INDICADOR" xml:space="preserve">
+    <value>Indicator History</value>
+  </data>
+  <data name="HITO" xml:space="preserve">
+    <value>Milestone</value>
+  </data>
+  <data name="HOJADEVIDA" xml:space="preserve">
+    <value>CV</value>
+  </data>
+  <data name="HOME" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="HOY" xml:space="preserve">
+    <value>Today</value>
+  </data>
+  <data name="HUMANO" xml:space="preserve">
+    <value>Human</value>
+  </data>
+  <data name="ID" xml:space="preserve">
+    <value>Id</value>
+  </data>
+  <data name="IDENTIFICACION" xml:space="preserve">
+    <value>Identification</value>
+  </data>
+  <data name="IDIOMA" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="IMPACTO" xml:space="preserve">
+    <value>Impact</value>
+  </data>
+  <data name="IMPORTAR" xml:space="preserve">
+    <value>Import</value>
+  </data>
+  <data name="IMPORTAR_BITACORA" xml:space="preserve">
+    <value>Import log records</value>
+  </data>
+  <data name="IMPORTAR_MOVIMIENTOS" xml:space="preserve">
+    <value>Import movements</value>
+  </data>
+  <data name="IMPORT_LOG_ARCHIVO_VALIDO" xml:space="preserve">
+    <value>File has been validated. Please click on Ok button to continue import process. Number of records to be imported: </value>
+  </data>
+  <data name="IMPORT_LOG_ERROR" xml:space="preserve">
+    <value>File has not been loaded because the file is not valid o the file is empty.</value>
+  </data>
+  <data name="IMPORT_MOVIMIENTO_ARCHIVO_VALIDO" xml:space="preserve">
+    <value>File has been validated. Please click on Ok button to continue import process. Number of records to be imported: </value>
+  </data>
+  <data name="INDICADOR" xml:space="preserve">
+    <value>Indicator</value>
+  </data>
+  <data name="INDICADORES" xml:space="preserve">
+    <value>Indicators</value>
+  </data>
+  <data name="INDICADORES_IMPACTO" xml:space="preserve">
+    <value>Impact Indicators</value>
+  </data>
+  <data name="INDICADOR_ERROR_CAMPOS_VACIOS" xml:space="preserve">
+    <value>Following data is required: Description, Definition, Target, Attributes, Coverage, Start date, End date, Base, Goal, Measurement unit, Operating Unit.</value>
+  </data>
+  <data name="INDICADOR_ERROR_META_BASE_INVALID" xml:space="preserve">
+    <value>Base and Goal must be a value greater than 0.</value>
+  </data>
+  <data name="INFORMACION" xml:space="preserve">
+    <value>Information</value>
+  </data>
+  <data name="INICIA_SESION" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="INSATISFACTORIO" xml:space="preserve">
+    <value>Unsatisfactory</value>
+  </data>
+  <data name="JUSTIFICACION" xml:space="preserve">
+    <value>Rationale</value>
+  </data>
+  <data name="LECTURA" xml:space="preserve">
+    <value>Read</value>
+  </data>
+  <data name="LEER_MENSAJE" xml:space="preserve">
+    <value>Read Message</value>
+  </data>
+  <data name="LIMPIAR" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="LISTADOS_TAREAS" xml:space="preserve">
+    <value>Tasks list</value>
+  </data>
+  <data name="LISTA_TAREAS" xml:space="preserve">
+    <value>Task Lists</value>
+  </data>
+  <data name="LOGO" xml:space="preserve">
+    <value>Logo</value>
+  </data>
+  <data name="LOGRO" xml:space="preserve">
+    <value>Achievement</value>
+  </data>
+  <data name="MATRIZ" xml:space="preserve">
+    <value>Logical Frame Matrix</value>
+  </data>
+  <data name="MEDIOPAGO" xml:space="preserve">
+    <value>Payment method</value>
+  </data>
+  <data name="MENSAJES" xml:space="preserve">
+    <value>Messages</value>
+  </data>
+  <data name="MENSAJE_BITACORA_GUARDADA" xml:space="preserve">
+    <value>Log has been saved successfully!!</value>
+  </data>
+  <data name="MENSAJE_DONANTE_ELIMINADO" xml:space="preserve">
+    <value>Sponsor deleted successfully!!</value>
+  </data>
+  <data name="MENSAJE_DONANTE_GUARDADO" xml:space="preserve">
+    <value>Sponsor has been saved successfully!!</value>
+  </data>
+  <data name="MENSAJE_EMPRESA_GUARDADA" xml:space="preserve">
+    <value>Company information saved successfully!!</value>
+  </data>
+  <data name="MENSAJE_ENCUESTA_BLOQUEADA" xml:space="preserve">
+    <value>Inquiry has been locked successfully!!. This shall not be modified.</value>
+  </data>
+  <data name="MENSAJE_ENCUESTA_ELIMINADA" xml:space="preserve">
+    <value>Inquiry has been deleted successfully!!</value>
+  </data>
+  <data name="MENSAJE_ENCUESTA_FINISHED" xml:space="preserve">
+    <value>Inquiry has been finished successfully!!. This shall not be modified.</value>
+  </data>
+  <data name="MENSAJE_ENCUESTA_GUARDADA" xml:space="preserve">
+    <value>Inquiry has been saved successfully!!</value>
+  </data>
+  <data name="MENSAJE_ERROR" xml:space="preserve">
+    <value>The Recipient, Subject, Message can not be left empty</value>
+  </data>
+  <data name="MENSAJE_EVALUACION_GUARDADO" xml:space="preserve">
+    <value>Evaluation has been saved successfully!!</value>
+  </data>
+  <data name="MENSAJE_INDICADOR_ELIMINADO" xml:space="preserve">
+    <value>Indicator deleted successfully!!</value>
+  </data>
+  <data name="MENSAJE_INDICADOR_GUARDADO" xml:space="preserve">
+    <value>Indicator saved successfully!!</value>
+  </data>
+  <data name="MENSAJE_MOVIMIENTOS_IMPORTADOS" xml:space="preserve">
+    <value>Movements were imported successfully.</value>
+  </data>
+  <data name="MENSAJE_MOVIMIENTO_ELIMINADO" xml:space="preserve">
+    <value>Movement deleted successfully!!</value>
+  </data>
+  <data name="MENSAJE_MOVIMIENTO_GUARDADO" xml:space="preserve">
+    <value>Movement saved successfully!!</value>
+  </data>
+  <data name="MENSAJE_MUESTRA_ELIMINADA" xml:space="preserve">
+    <value>Sample has been deleted successfully!!</value>
+  </data>
+  <data name="MENSAJE_MUESTRA_GUARDADA" xml:space="preserve">
+    <value>Sample has been saved successfully!!</value>
+  </data>
+  <data name="MENSAJE_OBJETIVO_ELIMINADO" xml:space="preserve">
+    <value>Item deleted successfully!!</value>
+  </data>
+  <data name="MENSAJE_PERMISOS_BITACORA_GUARDADA" xml:space="preserve">
+    <value>Rigths have been saved successfully!!</value>
+  </data>
+  <data name="MENSAJE_PREGUNTA_ELIMINADA" xml:space="preserve">
+    <value>Question has been deleted successfully!!</value>
+  </data>
+  <data name="MENSAJE_PREGUNTA_GUARDADA" xml:space="preserve">
+    <value>Question has been saved successfully!!</value>
+  </data>
+  <data name="MENSAJE_PROYECTO_GUARDADO" xml:space="preserve">
+    <value>Project saved successfully!!</value>
+  </data>
+  <data name="MENSAJE_VARIABLE_GUARDADA" xml:space="preserve">
+    <value>Variable was saved successfully!!</value>
+  </data>
+  <data name="MENSAJE_VISITA_COMPLETADA" xml:space="preserve">
+    <value>Visit has been completed successfully!!</value>
+  </data>
+  <data name="MENSAJE_VISITA_ELIMINADA" xml:space="preserve">
+    <value>Visit has been deleted successfully!!</value>
+  </data>
+  <data name="MENSAJE_VISITA_GUARDADA" xml:space="preserve">
+    <value>Visit has been saved successfully!!</value>
+  </data>
+  <data name="MESES" xml:space="preserve">
+    <value>Months</value>
+  </data>
+  <data name="META" xml:space="preserve">
+    <value>Goal</value>
+  </data>
+  <data name="META_PARCIAL" xml:space="preserve">
+    <value>Partial goal</value>
+  </data>
+  <data name="MODIFICADOPOR" xml:space="preserve">
+    <value>Modified By</value>
+  </data>
+  <data name="MODIFICAR_LISTA" xml:space="preserve">
+    <value>Modify List</value>
+  </data>
+  <data name="MODULOS" xml:space="preserve">
+    <value>Modules</value>
+  </data>
+  <data name="MONEDALOCAL" xml:space="preserve">
+    <value>Local currency</value>
+  </data>
+  <data name="MONEDAS" xml:space="preserve">
+    <value>Currencies</value>
+  </data>
+  <data name="MONEDA_EXTRANJERA" xml:space="preserve">
+    <value>Foreign Currency</value>
+  </data>
+  <data name="MONITOREO_RESULTADOS" xml:space="preserve">
+    <value>Results Monitoring</value>
+  </data>
+  <data name="MONTO" xml:space="preserve">
+    <value>Amount</value>
+  </data>
+  <data name="MONTODONACIONES" xml:space="preserve">
+    <value>Donation Amount</value>
+  </data>
+  <data name="MORE_INFO" xml:space="preserve">
+    <value>More Info</value>
+  </data>
+  <data name="MOVIMIENTO" xml:space="preserve">
+    <value>Movement</value>
+  </data>
+  <data name="MOVIMIENTO_ERROR_APORTE_MONEDA_LOCAL_INVALIDO" xml:space="preserve">
+    <value>Program contribution - local currency, must be a valid number.</value>
+  </data>
+  <data name="MOVIMIENTO_ERROR_BENEFICIARIO_REQUERIDO" xml:space="preserve">
+    <value>Beneficiary is mandatory.</value>
+  </data>
+  <data name="MOVIMIENTO_ERROR_DONANTE_REQUERIDO" xml:space="preserve">
+    <value>Donor is mandatory.</value>
+  </data>
+  <data name="MOVIMIENTO_ERROR_FECHA_REQUERIDA" xml:space="preserve">
+    <value>Date is mandatory.</value>
+  </data>
+  <data name="MOVIMIENTO_ERROR_MONEDA_REQUERIDO" xml:space="preserve">
+    <value>Currency is mandatory.</value>
+  </data>
+  <data name="MOVIMIENTO_ERROR_MONTO_REQUERIDO" xml:space="preserve">
+    <value>Amount is mandatory and must be greater than 0. To calculate it, please enter a valid Counterpart and / or Program contribution.</value>
+  </data>
+  <data name="MOVIMIENTO_ERROR_OBSERVACIONES_REQUERIDA" xml:space="preserve">
+    <value>Observations are required and must contain at least 5 characters.</value>
+  </data>
+  <data name="MOVIMIENTO_ERROR_PARTIDA_GASTO_REQUERIDA" xml:space="preserve">
+    <value>Expenditure item is mandatory.</value>
+  </data>
+  <data name="MOVIMIENTO_ERROR_PERIODO_REQUERIDO" xml:space="preserve">
+    <value>Period is mandatory.</value>
+  </data>
+  <data name="MOVIMIENTO_ERROR_PRESUPUESTO_NO_ENCONTRADO" xml:space="preserve">
+    <value>Critical error to get the budget configuration. Please contact your system administrator.</value>
+  </data>
+  <data name="MOVIMIENTO_ERROR_PRODUCTO_REQUERIDO" xml:space="preserve">
+    <value>Product, Activity and Beneficiary are mandatory.</value>
+  </data>
+  <data name="MOVIMIENTO_ERROR_TIPO_REQUERIDO" xml:space="preserve">
+    <value>Movement type is mandatory.</value>
+  </data>
+  <data name="MUY_INSATISFACTORIO" xml:space="preserve">
+    <value>and Very Unsatisfactory</value>
+  </data>
+  <data name="MUY_SATISFACTORIO" xml:space="preserve">
+    <value>Very Satisfying</value>
+  </data>
+  <data name="NIVEL_ACEPTACION" xml:space="preserve">
+    <value>Acceptance Level</value>
+  </data>
+  <data name="NIVEL_ACEPTACION_LABEL" xml:space="preserve">
+    <value>Outcome according to expected project percentage. Very Satisfactory, Satisfactory, Unsatisfactory, Very Unsatisfactory.</value>
+  </data>
+  <data name="NO" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="NOAPLICA" xml:space="preserve">
+    <value>Not applicable</value>
+  </data>
+  <data name="NOMBRE" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="NOTIFICAR_TAREAS" xml:space="preserve">
+    <value>Notify task before</value>
+  </data>
+  <data name="NO_MENSAJES" xml:space="preserve">
+    <value>Oops!! You don't have any message yet</value>
+  </data>
+  <data name="NO_TAREAS" xml:space="preserve">
+    <value>You don't have any assigned task</value>
+  </data>
+  <data name="NUEVA" xml:space="preserve">
+    <value>New</value>
+  </data>
+  <data name="NUEVA_AREA_PRINCIPAL" xml:space="preserve">
+    <value>New main area</value>
+  </data>
+  <data name="NUEVA_CATEGORIA_PRINCIPAL" xml:space="preserve">
+    <value>New main category</value>
+  </data>
+  <data name="NUEVA_ENCUESTA" xml:space="preserve">
+    <value>New Inquiry</value>
+  </data>
+  <data name="NUEVA_LISTA" xml:space="preserve">
+    <value>New Task List</value>
+  </data>
+  <data name="NUEVA_PREGUNTA" xml:space="preserve">
+    <value>New Question</value>
+  </data>
+  <data name="NUEVA_TAREA" xml:space="preserve">
+    <value>New Task</value>
+  </data>
+  <data name="NUEVA_VISITA" xml:space="preserve">
+    <value>New Visit</value>
+  </data>
+  <data name="NUEVO" xml:space="preserve">
+    <value>New</value>
+  </data>
+  <data name="NUEVOINDICADOR" xml:space="preserve">
+    <value>New Indicator</value>
+  </data>
+  <data name="NUEVOINFORME" xml:space="preserve">
+    <value>New report</value>
+  </data>
+  <data name="NUEVOMOVIMIENTO" xml:space="preserve">
+    <value>New movement</value>
+  </data>
+  <data name="NUEVOOBJETIVOGENERAL" xml:space="preserve">
+    <value>New goal</value>
+  </data>
+  <data name="NUEVOPROPOSITO" xml:space="preserve">
+    <value>New purpose</value>
+  </data>
+  <data name="NUEVOSUPUESTO" xml:space="preserve">
+    <value>New Assumption</value>
+  </data>
+  <data name="NUEVO_CARGO_PRINCIPAL" xml:space="preserve">
+    <value>New main position</value>
+  </data>
+  <data name="NUEVO_COMENTARIO" xml:space="preserve">
+    <value>New log record</value>
+  </data>
+  <data name="NUEVO_PROVEEDOR" xml:space="preserve">
+    <value>New supplier</value>
+  </data>
+  <data name="OBJETIVO" xml:space="preserve">
+    <value>Target</value>
+  </data>
+  <data name="OBJETIVOML" xml:space="preserve">
+    <value>Objective of the ML</value>
+  </data>
+  <data name="OBJETIVOS" xml:space="preserve">
+    <value>Objectives</value>
+  </data>
+  <data name="OBJETIVO_ERROR_DESCRIPCION_VACIA" xml:space="preserve">
+    <value>Description is mandatory.</value>
+  </data>
+  <data name="OBJETIVO_GENERAL" xml:space="preserve">
+    <value>Goal</value>
+  </data>
+  <data name="OBSERVACIONES" xml:space="preserve">
+    <value>Comments</value>
+  </data>
+  <data name="OBSERVACIONES_ED" xml:space="preserve">
+    <value>Comments for ED</value>
+  </data>
+  <data name="OBSERVACIONES_URIP" xml:space="preserve">
+    <value>Internal comments for the URIP</value>
+  </data>
+  <data name="OLVIDE_CONTRASENIA" xml:space="preserve">
+    <value>I forgot my password</value>
+  </data>
+  <data name="ORDEN" xml:space="preserve">
+    <value>Order</value>
+  </data>
+  <data name="ORDEN_ERROR_MAXIMO" xml:space="preserve">
+    <value>Order should be maximum </value>
+  </data>
+  <data name="ORDEN_ERROR_MAXIMO_DETALLE" xml:space="preserve">
+    <value>A smaller value can be used to insert the question in a specific position.</value>
+  </data>
+  <data name="PAIS" xml:space="preserve">
+    <value>Country</value>
+  </data>
+  <data name="PALABLAS_CLAVES" xml:space="preserve">
+    <value>Keywords</value>
+  </data>
+  <data name="PAPELERA_RECICLAJE" xml:space="preserve">
+    <value>Trash</value>
+  </data>
+  <data name="PARTIDA" xml:space="preserve">
+    <value>Expenditure item</value>
+  </data>
+  <data name="PARTIDA_GASTOS" xml:space="preserve">
+    <value>Expense Items</value>
+  </data>
+  <data name="PATROCINADORES" xml:space="preserve">
+    <value>Sponsors</value>
+  </data>
+  <data name="PEDIR_PERMISO" xml:space="preserve">
+    <value>or Ask permission to the system administrator</value>
+  </data>
+  <data name="PENDIENTE" xml:space="preserve">
+    <value>Pending</value>
+  </data>
+  <data name="PERFIL" xml:space="preserve">
+    <value>Profile</value>
+  </data>
+  <data name="PERIODO" xml:space="preserve">
+    <value>Period</value>
+  </data>
+  <data name="PERMISO_READ_BITACORA" xml:space="preserve">
+    <value>Read visit log</value>
+  </data>
+  <data name="PERMISO_READ_VISITA" xml:space="preserve">
+    <value>Read visit</value>
+  </data>
+  <data name="PERMISO_WRITE_BITACORA" xml:space="preserve">
+    <value>Write on visit log</value>
+  </data>
+  <data name="PERMISO_WRITE_VISITA" xml:space="preserve">
+    <value>Write on visit</value>
+  </data>
+  <data name="PLANES_CONTINGENCIA" xml:space="preserve">
+    <value>Contingency Plan</value>
+  </data>
+  <data name="PLANES_PRESUPUESTO" xml:space="preserve">
+    <value>Budget Plan</value>
+  </data>
+  <data name="PLANTEAMIENTO" xml:space="preserve">
+    <value>Problem statement</value>
+  </data>
+  <data name="PLANTILLA" xml:space="preserve">
+    <value>Template</value>
+  </data>
+  <data name="PONDERACION_COMPONENTES" xml:space="preserve">
+    <value>Weighting Components</value>
+  </data>
+  <data name="PONDERACION_INDICADORES" xml:space="preserve">
+    <value>Weighting Indicators</value>
+  </data>
+  <data name="PONDERADO" xml:space="preserve">
+    <value>Weighted</value>
+  </data>
+  <data name="PONDERADO_ACTIVIDAD" xml:space="preserve">
+    <value>Weight of Activity</value>
+  </data>
+  <data name="PONDERADO_EXCEDE_100" xml:space="preserve">
+    <value>Total weighted exceeds 100%</value>
+  </data>
+  <data name="PONDERADO_INDICADOR" xml:space="preserve">
+    <value>Weight of Activity</value>
+  </data>
+  <data name="PONDERADO_MENOS_DE_100" xml:space="preserve">
+    <value>Total weighted must be 100%</value>
+  </data>
+  <data name="POSIBLES_RESPUESTAS" xml:space="preserve">
+    <value>Possible Responses</value>
+  </data>
+  <data name="PREGUNTA" xml:space="preserve">
+    <value>Question</value>
+  </data>
+  <data name="PREGUNTAS" xml:space="preserve">
+    <value>Questions</value>
+  </data>
+  <data name="PREGUNTA_TIPO_FECHA" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="PREGUNTA_TIPO_MULTIPLE_OPCION" xml:space="preserve">
+    <value>Multiple Option</value>
+  </data>
+  <data name="PREGUNTA_TIPO_NUMERO" xml:space="preserve">
+    <value>Number</value>
+  </data>
+  <data name="PREGUNTA_TIPO_OPCION_SIMPLE" xml:space="preserve">
+    <value>Single option</value>
+  </data>
+  <data name="PREGUNTA_TIPO_TEXTO" xml:space="preserve">
+    <value>Text</value>
+  </data>
+  <data name="PRESUPUESTO" xml:space="preserve">
+    <value>Budget</value>
+  </data>
+  <data name="PRESUPUESTO_META" xml:space="preserve">
+    <value>Goal Budget</value>
+  </data>
+  <data name="PRESUPUESTO_OBJETIVOS" xml:space="preserve">
+    <value>Objectives Budget</value>
+  </data>
+  <data name="PRESUPUESTO_PROYECTO" xml:space="preserve">
+    <value>Project Budget</value>
+  </data>
+  <data name="PRESUPUESTO_TOTAL" xml:space="preserve">
+    <value>Total Budget</value>
+  </data>
+  <data name="PRIORIDAD" xml:space="preserve">
+    <value>Priority</value>
+  </data>
+  <data name="PROBLEMA" xml:space="preserve">
+    <value>Problem</value>
+  </data>
+  <data name="PRODUCTO" xml:space="preserve">
+    <value>Product</value>
+  </data>
+  <data name="PROGRAMA" xml:space="preserve">
+    <value>Program</value>
+  </data>
+  <data name="PROGRAMADO" xml:space="preserve">
+    <value>Scheduled</value>
+  </data>
+  <data name="PROGRESO" xml:space="preserve">
+    <value>Progress</value>
+  </data>
+  <data name="PROPOSITO" xml:space="preserve">
+    <value>Purpose</value>
+  </data>
+  <data name="PROVEEDOR" xml:space="preserve">
+    <value>Supplier</value>
+  </data>
+  <data name="PROVEEDORES" xml:space="preserve">
+    <value>Suppliers</value>
+  </data>
+  <data name="PROXIMO_INFORME" xml:space="preserve">
+    <value>Next Report</value>
+  </data>
+  <data name="PROYECTO" xml:space="preserve">
+    <value>Project</value>
+  </data>
+  <data name="PROYECTOS" xml:space="preserve">
+    <value>Projects</value>
+  </data>
+  <data name="PROYECTO_ERROR_CAMPOS_PROBLEMA_VACIOS" xml:space="preserve">
+    <value>Following data is required: Problem, Problem Description and Rationale.</value>
+  </data>
+  <data name="PROYECTO_ERROR_CAMPOS_VACIOS" xml:space="preserve">
+    <value>Following data is required: Code, Name, Company, Project Manager, Data Entry Operator, Evaluator, Area, Region, Beneficiary, Start and End Date.</value>
+  </data>
+  <data name="PROYECTO_ERROR_NIVELES_ACEPTACION" xml:space="preserve">
+    <value>Acceptance Level must be greater than 0 and lower than 100.</value>
+  </data>
+  <data name="PROYECTO_GENERAL_INFO" xml:space="preserve">
+    <value>General Information of The Project</value>
+  </data>
+  <data name="PROYECTO_NIVELES_ACEPTACION_INCONSISTENTES" xml:space="preserve">
+    <value>Acceptance values are inconsistent. Higher satisfaction values must be greater than lower levels.</value>
+  </data>
+  <data name="PUBLICACIONES" xml:space="preserve">
+    <value>Publications</value>
+  </data>
+  <data name="RECOMENDACIONES" xml:space="preserve">
+    <value>Recommendations</value>
+  </data>
+  <data name="RECURSOS" xml:space="preserve">
+    <value>Resources</value>
+  </data>
+  <data name="RECURSOS_ACTIVIDADES" xml:space="preserve">
+    <value>Activities Resources</value>
+  </data>
+  <data name="RECURSOS_HUMANOS" xml:space="preserve">
+    <value>Human resources</value>
+  </data>
+  <data name="REGION" xml:space="preserve">
+    <value>Region</value>
+  </data>
+  <data name="REGISTRO_DONACIONES" xml:space="preserve">
+    <value>Registration Donations</value>
+  </data>
+  <data name="REGISTRO_DONANTES" xml:space="preserve">
+    <value>Donor Registry</value>
+  </data>
+  <data name="REGRESAR_ADMINISTRACION" xml:space="preserve">
+    <value>Return to administration module</value>
+  </data>
+  <data name="REGRESAR_DASHBOARD" xml:space="preserve">
+    <value>You can return to the dashboard</value>
+  </data>
+  <data name="REPORTES" xml:space="preserve">
+    <value>Reports</value>
+  </data>
+  <data name="RESOLVER_ENCUESTA" xml:space="preserve">
+    <value>Resolve inquiry</value>
+  </data>
+  <data name="RESPONSABLE" xml:space="preserve">
+    <value>Responsible</value>
+  </data>
+  <data name="RESPONSABLE_YA_ASIGNADO" xml:space="preserve">
+    <value>Responsible already asigned to other area.</value>
+  </data>
+  <data name="RESULTADO" xml:space="preserve">
+    <value>Product</value>
+  </data>
+  <data name="RESUMEN" xml:space="preserve">
+    <value>Summary</value>
+  </data>
+  <data name="ROL" xml:space="preserve">
+    <value>Role</value>
+  </data>
+  <data name="ROLES" xml:space="preserve">
+    <value>Roles</value>
+  </data>
+  <data name="ROW" xml:space="preserve">
+    <value>Row </value>
+  </data>
+  <data name="SALDO" xml:space="preserve">
+    <value>Balance</value>
+  </data>
+  <data name="SALDOS_CONTRAPARTIDA" xml:space="preserve">
+    <value>Balance Sheet</value>
+  </data>
+  <data name="SATISFACTORIO" xml:space="preserve">
+    <value>Satisfying</value>
+  </data>
+  <data name="SEGURIDAD" xml:space="preserve">
+    <value>Security</value>
+  </data>
+  <data name="SELECCIONAR" xml:space="preserve">
+    <value>Select</value>
+  </data>
+  <data name="SELECCIONAR_ARCHIVO" xml:space="preserve">
+    <value>You must select a .csv file. Import file should contain only two columns: Date and Comment. Date format must be yyyy/mm/dd hh:mm, example: 2015/06/28 17:10. If time is not defined, 00:00 will be used by default</value>
+  </data>
+  <data name="SELECCIONAR_ARCHIVO_MOVIMIENTO" xml:space="preserve">
+    <value>You must select a .csv file. Date format must be yyyy/mm/dd, example: 2015/06/28.</value>
+  </data>
+  <data name="SELECCIONAR_VERIFICADOR_PRIMERO" xml:space="preserve">
+    <value>Please select a type first.</value>
+  </data>
+  <data name="SELECCIONE_ARCHIVO_PRIMERO" xml:space="preserve">
+    <value>Select a file first.</value>
+  </data>
+  <data name="SELECCIONE_AREA" xml:space="preserve">
+    <value>Please select an area first.</value>
+  </data>
+  <data name="SI" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="SIN_PERMISO" xml:space="preserve">
+    <value>Without Permission</value>
+  </data>
+  <data name="SOBRE_CUMPLIMIENTO" xml:space="preserve">
+    <value>Overfulfillment</value>
+  </data>
+  <data name="SOPORTE" xml:space="preserve">
+    <value>Support</value>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value>Required mail</value>
+  </data>
+  <data name="SUBTIPO" xml:space="preserve">
+    <value>Subtype</value>
+  </data>
+  <data name="SUPUESTOS" xml:space="preserve">
+    <value>Assumptions</value>
+  </data>
+  <data name="SUPUESTO_ERROR_DESCRIPCION_VACIA" xml:space="preserve">
+    <value>Assumption description is mandatory.</value>
+  </data>
+  <data name="TABLAS_CATALOGO" xml:space="preserve">
+    <value>Catalog Tables</value>
+  </data>
+  <data name="TAREA" xml:space="preserve">
+    <value>Task</value>
+  </data>
+  <data name="TAREAS" xml:space="preserve">
+    <value>Tasks</value>
+  </data>
+  <data name="TAREA_ASIGANADA_POR" xml:space="preserve">
+    <value>Assigned By</value>
+  </data>
+  <data name="TAREA_FECHA_REALIZACION" xml:space="preserve">
+    <value>Completion Date</value>
+  </data>
+  <data name="TAREA_HECHA" xml:space="preserve">
+    <value>Done</value>
+  </data>
+  <data name="TAREA_PRIORIDAD" xml:space="preserve">
+    <value>Priority</value>
+  </data>
+  <data name="TELEFONO" xml:space="preserve">
+    <value>Phone</value>
+  </data>
+  <data name="TERMINAR_ENCUESTA" xml:space="preserve">
+    <value>Finish Inquiry</value>
+  </data>
+  <data name="TIENE_MENSAJES" xml:space="preserve">
+    <value>You have</value>
+  </data>
+  <data name="TIPO" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="TIPOMOVIMIENTO" xml:space="preserve">
+    <value>Movement type</value>
+  </data>
+  <data name="TIPO_CAMBIO" xml:space="preserve">
+    <value>Exchange Rate</value>
+  </data>
+  <data name="TIPO_CAMBIO_NO_ENCONTRADO" xml:space="preserve">
+    <value>Exchange rate not found for selected currency</value>
+  </data>
+  <data name="TITULO" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="TITULO_ACCOUNTABILITY" xml:space="preserve">
+    <value>Accountability</value>
+  </data>
+  <data name="TOTALES" xml:space="preserve">
+    <value>Totals</value>
+  </data>
+  <data name="TOTAL_DISTRIBUIDO" xml:space="preserve">
+    <value>Total Distributed</value>
+  </data>
+  <data name="TOTAL_DONADO" xml:space="preserve">
+    <value>Total Donated</value>
+  </data>
+  <data name="TOTAL_FINANCIADO" xml:space="preserve">
+    <value>Total Funded</value>
+  </data>
+  <data name="TOTAL_OBJETIVO" xml:space="preserve">
+    <value>Total for Objective</value>
+  </data>
+  <data name="TOTAL_PRESUPUESTO" xml:space="preserve">
+    <value>Total Budget</value>
+  </data>
+  <data name="TOTAL_PROGRAMADO" xml:space="preserve">
+    <value>Total Scheduled</value>
+  </data>
+  <data name="UBICACION" xml:space="preserve">
+    <value>Location</value>
+  </data>
+  <data name="UNIDADMEDIDA" xml:space="preserve">
+    <value>Measurement unit</value>
+  </data>
+  <data name="UNIDADOPERACIONAL" xml:space="preserve">
+    <value>Operational unit</value>
+  </data>
+  <data name="URL" xml:space="preserve">
+    <value>Url</value>
+  </data>
+  <data name="USER_ERROR_EMAIL" xml:space="preserve">
+    <value>Correo requerido</value>
+  </data>
+  <data name="USER_ERROR_FIRSTNAME" xml:space="preserve">
+    <value>Name is required</value>
+  </data>
+  <data name="USER_ERROR_LASTNAME" xml:space="preserve">
+    <value>Last name is required</value>
+  </data>
+  <data name="USER_ERROR_USERNAME" xml:space="preserve">
+    <value>Required username</value>
+  </data>
+  <data name="USUARIO" xml:space="preserve">
+    <value>User</value>
+  </data>
+  <data name="USUARIOS" xml:space="preserve">
+    <value>Users</value>
+  </data>
+  <data name="USUARIO_GUARDADO" xml:space="preserve">
+    <value>The user has been successfully saved!!</value>
+  </data>
+  <data name="USUARIO_INCORRECTO" xml:space="preserve">
+    <value>The username or password is incorrect.</value>
+  </data>
+  <data name="VALIDAR" xml:space="preserve">
+    <value>Validate</value>
+  </data>
+  <data name="VALOR" xml:space="preserve">
+    <value>Value</value>
+  </data>
+  <data name="VALORUNITARIO" xml:space="preserve">
+    <value>Unit value</value>
+  </data>
+  <data name="VARIABLE" xml:space="preserve">
+    <value>Variable</value>
+  </data>
+  <data name="VENTA" xml:space="preserve">
+    <value>Sell</value>
+  </data>
+  <data name="VERIFICADORES" xml:space="preserve">
+    <value>Verificators</value>
+  </data>
+  <data name="VER_BITACORA" xml:space="preserve">
+    <value>View Log</value>
+  </data>
+  <data name="VER_DERECHOS" xml:space="preserve">
+    <value>View visit's users rights</value>
+  </data>
+  <data name="VER_DETALLE" xml:space="preserve">
+    <value>View Details</value>
+  </data>
+  <data name="VER_HISTORICO" xml:space="preserve">
+    <value>View history</value>
+  </data>
+  <data name="VER_PLAN" xml:space="preserve">
+    <value>View Plan</value>
+  </data>
+  <data name="VER_PREGUNTAS" xml:space="preserve">
+    <value>View questions</value>
+  </data>
+  <data name="VER_SOLO_LECTURA" xml:space="preserve">
+    <value>View (read only)</value>
+  </data>
+  <data name="VER_TODOS" xml:space="preserve">
+    <value>See all messages</value>
+  </data>
+  <data name="VER_UBICACION" xml:space="preserve">
+    <value>View location on map</value>
+  </data>
+  <data name="VISITAS" xml:space="preserve">
+    <value>Visits</value>
+  </data>
+  <data name="VISITA_ABIERTA" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="VISITA_ELIMINADA" xml:space="preserve">
+    <value>Deleted</value>
+  </data>
+  <data name="VISITA_TERMINADA" xml:space="preserve">
+    <value>Finished</value>
+  </data>
+  <data name="ZONA_HORARIA" xml:space="preserve">
+    <value>Time Zone</value>
+  </data>
+  <data name="ABREVIATURA" xml:space="preserve">
+    <value>Abbreviation</value>
+  </data>
+  <data name="BUSCAR_TIPO_CAMBIO" xml:space="preserve">
+    <value>Search Exchange Rates</value>
+  </data>
+  <data name="MODIFICAR_GASTOS" xml:space="preserve">
+    <value>Modify expense item</value>
+  </data>
+  <data name="NUEVA_PARTIDA" xml:space="preserve">
+    <value>New expenditure item</value>
+  </data>
+  <data name="VER" xml:space="preserve">
+    <value>View</value>
+  </data>
+  <data name="FILTRAR_DESCRIPCION_UBICACION" xml:space="preserve">
+    <value>Filter by description and location</value>
+  </data>
+  <data name="TENANTS" xml:space="preserve">
+    <value>Tenants</value>
+  </data>
+</root>

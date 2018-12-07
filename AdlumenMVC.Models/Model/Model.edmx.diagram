@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="41e57ffb8a3545e3b0699b4cca493c73" Name="Diagram1" ZoomLevel="91">
+        <EntityTypeShape EntityType="Adlumen2SocModel.Cms_MenuNodos" Width="1.5" PointX="3" PointY="66.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.Cms_Menus" Width="1.5" PointX="0.75" PointY="67.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.Com_Mensajes" Width="1.5" PointX="13.5" PointY="59.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.Com_MensajesEstado" Width="1.5" PointX="11.25" PointY="55.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.Doc_ArchivosTipos" Width="1.5" PointX="23.5" PointY="52.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.Doc_Categorias" Width="1.5" PointX="1.5" PointY="74.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.Doc_Documentos" Width="1.5" PointX="25.75" PointY="51.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.M_Encuestas" Width="1.5" PointX="26.5" PointY="47.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.M_EncuestasResueltas" Width="1.5" PointX="28.75" PointY="43.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.M_Idiomas" Width="1.5" PointX="24.25" PointY="48.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.M_Monedas" Width="1.5" PointX="18.25" PointY="61.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.M_Paises" Width="1.5" PointX="3.75" PointY="60.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.M_Periodos" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.M_PosiblesRespuestas" Width="1.5" PointX="31" PointY="48.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.M_Preguntas" Width="1.5" PointX="28.75" PointY="47.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.M_PreguntasResueltas" Width="1.5" PointX="31" PointY="44.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.M_Temas" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.m_TipCambio" Width="1.5" PointX="20.5" PointY="59.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.M_ValoresRespuesta" Width="1.5" PointX="33.25" PointY="45.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.Org_Areas" Width="1.5" PointX="8.25" PointY="66.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.Org_Cargos" Width="1.5" PointX="10.5" PointY="66.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.Org_Donantes" Width="1.5" PointX="3.75" PointY="54.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.Org_Empleados" Width="1.5" PointX="12.75" PointY="65.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.Org_EmpleadosCargosHistorico" Width="1.5" PointX="15" PointY="66.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.Org_Empresas" Width="1.5" PointX="6" PointY="64.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.Org_IdentificacionTipos" Width="1.5" PointX="3.75" PointY="71.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.Org_Proveedores" Width="1.5" PointX="8.25" PointY="61.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.Pry_Beneficiarios" Width="1.5" PointX="10.5" PointY="72.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.Pry_Bitacoras" Width="1.5" PointX="22.75" PointY="65.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.Pry_CalendarioDonaciones" Width="1.5" PointX="25.75" PointY="68" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.Pry_CapacitacionBeneficiario" Width="1.5" PointX="15.75" PointY="72.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.Pry_Capacitaciones" Width="1.5" PointX="13.5" PointY="81.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.Pry_DatosMuestras" Width="1.5" PointX="25" PointY="78" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.Pry_DatosVariables" Width="1.5" PointX="30.25" PointY="82.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.Pry_DatosVerificadores" Width="1.5" PointX="30.25" PointY="78.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.PRY_EVALUACIONESACTIVIDADESPERIODO" Width="1.5" PointX="10.5" PointY="76.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.Pry_EvaluacionHitos" Width="1.5" PointX="28" PointY="75.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.PRY_EVALUACIONINDICADORESPERIODO" Width="1.5" PointX="28" PointY="81" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.PRY_EVALUACIONPROYECTOPERIODO" Width="1.5" PointX="25" PointY="74.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.Pry_Facilitadores" Width="1.5" PointX="11.25" PointY="81.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.Pry_Indicadores" Width="1.5" PointX="18" PointY="64.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.Pry_IndicadoresProyecto_Programa" Width="1.5" PointX="20.25" PointY="79.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.Pry_IndicadoresTipos" Width="1.5" PointX="15.75" PointY="63.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.Pry_IndicadoresVerificadores" Width="1.5" PointX="20.25" PointY="81.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.Pry_Informes" Width="1.5" PointX="28.75" PointY="65.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.Pry_Informes_Donantes" Width="1.5" PointX="31" PointY="68" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.Pry_Informes_Encuestas" Width="1.5" PointX="31" PointY="65" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.Pry_Informes_Indicador" Width="1.5" PointX="31" PointY="72.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.Pry_Informes_Presupuestos" Width="1.5" PointX="34" PointY="66.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.Pry_Informes_Supuestos" Width="1.5" PointX="33" PointY="82.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.Pry_InformesEstados" Width="1.5" PointX="26.5" PointY="56.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.PRY_INFORMESICA" Width="1.5" PointX="25" PointY="83.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.PRY_INFORMESICADETALLE" Width="1.5" PointX="27.25" PointY="88.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.PRY_INFORMESICADOCUMENTOS" Width="1.5" PointX="27.25" PointY="85.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.PRY_INFORMESICAESTADOS" Width="1.5" PointX="22.75" PointY="78.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.PRY_INFORMESICAINDICADORES" Width="1.5" PointX="23.25" PointY="69.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.PRY_INFORMESICAOBJETIVOS" Width="1.5" PointX="13.5" PointY="72.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.PRY_INFORMESICATIPOS" Width="1.5" PointX="22.75" PointY="81.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.Pry_MontoDonacion" Width="1.5" PointX="27.25" PointY="95.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.Pry_Movimientos" Width="1.5" PointX="25" PointY="91.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.Pry_NivelAceptacion" Width="1.5" PointX="22.75" PointY="74.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.Pry_Objetivos" Width="1.5" PointX="8.25" PointY="71.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.Pry_ObjetivosClase" Width="1.5" PointX="6" PointY="74.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.PRY_PARTIDAGASTOS" Width="1.5" PointX="22.75" PointY="89.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.PRY_PERIODOSPROYECTOS" Width="1.5" PointX="22.75" PointY="92.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.Pry_Presupuesto" Width="1.5" PointX="25.75" PointY="63.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.Pry_PresupuestoTipo" Width="1.5" PointX="23.5" PointY="58.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.Pry_ProductividadBeneficiario" Width="1.5" PointX="12.75" PointY="75.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.Pry_Proyectos" Width="1.5" PointX="20.5" PointY="63.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.Pry_Proyectos_Donantes" Width="1.5" PointX="22.75" PointY="61.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.Pry_Proyectos_NivelAceptacion" Width="1.5" PointX="25.75" PointY="71.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.Pry_ProyectosEstados" Width="1.5" PointX="18.25" PointY="73.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.Pry_ProyectosTipos" Width="1.5" PointX="18.25" PointY="75.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.Pry_Recursos" Width="1.5" PointX="15.5" PointY="76.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.Pry_Supuestos" Width="1.5" PointX="10.5" PointY="98.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.Pry_Variables" Width="1.5" PointX="20.25" PointY="87.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.Sys_Clientes" Width="1.5" PointX="3.75" PointY="75.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.Sys_Usuarios" Width="1.5" PointX="11.25" PointY="58.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.sysdiagrams" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.Tar_Bitacora" Width="1.5" PointX="32.5" PointY="60.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.Tar_Listas" Width="1.5" PointX="25.75" PointY="59.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.Tar_Permisos_Bitacora" Width="1.5" PointX="32.5" PointY="57.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.Tar_Tareas" Width="1.5" PointX="28" PointY="59" IsExpanded="true" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.Tar_Visitas" Width="1.5" PointX="30.25" PointY="59.875" IsExpanded="true" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Cms_MenuNodes_Cms_Menu" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Org_Empresas_Cms_Menus" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Org_Empresas_Cms_Menus1" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Org_Empresas_Cms_Menus2" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Com_Mensajes_Sys_Usuarios" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Mod_Messages_Mod_MessagesStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Doc_Documentos_Doc_ArchivosTipos" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Doc_Documentos_Doc_Categorias" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_M_Encuestas_M_Idiomas" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_M_EncuestasResueltas_M_Encuestas" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_M_Preguntas_M_Encuestas" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_M_PreguntasResueltas_M_EncuestasResueltas" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK__m_TipCamb__idMon__5047A26B" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Pry_Movimientos_M_Monedas" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Pry_Proyectos_M_Monedas" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Org_Empresas_M_Paises" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_M_PosiblesRespuestas_M_Preguntas" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_M_PreguntasResueltas_M_Preguntas" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Pry_Informes_Encuestas_M_Preguntas" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_M_ValoresRespuesta_M_PreguntasResueltas" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Org_Areas_Org_Empresas" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Org_Cargos_Org_Areas" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Org_Empleados_Org_Cargos" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Org_EmpleadosCargosHistorico_Org_Cargos" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Org_Donantes_Org_IdentificacionTipos" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Org_Donantes_Sys_Clientes" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Pro_Proyectos_Donantes_Org_Donantes" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Pry_Calendario_Donaciones_Org_Donantes" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Pry_Informes_Donantes_Org_Donantes" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Org_Empleados_Org_IdentificacionTipos" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Org_Empleados_Sys_Usuarios" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Org_EmpleadosCargosHistorico_Org_Empleados" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Pry_Indicadores_Org_Empleados" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Org_Empresas_Org_IdentificacionTipos" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Org_Empresas_Sys_Clientes" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Org_Proveedores_Org_Empresas" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Pry_Objetivos_Org_Empresas" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Org_Proveedores_Org_IdentificacionTipos" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.KEY_PRY_BENEFICIARIO_CAPACITACIONES" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.KEY_PRY_BENEFICIARIOS" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.KEY_PRY_PRODUCTIVIDAD_BENEFICIARIO" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Pry_Bitacoras_Pry_Proyectos" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Pry_Calendario_Donaciones_Pry_Proyectos" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.KEY_PRY_CAPACITACIONES_BENEFICIARIO" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.KEY_PRY_CAPACITACIONES" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Pry_DatosMuestras_Pry_Indicadores" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Pry_DatosMuestras_Pry_NivelAceptacion" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Pry_DatosMuestras_PRY_PERIODOS" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Pry_DatosVariables_Pry_DatosMuestras" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Pry_DatosVerificadores_Pry_DatosMuestras" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Pry_Informes_Indicador_Pry_DatosMuestras" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Pry_DatosVariables_Pry_Variables" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Pry_DatosVerificadores_Pry_IndicadoresVerificadores" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_PRY_EVALUACIONESACTIVIDADESPERIODO_PRY_EVALUACIONPROYECTOPERIODO" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_PRY_EVALUACIONESACTIVIDADESPERIODO_Pry_Objetivos" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Pry_EvaluacionHitos_Pry_Indicadores" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Pry_EvaluacionHitos_Pry_Objetivos" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Pry_EvaluacionHitos_Pry_Objetivos1" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Pry_EvaluacionHitos_PRY_PERIODOS" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Pry_EvaluacionHitos_Pry_Proyectos" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_PRY_EVALUACIONINDICADORESPERIODO_Pry_Indicadores" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_PRY_EVALUACIONINDICADORESPERIODO_Pry_Objetivos" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_PRY_EVALUACIONINDICADORESPERIODO_PRY_PERIODOS" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_PRY_EVALUACIONINDICADORESPERIODO_Pry_Proyectos" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_PRY_EVALUACIONPROYECTOPERIODO_PRY_PERIODOS" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_PRY_EVALUACIONPROYECTOPERIODO_Pry_Proyectos" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Pry_Indicadores_Pry_IndicadoresTipos" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Pry_Indicadores_Pry_IndicadoresTipos1" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Pry_IndicadoresProyecto_Programa_Pry_Indicadores" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Pry_IndicadoresVerificadores_Pry_Indicadores" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Pry_Informes_Indicador_Pry_Indicadores" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_PRY_INFORMESICAINDICADORES_Pry_Indicadores" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Pry_Informes_Donantes_Pry_Informes" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Pry_Informes_Encuestas_Pry_Informes" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Pry_Informes_Indicador_Pry_Informes" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Pry_Informes_Presupuestos_Pry_Informes" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Pry_Informes_Pry_InformesEstados" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Pry_Informes_Pry_NivelAceptacion" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Pry_Informes_Pry_NivelAceptacion1" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Pry_Informes_Pry_Proyectos" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Pry_Informes_Supuestos_Pry_Informes" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Pry_Informes_Indicador_Pry_NivelAceptacion" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Pry_Informes_Presupuestos_Pry_NivelAceptacion" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Pry_Informes_Presupuestos_Pry_Presupuesto" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Pry_Informes_Supuestos_Pry_Supuestos" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_PRY_INFORMESICA_PRY_INFORMESICAESTADOS" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_PRY_INFORMESICA_PRY_INFORMESICATIPOS" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_PRY_INFORMESICA_PRY_PERIODOS" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_PRY_INFORMESICA_PRY_PERIODOS1" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_PRY_INFORMESICA_Pry_Proyectos" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_PRY_INFORMESICADETALLE_PRY_INFORMESICA" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_PRY_INFORMESICADOCUMENTOS_PRY_INFORMESICA" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_PRY_INFORMESICAINDICADORES_PRY_INFORMESICA" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_PRY_INFORMESICAOBJETIVOS_PRY_INFORMESICA" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_PRY_INFORMESICAOBJETIVOS_Pry_Objetivos" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Pry_MontoDonacion_Pry_Movimientos" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Pry_Movimientos_PRY_PARTIDAGASTOS" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Pry_Movimientos_PRY_PERIODOS" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Pry_Movimientos_Pry_Presupuesto" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Pry_Proyectos_NivelAceptacion_Pry_NivelAceptacion" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Pry_Objetivos_Pry_ObjetivosClase" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Pry_Proyectos_Pry_Objetivos" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Pry_Recursos_Pry_Objetivos" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Pry_Supuestos_Pry_Objetivos" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Pry_Recursos_PRY_PARTIDAGASTOS" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_PRY_PERIODOSPROYECTOS_Pry_Proyectos" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Pry_Presupuesto_Pry_PresupuestoTipo" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Pry_Presupuesto_Pry_Proyectos" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Pro_Proyectos_Donantes_Pro_Proyectos" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Pry_Proyectos_NivelAceptacion_Pry_Proyectos" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Pry_Proyectos_Pry_Proyectos" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Pry_Proyectos_Pry_ProyectosEstados" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Pry_Proyectos_Pry_ProyectosTipos" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Pry_Proyectos_Sys_Clientes" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Pry_Proyectos_Sys_Usuarios" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Pry_Proyectos_Sys_Usuarios1" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Pry_Proyectos_Sys_Usuarios2" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Tar_Listas_Pry_Proyectos" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Pry_Proyectos_Donantes_Sys_Usuarios" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Tar_Bitacora_Sys_Usuarios" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Tar_Listas_Sys_Usuarios" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Tar_Listas_Sys_Usuarios1" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Tar_Permisos_Bitacora_Sys_Usuarios" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Tar_Tareas_Sys_Usuarios" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Tar_Tareas_Sys_Usuarios1" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Tar_Tareas_Sys_Usuarios2" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Tar_Tareas_Sys_Usuarios3" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Tar_Bitacora_Tar_Visitas" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Tar_Tareas_Tar_Listas" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Tar_Permisos_Bitacora_Tar_Visitas" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.FK_Tar_Visitas_Tar_Tareas" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.Doc_Clientes_Categorias" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.Documentos_Tareas" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.Org_Donantes_Empresas" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.Pry_Indicadores_Variables" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.Sys_Usuarios_Donantes" ManuallyRouted="false" />
+        <AssociationConnector Association="Adlumen2SocModel.Sys_Usuarios_Empresas" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.Tenants" Width="1.5" PointX="5.375" PointY="0.75" />
+        <EntityTypeShape EntityType="Adlumen2SocModel.M_Plantillas" Width="1.5" PointX="5.375" PointY="3.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

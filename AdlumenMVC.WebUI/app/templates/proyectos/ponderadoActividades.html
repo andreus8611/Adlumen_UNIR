@@ -1,0 +1,60 @@
+﻿<div class="box box-solid">
+    <div class="box-header">
+        <h3 class="box-title">{{translation.PONDERACION_COMPONENTES}}</h3>
+    </div>
+    <div class="box-body table-responsive">
+        <div class="row" ng-repeat="parent in getFlatObjetivos(2)">
+            <div uib-alert ng-class="'alert-danger'" ng-if="parent.totalPonderado > 100">{{translation.PONDERADO_EXCEDE_100}}</div>
+            <div uib-alert ng-class="'alert-danger'" ng-if="parent.totalPonderado > 0 && parent.totalPonderado < 100">{{translation.PONDERADO_MENOS_DE_100}}</div>
+        </div>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>{{translation.PONDERADO}}</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="objetivo in flatResultados" ng-if="objetivo.objetivoClase.idObjetivoClase >= 3" ng-include="getPonderadoTemplate(objetivo)"></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script type="text/ng-template" id="displayPonderadoActividades">
+    <td>
+        <p><b>{{objetivo.objetivoClase.descripcion}}</b></p>
+        <p><b ng-show="objetivo.codigo != 0">{{objetivo.codigo}}&nbsp;</b>{{objetivo.descripcion}}</p>
+        <p><div uib-alert ng-class="'alert-danger'" ng-if="objetivo.totalPonderado > 100">{{translation.PONDERADO_EXCEDE_100}}</div></p>
+        <p><div uib-alert ng-class="'alert-danger'" ng-if="objetivo.totalPonderado > 0 && objetivo.totalPonderado < 100">{{translation.PONDERADO_MENOS_DE_100}}</div></p>
+    </td>
+    <td style="vertical-align: middle;">{{objetivo.objetivo.ponderado | number}} %</td>
+    <td>
+        <button type="button" class="btn btn-primary" ng-show="!editMode" ng-click="editPonderadoActividades()" uib-tooltip="{{translation.EDITAR}}">
+            <span class="glyphicon glyphicon-pencil"></span>
+        </button>
+    </td>
+    <td></td>
+</script>
+<script type="text/ng-template" id="editPonderadoActividades">
+    <td>
+        <p><b>{{objetivo.objetivoClase.descripcion}}</b></p>
+        <p><b ng-show="objetivo.codigo != 0">{{objetivo.codigo}}&nbsp;</b>{{objetivo.descripcion}}</p>
+        <p><div uib-alert ng-class="'alert-danger'" ng-if="objetivo.totalPonderado > 100">{{translation.PONDERADO_EXCEDE_100}}</div></p>
+        <p><div uib-alert ng-class="'alert-danger'" ng-if="objetivo.totalPonderado > 0 && objetivo.totalPonderado < 100">{{translation.PONDERADO_MENOS_DE_100}}</div></p>
+    </td>
+    <td style="width:15%"><input style="width:100%" type="number" onkeypress="return validateNumber(event);" ng-model="selectedObjetivo.objetivo.ponderado"> %</td>
+    <td>
+        <button type="button" class="btn btn-primary" ng-show="editMode" ng-click="SaveObjetivo()" uib-tooltip="{{translation.GUARDAR}}">
+            <span class="glyphicon glyphicon-floppy-disk"></span>
+        </button>
+    </td>
+    <td>
+        <button type="button" class="btn btn-primary" ng-show="editMode" ng-click="CancelEdit()" uib-tooltip="{{translation.CANCELAR}}">
+            <span class="glyphicon glyphicon-remove"></span>
+        </button>
+    </td>
+</script>
+

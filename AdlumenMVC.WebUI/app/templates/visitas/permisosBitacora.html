@@ -1,0 +1,42 @@
+﻿<div class="col-md-12" ng-controller="permisosBitacoraCtrl">
+
+    <div class="row" style="margin-right:auto; margin-left: auto;">
+        <form name="permisosBitacoraForm">
+            <table class="table table-hover">
+
+                <thead>
+                    <tr>
+                        <th>{{translation.USUARIO}}</th>
+                        <th>{{translation.NOMBRE}}</th>
+                        <th>{{translation.PERMISO_READ_VISITA}}</th>
+                        <th>{{translation.PERMISO_WRITE_VISITA}}</th>
+                        <th>{{translation.PERMISO_READ_BITACORA}}</th>
+                        <th>{{translation.PERMISO_WRITE_BITACORA}}</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr ng-repeat="permiso in permisos">
+                        <td>{{permiso.userName}}</td>
+                        <td>{{permiso.nombreUsuario}}</td>
+                        <td><input type="checkbox" ng-model="permiso.readVisita"></td>
+                        <td><input type="checkbox" ng-model="permiso.writeVisita"></td>
+                        <td><input type="checkbox" ng-model="permiso.readBitacora"></td>
+                        <td><input type="checkbox" ng-model="permiso.writeBitacora"></td>
+                    </tr>
+                </tbody>
+
+            </table>
+
+            <div class="row">
+                <div uib-alert ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)" dismiss-on-timeout="8000" ng-repeat="alert in alerts" ng-if="showAlert">{{alert.msg}}</div>
+            </div>
+
+            <button type="button" class="btn btn-primary" ng-click="submitPermisos()">
+                <span class="glyphicon glyphicon-floppy-disk"></span>
+            </button>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,92 @@
+﻿<section class="content-header">
+    <h1>
+        {{translation.PROYECTOS}}
+
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i> {{translation.HOME}}</a></li>
+        <li><a href="javascript:;">{{translation.ADMIN}}</a></li>
+        <li class="active">{{translation.PROYECTOS}}</li>
+    </ol>
+</section>
+
+<section class="content">
+    <!-- Small boxes (Stat box) -->
+    <div class="row">
+        <div class="container-fluid">
+            <div class="box box-primary">
+
+                <div class="box-header">
+                    <div class="container-fluid">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label" for="input-projectSearch">{{translation.FILTRAR}}</label>
+
+                                <div class="col-sm-6">
+                                    <input id="input-projectSearch" class="form-control" ng-model="search.nombre" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="box-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <table class="table table-hover">
+
+                                <thead>
+                                    <tr>
+                                        <th>{{translation.CODIGO}}</th>
+                                        <th>{{translation.NOMBRE}}</th>
+                                        <th>{{translation.ESTADO}}</th>
+                                        <th>{{translation.TIPO}}</th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+
+                                </thead>
+
+                                <tbody>
+
+                                    <tr ng-repeat="proyecto in projects | filter:search:strict ">
+                                        <td>{{proyecto.codigo}}</td>
+                                        <td>{{proyecto.nombre}}</td>
+                                        <td>{{proyecto.status.descripcion}}</td>
+                                        <td>{{proyecto.type.descripcion}}</td>
+                                        <td>
+                                            <button type="button" class="btn btn-primary" ng-click="gotoProject(proyecto.idProyecto);" uib-tooltip="{{translation.VER_DETALLE}}">
+                                                <span class="glyphicon glyphicon-list-alt"></span>
+                                            </button>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-primary" ng-click="cerrarProyecto(proyecto.idProyecto);" uib-tooltip="{{translation.CERRAR_PROYECTO}}">
+                                                <span class="glyphicon glyphicon-lock"></span>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+
+                            </table>
+                        </div>
+                        <div class="row">
+                            <button type="button" class="btn btn-primary" ng-click="crearNuevoProyecto()" uib-tooltip="{{translation.NUEVO}}">
+                                {{translation.NUEVO}}
+                            </button>
+                        </div>
+                        <br>
+                        <div class="row global-alerts-row">
+                            <div uib-alert ng-class="'alert-' + (alert.type || 'warning')" close="closeGlobalAlert($index)" dismiss-on-timeout="{{alert.timeout}}" ng-repeat="alert in globalAlerts" ng-if="globalAlerts">{{alert.msg}}</div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        
+    </div><!-- /.row -->
+
+</section>
+

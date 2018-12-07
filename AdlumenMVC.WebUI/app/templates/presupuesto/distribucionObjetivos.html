@@ -1,0 +1,89 @@
+﻿<script type="text/ng-template" id="displayPresupuesto">
+    <div ng-repeat="child in child.childs" class="box box-solid">
+        <div class="box-body">
+
+            <div uib-alert ng-class="'alert-danger'" ng-if="child.codigo !== '0' && validateSum(child)">{{translation.DISTRIBUIR_PRESUPUESTO}}</div>
+
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th><span ng-if="child.codigo !== '0'">{{child.codigo}}</span> {{child.objetivoProyecto.objetivoClase.descripcion}}</th>
+                        <th colspan="2">{{translation.MONTO}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{child.objetivo.descripcion}}</td>
+                        <td>
+                            <div ng-if="selectedPresupuesto !== child">{{child.presupuesto.monto | number: 2}}</div>
+                            <input ng-if="editMode && selectedPresupuesto === child" style="width:90px" type="number" onkeypress="return validateNumber(event);" ng-model="selectedPresupuesto.presupuesto.monto">
+                        </td>
+                        <td>
+                            <button ng-if="selectedPresupuesto !== child && child.codigo !== '0'" type="button" class="btn btn-primary" ng-click="editPresupuesto(child)" uib-tooltip="{{translation.EDITAR}}">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </button>
+                            <div class="form-inline" ng-if="editMode && selectedPresupuesto === child">
+                                <button type="button" class="btn btn-primary" ng-click="SavePresupuesto()" uib-tooltip="{{translation.GUARDAR}}">
+                                    <span class="glyphicon glyphicon-floppy-disk"></span>
+                                </button>
+                                <button type="button" class="btn btn-primary" ng-click="CancelEdit()" uib-tooltip="{{translation.CANCELAR}}">
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                </button>
+                            </div>
+                            
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div ng-include="'displayPresupuesto'"></div>
+        </div>
+
+    </div>
+</script>
+<div class="row">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>{{translation.PRESUPUESTO_TOTAL}}</th>
+                <th>{{translation.TOTAL_DISTRIBUIDO}}</th>
+                <th>{{translation.PENDIENTE}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{presupuestoData.totalProjectImplementation | number:2}}</td>
+                <td>{{presupuestoData.totalPresupuestoObjetivos | number:2}}</td>
+                <td>{{presupuestoData.pendientePresupuesto | number:2}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="row">
+        <div uib-alert ng-if="presupuestoData.pendientePresupuesto != 0" ng-class="'alert-danger'">{{translation.DISTRIBUIR_PRESUPUESTO}}</div>
+    </div>
+    <div ng-repeat="child in childs" class="box box-solid">
+        <div class="box-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th><span ng-if="child.codigo !== '0'">{{child.codigo}}</span> {{child.objetivoProyecto.objetivoClase.descripcion}}</th>
+                        <th colspan="2">{{translation.MONTO}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{child.objetivo.descripcion}}</td>
+                        <td>
+                            <div ng-if="selectedPresupuesto !== child">{{child.presupuesto.monto | number: 2}}</div>
+                            <input ng-if="editMode && selectedPresupuesto === child" style="width:100%" type="number" onkeypress="return validateNumber(event);" ng-model="selectedPresupuesto.presupuesto.monto">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div ng-include="'displayPresupuesto'"></div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div uib-alert ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)" dismiss-on-timeout="20000" ng-repeat="alert in alerts" ng-if="showAlert">{{alert.msg}}</div>
+    </div>
+</div>

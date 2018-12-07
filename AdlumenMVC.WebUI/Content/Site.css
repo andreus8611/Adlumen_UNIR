@@ -1,0 +1,333 @@
+﻿/*Custom Css by Ernesto Duarte*/
+
+html, body {
+    height: 100%;
+}
+
+/* Layout */
+
+.large-input {
+        width: 350px;
+}
+.large-input-full {
+        width: 100%;
+}
+/* --- Tree --- */
+ul.tree-node-item {
+    list-style-type: none;
+}
+ul.tree-node-item1 {
+    list-style-type: none;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0px;
+}
+
+.angular-ui-tree-handle {
+    background: #f8faff;
+    border: 1px solid #dae2ea;
+    color: #7c9eb2;
+    padding: 10px 10px;
+    }
+
+.angular-ui-tree-handle:hover {
+    color: #438eb9;
+    background: #f4f6f7;
+    border-color: #dce2e8;
+    }
+
+.angular-ui-tree-placeholder {
+    background: #f0f9ff;
+    border: 2px dashed #bed2db;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+/* --- Tree --- */
+.tree-node {
+    border: 1px solid #dae2ea;
+    background: #f8faff;
+    color: #7c9eb2;
+    height: 40px;
+    width: 100%;
+}
+.tree-node1 {
+    border: 1px solid #dae2ea;
+    background: #f8faff;
+    color: #7c9eb2;
+    width: 100%;
+}
+.tree-node-content {
+    margin: 5px;
+}
+.tree-handle {
+    padding: 10px;
+    background: #428bca;
+    color: #FFF;
+    margin-right: 10px;
+}
+
+.angular-ui-tree-handle:hover {
+}
+
+.angular-ui-tree-placeholder {
+    background: #f0f9ff;
+    border: 2px dashed #bed2db;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.al-tree-buttons {
+    float: right;
+}
+.al-tree-buttons a {
+    margin: 3px 3px 0 0;
+}
+.al-tree-content {
+    margin: 3px;
+}
+/*Master Detail Divs*/
+#divMasterDetailWrapper {
+    width: 100%;
+    padding: 3px;
+}
+#divMasterView
+{
+  width: 100%;
+  height: 320px;
+  margin-right: 5px;
+  overflow-y: auto;
+  float: left;
+  border: 1px solid;
+}
+#divDetailView
+{
+  width: 100%;
+  height: 320px;
+        padding: 0;
+  display: block;
+  overflow-y: auto;
+  border: 1px solid;
+    }
+
+.angular-google-map-container { 
+  height: 300px;
+  width: auto;
+}
+
+.scrollable-menu {
+    height: auto;
+    max-height: 200px;
+    overflow-x: hidden;
+}
+
+.actions:hover {
+    cursor: pointer;
+    }
+
+.text-left {
+    text-align: left;
+    }
+
+.text-center {
+    text-align:  center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.navbar-nav > .language-menu > .dropdown-menu {
+  width: 280px;
+  padding: 0 0 0 0;
+  margin: 0;
+  top: 100%;
+    }
+
+.navbar-nav > .language-menu > .dropdown-menu > li {
+  position: relative;
+        }
+
+
+.navbar-nav > .language-menu > .dropdown-menu > li.header {
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  background-color: #ffffff;
+  padding: 7px 10px;
+  border-bottom: 1px solid #f4f4f4;
+  color: #444444;
+  font-size: 14px;
+        }
+
+.navbar-nav > .language-menu > .dropdown-menu > li.footer > a {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 4px;
+  border-bottom-left-radius: 4px;
+  font-size: 12px;
+    background-color: #fff;
+  padding: 7px 10px;
+  border-bottom: 1px solid #eeeeee;
+  color: #444!important;
+  text-align: center;
+}
+@media (max-width: 991px) {
+  .navbar-nav > .language-menu > .dropdown-menu > li.footer > a {
+    background: #fff!important;
+    color: #444!important;
+    }
+        }
+
+.navbar-nav > .language-menu > .dropdown-menu > li.footer > a:hover {
+  text-decoration: none;
+    font-weight: normal;
+}
+
+.navbar-nav > .language-menu > .dropdown-menu > li .menu {
+  max-height: 200px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+  overflow-x: hidden;
+}
+
+.navbar-nav > .language-menu > .dropdown-menu > li .menu > li > a {
+  display: block;
+  white-space: nowrap;
+  /* Prevent text from breaking */
+  border-bottom: 1px solid #f4f4f4;
+}
+
+.navbar-nav > .language-menu > .dropdown-menu > li .menu > li > a:hover {
+  background: #f4f4f4;
+  text-decoration: none;
+}
+
+.navbar-nav > .language-menu > .dropdown-menu > li .menu > li > a {
+    margin: 0;
+  padding: 10px 10px;
+}
+.navbar-nav > .language-menu > .dropdown-menu > li .menu > li > a > div > img {
+  margin: auto 10px auto auto;
+  width: 20px;
+  height: 20px;
+    }
+.navbar-nav > .language-menu > .dropdown-menu > li .menu > li > a > h4 {
+        padding: 0;
+  margin: 4px 0 0 45px;
+  color: #444444;
+  font-size: 15px;
+        position: relative;
+    }
+.navbar-nav > .language-menu > .dropdown-menu > li .menu > li > a > h4 > small {
+  color: #999999;
+  font-size: 10px;
+        position: absolute;
+        top: 0;
+  right: 0;
+            }
+.navbar-nav > .language-menu > .dropdown-menu > li .menu > li > a > p {
+  margin: 0 0 0 45px;
+  font-size: 12px;
+  color: #888888;
+     }
+.navbar-nav > .language-menu > .dropdown-menu > li .menu > li > a:before,
+.navbar-nav > .language-menu > .dropdown-menu > li .menu > li > a:after {
+  content: " ";
+  display: table;
+        }
+.navbar-nav > .language-menu > .dropdown-menu > li .menu > li > a:after {
+  clear: both;
+    }
+
+/* easy pie charts */
+.raphael-easypie-chart-container {
+    display: inline-block; 
+    width: 30%; 
+    height: 25%;
+    margin-left: 2%;
+    }
+
+/* clickable cursor on table hover */
+
+.table tbody tr:hover {
+    cursor: pointer;
+    }
+
+/* bootstrap custom */
+
+.form-horizontal .form-group .control-label {
+    text-align: left;
+    }
+
+a[ng-click]{
+    cursor: pointer;
+}
+
+.pac-container {
+    z-index: 2000;
+}
+/* dashboard */
+.raphael-easypie-chart-container > div > b {
+    font-size: 15.5px !important;
+}
+.db-chart-section .box-header.text-center {
+    min-height: 100px;
+}
+/* companies */
+.companies .angular-google-map, .angular-google-map-container {
+    height: 450px;
+}
+
+/* project */
+.project-general .thumbnail {
+    max-width: 100%;
+    max-height: 400px;
+}
+.project-general .form-control {
+    width: 98%;
+    display: inline-block;
+}
+
+
+/* misc */
+.main-footer {
+    /*bottom: 0;
+  position: relative;
+  width: calc(100% - 230px);*/
+}
+.global-alerts-row {
+    /*margin: -14px 0px 0px 230px;
+  background-color: #ecf0f5;
+  padding: 0 15px;*/
+}
+.fixed-alert {
+    position: fixed;
+    bottom: 0;
+    width: 500px;
+    margin-left: 45px;
+}
+
+
+
+
+
+
+.capitalize {
+    text-transform: capitalize;
+}
+
+form.ng-submitted input.ng-invalid {
+    border: 1px solid red;
+}
+.required:after {
+    content: " *";
+    color: red;
+    display: inline-block;
+}
+td.required:after {
+    position: absolute;
+}

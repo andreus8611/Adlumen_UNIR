@@ -1,0 +1,58 @@
+﻿<script type="text/ng-template" id="modalAlert.html">
+    <div class="modal-header">
+        <h3 class="modal-title">{{translation.INFORMACION}}</h3>
+    </div>
+    <div class="modal-body">
+        <b>{{ mensajeAlert }}</b>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="ok()">{{translation.ACEPTAR}}</button>
+    </div>
+</script>
+<script type="text/ng-template" id="modalConfirmation.html">
+    <div class="modal-header">
+        <h3 class="modal-title">{{translation.CONFIRMACION}}</h3>
+    </div>
+    <div class="modal-body">
+        <b>{{ mensajeConfirmacion }}</b>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="ok()">{{translation.SI}}</button>
+        <button class="btn btn-warning" type="button" ng-click="cancel()">{{translation.NO}}</button>
+    </div>
+</script>
+<div class="row">
+    <div class="well-lg col-md-12">
+        <div class="col-md-3">
+            <uib-tabset vertical="true" type="pills">
+                <uib-tab heading="{{getTabHeader(0)}}" ng-click="setTab(0)" disabled="tabs[0].disabled"></uib-tab>
+                <uib-tab heading="{{getTabHeader(1)}}" ng-click="setTab(1)" disabled="tabs[1].disabled"></uib-tab>
+                <uib-tab heading="{{getTabHeader(2)}}" ng-click="setTab(2)" disabled="tabs[2].disabled"></uib-tab>
+                <uib-tab heading="{{getTabHeader(3)}}" ng-click="setTab(3)" disabled="tabs[3].disabled"></uib-tab>
+                <uib-tab heading="{{getTabHeader(4)}}" ng-click="setTab(4)" disabled="tabs[4].disabled"></uib-tab>
+                <uib-tab heading="{{getTabHeader(5)}}" ng-click="setTab(5)" disabled="tabs[5].disabled"></uib-tab>
+            </uib-tabset>
+        </div>
+        <div class="col-md-9">
+            <div class="row" ng-if="tabSelected == 0">
+                <div class="col-md-12" ng-include="'app/templates/presupuesto/registroDonantes.html'"></div>
+            </div>
+            <div class="row" ng-if="tabSelected == 1">
+                <div class="col-md-12" ng-include="'app/templates/presupuesto/budgetDistribution.html'"></div>
+            </div>
+            <div class="row" ng-if="tabSelected == 2">
+                <div class="col-md-12" ng-include="'app/templates/presupuesto/distribucionObjetivos.html'"></div>
+            </div>
+            <div class="row" ng-if="tabSelected == 3">
+                <div class="col-md-12" ng-include="'app/templates/presupuesto/recursosActividades.html'"></div>
+            </div>
+            <div class="row" ng-if="tabSelected == 4">
+                <div class="col-md-12" ng-include="'app/templates/presupuesto/distribucionDonaciones.html'"></div>
+            </div>
+            <div class="row" ng-if="tabSelected == 5">
+                <div class="col-md-12" ng-include="'app/templates/presupuesto/calendarioDonaciones.html'"></div>
+            </div>
+
+        </div>
+    </div>
+</div>

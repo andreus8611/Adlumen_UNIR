@@ -1,0 +1,52 @@
+﻿<div class="box box-solid">
+    <div class="box-header">
+        <h3 class="box-title">{{translation.PONDERACION_INDICADORES}}</h3>
+    </div>
+    <div class="box-body table-responsive">
+        <ul>
+            <li ng-repeat="objetivo in proyecto.flatObjetivos">
+                <p><b>{{objetivo.objetivoClase.descripcion}}</b></p><p><b ng-show="objetivo.codigo != 0">{{objetivo.codigo}}&nbsp;</b>{{objetivo.descripcion}}</p>
+                <p><div uib-alert ng-class="'alert-danger'" ng-if="objetivo.totalPonderadoIndicadores > 100">{{translation.PONDERADO_EXCEDE_100}}</div></p>
+                <p><div uib-alert ng-class="'alert-danger'" ng-if="objetivo.totalPonderadoIndicadores > 0 && objetivo.totalPonderadoIndicadores < 100">{{translation.PONDERADO_MENOS_DE_100}}</div></p>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>{{translation.INDICADOR}}</th>
+                            <th>{{translation.PONDERADO}}</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="indicador in objetivo.indicadores" ng-include="getPonderadoIndicadoresTemplate(indicador)"></tr>
+                    </tbody>
+                </table>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<script type="text/ng-template" id="displayPonderadoIndicador">
+    <td><p><b>{{indicador.codigo}}&nbsp;</b>{{indicador.descripcion}}</p></td>
+    <td>{{indicador.ponderado | number}} %</td>
+    <td>
+        <button type="button" class="btn btn-primary" ng-show="!editMode" ng-click="editPonderadoIndicadores()" uib-tooltip="{{translation.EDITAR}}">
+            <span class="glyphicon glyphicon-pencil"></span>
+        </button>
+    </td>
+    <td></td>
+</script>
+<script type="text/ng-template" id="editPonderadoIndicador">
+    <td><p><b>{{indicador.codigo}}&nbsp;</b>{{indicador.descripcion}}</p></td>
+    <td style="width:15%"><input style="width:100%" type="number" onkeypress="return validateNumber(event);" ng-model="selectedIndicator.ponderado"> %</td>
+    <td>
+        <button type="button" class="btn btn-primary" ng-show="editMode" ng-click="SaveIndicador()" uib-tooltip="{{translation.GUARDAR}}">
+            <span class="glyphicon glyphicon-floppy-disk"></span>
+        </button>
+    </td>
+    <td>
+        <button type="button" class="btn btn-primary" ng-show="editMode" ng-click="CancelEdit()" uib-tooltip="{{translation.CANCELAR}}">
+            <span class="glyphicon glyphicon-remove"></span>
+        </button>
+    </td>
+</script>

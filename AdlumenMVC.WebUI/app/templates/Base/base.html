@@ -1,0 +1,294 @@
+﻿<script type="text/ng-template" id="modalConfirmation.html">
+    <div class="modal-header">
+        <h3 class="modal-title">{{translation.CONFIRMACION}}</h3>
+    </div>
+    <div class="modal-body">
+        <b>{{ mensajeConfirmacion }}</b>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="ok()">{{translation.SI}}</button>
+        <button class="btn btn-warning" type="button" ng-click="cancel()">{{translation.NO}}</button>
+    </div>
+</script>
+<header class="main-header">
+    <!-- Logo -->
+    <a href="#" class="logo">
+        <!-- mini logo for sidebar mini 50x50 pixels -->
+        <span class="logo-mini"><b>A</b>LT</span>
+        <!-- logo for regular state and mobile devices -->
+        <span class="logo-lg"><img class="img-circle" style="width: 40px; height: 40px;" alt="User Image" ng-src="{{bdClient.logo}}"> <b>{{bdClient.name}}</b></span>
+    </a>
+    <!-- Header Navbar: style can be found in header.less -->
+    <nav class="navbar navbar-static-top" role="navigation">
+        <!-- Sidebar toggle button-->
+        <a href="javascript:;" class="sidebar-toggle" data-toggle="offcanvas" ng-init="loadAdminJs()" role="button">
+            <span class="sr-only">Toggle navigation</span>
+        </a>
+        <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
+                <!-- Messages: style can be found in dropdown.less-->
+                <li class="dropdown messages-menu">
+                    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-envelope-o"></i>
+                        <span ng-if="messages.length !== 0" class="label label-success">{{messages.length}}</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="header">{{translation.TIENE_MENSAJES}} {{messages.length}} {{translation.MENSAJES}}</li>
+                        <li>
+                            <!-- inner menu: contains the actual data -->
+                            <ul class="menu">
+                                <li ng-repeat="message in messages">
+                                    <!-- start message -->
+                                    <a href="javascript:;">
+                                        <div class="pull-left">
+                                            <img src="/Images/avatar5.png" class="img-circle" alt="User Image">
+                                        </div>
+                                        <h4>
+                                            {{message.sender}}
+                                            <small><i class="fa fa-clock-o"></i> 5 mins</small>
+                                        </h4>
+                                        <p>{{message.asunto}}</p>
+                                    </a>
+                                </li><!-- end message -->
+                            </ul>
+                        </li>
+                        <li class="footer"><a href="#!/messages">{{translation.VER_TODOS}}</a></li>
+                    </ul>
+                </li>
+                <!-- Notifications: style can be found in dropdown.less -->
+                <!-- Tasks: style can be found in dropdown.less -->
+                <!-- Languages-->
+                <li class="dropdown language-menu">
+                    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-globe"></i>
+
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <!-- inner menu: contains the actual data -->
+                            <ul class="menu">
+                                <li>
+                                    <!-- start message -->
+                                    <a href="javascript:;" ng-click="changeLanguage('en')">
+                                        <div class="pull-left">
+                                            <img src="/Images/en.png" class="img-circle" alt="Language Image">
+                                        </div>
+                                        <h4>
+                                            English
+                                        </h4>
+                                    </a>
+                                </li><!-- end message -->
+                                <li>
+                                    <!-- start message -->
+                                    <a href="javascript:;" ng-click="changeLanguage('es')">
+                                        <div class="pull-left">
+                                            <img src="/Images/es.png" class="img-circle" alt="Language Image">
+                                        </div>
+                                        <h4>
+                                            Español
+                                        </h4>
+                                    </a>
+                                </li><!-- end message -->
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <!-- User Account: style can be found in dropdown.less -->
+                <li class="dropdown user user-menu">
+                    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+                        <img class="user-image" alt="User Image" ng-src="{{bdUser.logo}}">
+                        <span class="hidden-xs">{{bdUser.userName}}</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <!-- User image -->
+                        <li class="user-header">
+                            <img ng-src="{{bdUser.logo}}" class="img-circle" alt="User Image">
+                            <p>
+                                {{bdUser.firstName}} {{bdUser.lastName}}
+
+                            </p>
+                        </li>
+                        <!-- Menu Body -->
+                        <!-- Menu Footer-->
+                        <li class="user-footer">
+                            <div class="pull-left">
+                                <a href="#!/profile" class="btn btn-default btn-flat">{{translation.PERFIL}}</a>
+                            </div>
+                            <div class="pull-right">
+                                <a href="javascript:;" ng-click="logOut()" class="btn btn-default btn-flat">{{translation.CERRAR_SESION}}</a>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+
+
+                <!-- Control Sidebar Toggle Button -->
+
+            </ul>
+        </div>
+    </nav>
+</header>
+<!-- Left side column. contains the logo and sidebar -->
+<aside class="main-sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+        <!-- Sidebar user panel -->
+        <div class="user-panel">
+            <div class="pull-left image">
+                <img ng-src="{{bdUser.logo}}" class="img-circle" alt="User Image">
+            </div>
+            <div class="pull-left info">
+                <p>{{bdUser.firstName}} {{bdUser.lastName}}</p>
+                <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+            </div>
+        </div>
+        <!-- search form -->
+        <form action="#" method="get" class="sidebar-form">
+            <div class="input-group">
+                <input type="text" name="q" class="form-control" placeholder="{{translation.BUSCAR}}...">
+                <span class="input-group-btn">
+                    <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
+                </span>
+            </div>
+        </form>
+        <!-- /.search form -->
+        <!-- sidebar menu: : style can be found in sidebar.less -->
+        <ul class="sidebar-menu">
+            <li class="header">{{translation.MENU_PRINCIPAL}}</li>
+            <li class="active">
+                <a href="#!/">
+                    <i class="fa fa-dashboard"></i> <span>{{translation.DASHBOARD_TITLE}}</span>
+                </a>
+            </li>
+            <li>
+                <a ui-sref=".companies">
+                    <i class="fa fa-building-o"></i>
+                    <span>{{translation.EMPRESA}}</span>
+                </a>
+            </li>
+            <li class="treeview">
+                <a href="javascript: void(0);">
+                    <i class="fa fa-lock"></i>
+                    <span>{{translation.ADMIN}}</span>
+                    <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="#!/clients"><i class="fa fa-circle-o"></i> {{translation.CLIENTE}}</a></li>
+                    <li class="treeview">
+                        <a href="javascript:;">
+                            <i class="fa fa-circle-o"></i>
+                            <span>{{translation.SEGURIDAD}}</span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="#!/users"><i class="fa fa-circle-o"></i> {{translation.USUARIOS}}</a></li>
+                            <li><a href="#!/roles"><i class="fa fa-circle-o"></i> {{translation.ROLES}}</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#!/projects"><i class="fa fa-circle-o"></i> {{translation.PROYECTOS}}</a></li>
+                    <li><a href="#!/donors"><i class="fa fa-circle-o"></i> {{translation.PATROCINADORES}}</a></li>
+                    <li class="treeview">
+                        <a href="javascript:;">
+                            <i class="fa fa-circle-o"></i>
+                            <span>{{translation.TABLAS_CATALOGO}}</span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="#!/exchange"><i class="fa fa-circle-o"></i> {{translation.TIPO_CAMBIO}}</a></li>
+                            <li><a href="#!/parti"><i class="fa fa-circle-o"></i> {{translation.PARTIDA_GASTOS}}</a></li>
+                            <li><a href="#!/monedas"><i class="fa fa-circle-o"></i> {{translation.MONEDAS}}</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#!/tenants"><i class="fa fa-circle-o"></i> {{translation.TENANTS}}</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#!/indicators">
+                    <i class="fa fa-laptop"></i>
+                    <span>{{translation.INDICADORES}}</span>
+                </a>
+            </li>
+            <li>
+                <a href="#!/financials">
+                    <i class="fa fa-money"></i>
+                    <span>{{translation.FINANCIERO}}</span>
+
+                </a>
+
+            </li>
+            <li>
+                <a target="_blank" href="javascript: void(0);">
+                    <i class="fa fa-pie-chart">
+                    </i> <span>{{translation.REPORTES}}</span>
+                    <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li>
+                        <a target="_blank" href="/report/?path=/adlumen/aporte-a-programa">
+                            <i class="fa fa-circle-o"></i> {{translation.APORTE_PROGRAMA}}
+                        </a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="/report/?path=/adlumen/detalle-de-gastos">
+                            <i class="fa fa-circle-o"></i> {{translation.DETALLE_GASTOS}}
+                        </a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="/report/?path=/adlumen/gastos-por-actividad">
+                            <i class="fa fa-circle-o"></i> {{translation.GASTOS_ACTIVIDAD}}
+                        </a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="/report/?path=/adlumen/gastos-por-partida">
+                            <i class="fa fa-circle-o"></i> {{translation.GASTOS_PARTIDA}}
+                        </a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="/report/?path=/adlumen/monitoreo-de-resultados">
+                            <i class="fa fa-circle-o"></i> {{translation.MONITOREO_RESULTADOS}}
+                        </a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="/report/?path=/adlumen/saldos-contrapartida">
+                            <i class="fa fa-circle-o"></i> {{translation.SALDOS_CONTRAPARTIDA}}
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#!/tasks">
+                    <i class="fa fa-calendar"></i> <span>{{translation.TAREAS}}</span>
+                    <small ng-if="tareas.length !==0" class="label pull-right bg-red">{{tareas.length}}</small>
+                </a>
+            </li>
+            <li>
+                <a href="#!/evaluation">
+                    <i class="fa fa-check-circle-o"></i> <span>{{translation.EVALUACION}}</span>
+                </a>
+            </li>
+            <li>
+                <a href="#!/inquiries">
+                    <i class="fa fa-question-circle"></i> <span>{{translation.ENCUESTAS}}</span>
+                </a>
+            </li>
+            <li>
+                <a href="#!/messages">
+                    <i class="fa fa-envelope-o"></i> <span>{{translation.MENSAJES}}</span>
+                </a>
+            </li>
+        </ul>
+    </section>
+    <!-- /.sidebar -->
+</aside>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper" ui-view>
+
+</div><!-- /.content-wrapper -->
+<footer class="main-footer">
+    <div class="pull-right hidden-xs">
+        <b>Version</b> 2.3.0
+    </div>
+    <strong>Copyright &copy; 2018 <a href="http://adlumen.org">Adlumen.org</a></strong> All rights reserved.
+</footer>
+
+<div class="control-sidebar-bg"></div>

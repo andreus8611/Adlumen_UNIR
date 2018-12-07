@@ -1,0 +1,65 @@
+﻿<section class="content-header">
+    <h1>
+        {{translation.EMPRESA}}
+
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> {{translation.HOME}}</a></li>
+        <li class="active">{{translation.EMPRESA}}</li>
+    </ol>
+</section>
+
+<section class="content companies">
+    <!-- Small boxes (Stat box) -->
+    <div class="row">
+        <div class="container-fluid">
+            <div class="col-md-12">
+
+                <div class="box box-solid">
+
+                    <div class="box-header">
+                        <div class="form-inline">
+                            <div class="form-group">
+                                <label for="companies-select">{{translation.EMPRESA}}</label>
+                                <select class="form-control" id="companies-select" ng-model="empresasparams.idEmpresa" ng-options="empresa.idEmpresa as empresa.nombre for empresa in empresas | filter: {idCliente: bdClient.id}" ng-change="showCompanyDetails()" ng-disabled="editMode"></select>
+                                <button type="button" class="btn btn-primary" ng-click="crearNuevaEmpresa()" uib-tooltip="{{translation.NUEVA}}" ng-disabled="editMode">
+                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="box-body">
+
+                        <script type="text/ng-template" id="modalConfirmation.html">
+                            <div class="modal-header">
+                                <h3 class="modal-title">{{translation.CONFIRMACION}}</h3>
+                            </div>
+                            <div class="modal-body">
+                                <b>{{ mensajeConfirmacion }}</b>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-primary" type="button" ng-click="ok()">{{translation.SI}}</button>
+                                <button class="btn btn-warning" type="button" ng-click="cancel()">{{translation.NO}}</button>
+                            </div>
+                        </script>
+
+                        <uib-tabset class="nav-tabs-custom">
+                            <uib-tab ng-repeat="tab in tabs" heading="{{getTabHeader(tab.index - 1)}}" ng-click="setTab(tab.index - 1)" disabled="tab.disabled">
+                                <div id="{{tab.name}}" class="container-fluid" ng-include="tab.template"></div>
+                            </uib-tab>
+                        </uib-tabset>
+
+                        <div class="row">
+                            <div uib-alert ng-class="'alert-' + (alert.type || 'warning')" close="dismissClose($index)" dismiss-on-timeout="6000" ng-repeat="alert in alerts" ng-if="showAlert">{{alert.msg}}</div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div><!-- /.row -->
+
+</section>
+

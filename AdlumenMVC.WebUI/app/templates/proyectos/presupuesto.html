@@ -1,0 +1,19 @@
+﻿<script type="text/ng-template" id="modalPresupuestoContent.html">
+    <div class="modal-header">
+        <h3 class="modal-title">{{ translation.ASISTENTE_PRESUPUESTO }}</h3>
+    </div>
+    <div class="modal-body" ng-include="'app/templates/presupuesto/asistentePresupuesto.html'"></div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="close()">{{ translation.CERRAR }}</button>
+    </div>
+</script>
+<div class="row" style="margin-right:auto; margin-left: auto;">
+    <div class="row">
+        
+    </div>
+    <div class="row">
+        <button type="button" class="btn btn-primary" ng-click="showAsistentePresupuesto()">
+            {{translation.ASISTENTE_PRESUPUESTO}}
+        </button>
+    </div>
+</div>

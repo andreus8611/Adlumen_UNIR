@@ -1,0 +1,104 @@
+﻿<section class="col-lg-6 col-xs-12">
+    <div class="row">
+        <button type="button" class="btn btn-primary" ng-show="!editMode" ng-click="newProveedor()">
+            {{translation.NUEVO_PROVEEDOR}}
+        </button>
+    </div>
+
+    <div class="row">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>{{translation.NOMBRE}}</th>
+                    <th>{{translation.TELEFONO}}</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="proveedor in empresa.proveedores">
+                    <td>{{proveedor.name}}</td>
+                    <td>{{proveedor.phone}}</td>
+                    <td>
+                        <button type="button" class="btn btn-primary" ng-click="showProveedorDetails();" ng-show="!editMode" uib-tooltip="{{translation.VER_DETALLE}}">
+                            <span class="glyphicon glyphicon-list-alt"></span>
+                        </button>
+                        
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-primary" ng-show="!editMode && proveedorSelected" ng-click="Edit()" uib-tooltip="{{translation.EDITAR}}">
+                            <span class="glyphicon glyphicon-edit"></span>
+                        </button>
+                    </td>
+                    
+                    <td>
+                        <button type="button" class="btn btn-primary" ng-click="removeProveedor()" ng-show="!editMode" uib-tooltip="{{translation.ELIMINAR}}">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</section>
+
+<section class="col-lg-6 col-xs-12">
+    <form name="forms.supplier" class="form-horizontal">
+        <fieldset>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-supplierName">{{translation.NOMBRE}}:</label>
+                <div class="col-sm-10">
+                    <input id="input-supplierName" class="form-control" type="text" ng-model="proveedorActual.name" ng-disabled="!editMode && tabSelected == 4" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="select-supplierId">{{translation.IDENTIFICACION}}:</label>
+                <div class="form-inline col-sm-10">
+                    <select id="select-supplierId" class="form-control" ng-model="proveedorActual.idIdentification" ng-options="tipo.idIdentificacionTipo as tipo.nombre for tipo in identificacionTipos" ng-disabled="!editMode && tabSelected == 4"></select> 
+                    <input id="input-supplierId" class="form-control" type="text" ng-model="proveedorActual.identification" ng-disabled="!editMode && tabSelected == 4" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-supplierPhone">{{translation.TELEFONO}}:</label>
+                <div class="col-sm-10">
+                    <input id="input-supplierPhone" class="form-control" type="number"   ng-pattern="base.phoneRegex" placeholder="+22 999-999-999"  ng-model="proveedorActual.phone" ng-disabled="!editMode && tabSelected == 4"  />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-supplierLocation">{{translation.UBICACION}}:</label>
+                <div class="col-sm-10">
+                    <input id="input-supplierLocation" class="form-control" type="text" ng-model="proveedorActual.location" ng-disabled="!editMode && tabSelected == 4" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-supplierMail">{{translation.CORREO}}:</label>
+                <div class="col-sm-10">
+                    <input id="input-supplierMail" class="form-control" type="email" ng-model="proveedorActual.mail" ng-disabled="!editMode && tabSelected == 4" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="select-areaResponsible">{{translation.HOJADEVIDA}}:</label>
+                <div class="col-sm-10">
+                    <input type="file" name="file" accept="*" onchange="angular.element(this).scope().selectFileforUpload(this.files)" ng-disabled="!editMode && tabSelected == 4" />
+                </div>
+            </div>
+
+            <div class="form-group form-inline">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="button" class="btn btn-primary" ng-show="editMode" ng-click="SaveProveedor()">
+                        {{translation.GUARDAR}}
+                    </button>
+                    <button type="button" class="btn btn-primary" ng-show="editMode" ng-click="CancelEdit()">
+                        {{translation.CANCELAR}}
+                    </button>
+                </div>
+            </div>
+        </fieldset>
+
+    </form>
+
+</section>

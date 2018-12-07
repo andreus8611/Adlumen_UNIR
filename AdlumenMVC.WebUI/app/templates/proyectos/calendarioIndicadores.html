@@ -1,0 +1,70 @@
+﻿<div class="box box-solid">
+    <div class="box-header">
+        <h3 class="box-title">{{translation.CALENDARIO_INDICADORES}}</h3>
+        <div class="box-body table-responsive">
+            <ul>
+                <li ng-repeat="objetivo in proyecto.flatObjetivos">
+                    <p><b>{{objetivo.objetivoClase.descripcion}}</b></p><p><b ng-show="objetivo.codigo != 0">{{objetivo.codigo}}&nbsp;</b>{{objetivo.descripcion}}</p>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>{{translation.INDICADOR}}</th>
+                                <th>{{translation.RESPONSABLE}}</th>
+                                <th>{{translation.FECHAINICIO}}</th>
+                                <th>{{translation.FECHAFIN}}</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="indicador in objetivo.indicadores" ng-include="getCalendarioIndicadoresTemplate(indicador)"></tr>
+                        </tbody>
+                    </table>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script type="text/ng-template" id="displayCalendarioIndicadores">
+    <td class="col-md-4"><p><b>{{indicador.codigo}}&nbsp;</b>{{indicador.descripcion}}</p></td>
+    <td class="col-md-2"><select ng-model="indicador.idResponsableIndicador" ng-options="empleado.employeeId as empleado.fullName for empleado in empleados" ng-disabled="true"></select></td>
+    <td class="col-md-2">{{indicador.fechaInicio | date:shortdate}}</td>
+    <td class="col-md-2">{{indicador.fechaFin | date:shortdate}}</td>
+    <td class="col-md-1">
+        <button type="button" class="btn btn-primary" ng-show="!editMode" ng-click="editCalendarioIndicadores()" uib-tooltip="{{translation.EDITAR}}">
+            <span class="glyphicon glyphicon-pencil"></span>
+        </button>
+    </td>
+    <td class="col-md-1"></td>
+</script>
+<script type="text/ng-template" id="editCalendarioIndicadores">
+    <td class="col-md-4"><p><b>{{indicador.codigo}}&nbsp;</b>{{indicador.descripcion}}</p></td>
+    <td class="col-md-2"><select ng-model="selectedIndicator.idResponsableIndicador" ng-options="empleado.employeeId as empleado.fullName for empleado in empleados"></select></td>
+    <td class="col-md-2">
+        <p class="input-group">
+            <input type="date" class="form-control" ng-model="selectedIndicator.fechaInicio" is-open="datePicker.opened" close-text="{{translation.CERRAR}}" />
+            <!--<span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+            </span>-->
+        </p>
+    </td>
+    <td class="col-md-2">
+        <p class="input-group">
+            <input type="date" class="form-control" ng-model="selectedIndicator.fechaFin" is-open="datePicker1.opened" close-text="{{translation.CERRAR}}" />
+            <!--<span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="open1($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+            </span>-->
+        </p>
+    </td>
+    <td class="col-md-1">
+        <button type="button" class="btn btn-primary" ng-show="editMode" ng-click="SaveIndicador()" uib-tooltip="{{translation.GUARDAR}}">
+            <span class="glyphicon glyphicon-floppy-disk"></span>
+        </button>
+    </td>
+    <td class="col-md-1">
+        <button type="button" class="btn btn-primary" ng-show="editMode" ng-click="CancelEdit()" uib-tooltip="{{translation.CANCELAR}}">
+            <span class="glyphicon glyphicon-remove"></span>
+        </button>
+    </td>
+</script>

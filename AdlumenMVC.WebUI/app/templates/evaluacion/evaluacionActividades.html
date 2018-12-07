@@ -1,0 +1,151 @@
+﻿<script type="text/ng-template" id="displayEvaluacionPeriodo">
+    <td>{{evaluacionproyectoperiodo.periodo}}</td>
+    <td>{{evaluacionproyectoperiodo.datosfinancieros}}</td>
+    <td>{{evaluacionproyectoperiodo.observaciones}}</td>
+    <td>{{evaluacionproyectoperiodo.recomendaciones}}</td>
+    <td>
+        <button type="button" class="btn btn-primary" ng-click="editSelectedEvaluacionPeriodo();" uib-tooltip="{{translation.EDITAR}}">
+            <span class="glyphicon glyphicon-pencil"></span>
+        </button>
+    </td>
+    <td>
+        <button type="button" class="btn btn-primary" ng-click="viewDetails();" uib-tooltip="{{translation.VER_DETALLE}}">
+            <span class="glyphicon glyphicon-list-alt"></span>
+        </button>
+    </td>
+</script>
+<script type="text/ng-template" id="editEvaluacionPeriodo">
+    <td>{{evaluacionProyectoPeriodoNueva.periodo}}</td>
+    <td><textarea rows="3" ng-model="evaluacionProyectoPeriodoNueva.datosfinancieros"></textarea></td>
+    <td><textarea rows="3" ng-model="evaluacionProyectoPeriodoNueva.observaciones"></textarea></td>
+    <td><textarea rows="3" ng-model="evaluacionProyectoPeriodoNueva.recomendaciones"></textarea></td>
+    <td>
+        <button type="button" class="btn btn-primary" ng-click="modifyEvaluacionProyectoPeriodo()" uib-tooltip="{{translation.GUARDAR}}">
+            <span class="glyphicon glyphicon-floppy-disk"></span>
+        </button>
+    </td>
+    <td>
+        <button type="button" class="btn btn-primary" ng-click="resetEvaluacionProyectoPeriodo()" uib-tooltip="{{translation.CANCELAR}}">
+            <span class="glyphicon glyphicon-remove"></span>
+        </button>
+    </td>
+</script>
+<script type="text/ng-template" id="displayEvaluacionActividades">
+    <td>{{evaluacionactividades.name}}</td>
+    <td>{{evaluacionactividades.descripcion}}</td>
+    <td>{{evaluacionactividades.observaciones}}</td>
+    <td>
+        <button type="button" class="btn btn-primary" ng-click="editSelectedEvaluacionActividades();" uib-tooltip="{{translation.EDITAR}}">
+            <span class="glyphicon glyphicon-pencil"></span>
+        </button>
+    </td>
+    <td></td>
+</script>
+<script type="text/ng-template" id="editEvaluacionActividades">
+    <td>{{evaluacionactividades.name}}</td>
+    <td>{{evaluacionactividades.descripcion}}</td>
+    <td><textarea rows="3" ng-model="evaluacionActividadesNueva.observaciones"></textarea></td>
+    <td>
+        <button type="button" class="btn btn-primary" ng-click="modifyEvaluacionActividades()" uib-tooltip="{{translation.GUARDAR}}">
+            <span class="glyphicon glyphicon-floppy-disk"></span>
+        </button>
+    </td>
+    <td>
+        <button type="button" class="btn btn-primary" ng-click="resetEvaluacionActividades()" uib-tooltip="{{translation.CANCELAR}}">
+            <span class="glyphicon glyphicon-remove"></span>
+        </button>
+    </td>
+</script>
+
+<div class="box" ng-controller="evaluacionProyectoPeriodoCtrl">
+    <div class="box-header">
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="control-label col-sm-1" for="select-evaluationProjectActivities">{{translation.PROYECTO}}:</label>
+                <div class="col-sm-6">
+                    <select id="select-evaluationProjectActivities" class="form-control" ng-model="evaluacionparams.idProyecto" ng-options="project.idProyecto as project.nombre for project in projects" ng-change="showEvaluacionesProyectoPeriodo()"></select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="box-body table-responsive">
+        <section>
+            <table class="table table-hover">
+
+                <thead>
+                    <tr>
+                        <th>{{translation.PERIODO}}</th>
+                        <th>{{translation.FINANCIAL_DATA}}</th>
+                        <th>{{translation.OBSERVACIONES}}</th>
+                        <th>{{translation.RECOMENDACIONES}}</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+                    <tr ng-repeat="evaluacionproyectoperiodo in filteredProyectos" ng-include="getTemplateEvaluacionProyecto(evaluacionproyectoperiodo)"></tr>
+                </tbody>
+
+            </table>
+
+            <ul uib-pagination
+                boundary-links="true"
+                total-items="evaluacionesproyectoperiodo.length"
+                ng-model="currentPageProyectos"
+                class="pagination-sm"
+                previous-text="&lsaquo;"
+                next-text="&rsaquo;"
+                first-text="&laquo;"
+                last-text="&raquo;">
+            </ul>
+
+            <div class="row">
+                <div uib-alert ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)" dismiss-on-timeout="8000" ng-repeat="alert in alerts" ng-if="showAlert">{{alert.msg}}</div>
+            </div>
+        </section>
+        <section>
+            <div class="box box-solid">
+                <div class="box-header">
+                    <h3 class="box-title">{{translation.EVALUATION_ACTIVITIES_DETAILS}} {{evaluacionProyectoPeriodoNueva.periodo}}</h3>
+                </div>
+                <div class="box-body">
+                    <table class="table table-hover">
+
+                        <thead>
+                            <tr>
+                                <th>{{translation.ACTIVIDAD}}</th>
+                                <th>{{translation.DESCRIPCION}}</th>
+                                <th>{{translation.OBSERVACIONES}}</th>
+                                <th></th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+                            <tr ng-repeat="evaluacionactividades in filteredActividades" ng-include="getTemplateEvaluacionActividades(evaluacionactividades)"></tr>
+                        </tbody>
+
+                    </table>
+
+                    <ul uib-pagination 
+                        boundary-links="true"
+                        total-items="evaluacionesactividades.length"
+                        ng-model="currentPageActivities"
+                        class="pagination-sm"
+                        previous-text="&lsaquo;"
+                        next-text="&rsaquo;"
+                        first-text="&laquo;"
+                        last-text="&raquo;">
+                    </ul>
+
+                    <div class="row">
+                        <div uib-alert ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert1($index)" dismiss-on-timeout="8000" ng-repeat="alert in alerts1" ng-if="showAlert1">{{alert.msg}}</div>
+                    </div>
+                </div>
+            </div>
+            
+        </section>
+    </div>
+</div>

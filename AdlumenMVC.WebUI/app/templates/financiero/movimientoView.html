@@ -1,0 +1,171 @@
+﻿<script type="text/ng-template" id="modalAlert.html">
+    <div class="modal-header">
+        <h3 class="modal-title">{{translation.INFORMACION}}</h3>
+    </div>
+    <div class="modal-body">
+        <b>{{ mensajeAlert }}</b>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="ok()">{{translation.ACEPTAR}}</button>
+    </div>
+</script>
+<div class="box box-solid">
+    <div class="box-body">
+        <form class="form-horizontal" role="form">
+            <div class="form-group">
+                <label class="control-label col-sm-3" for="select-movementType">{{translation.TIPOMOVIMIENTO}}:</label>
+                <div class="col-sm-9">
+                    <select id="select-movementType" class="form-control" ng-model="movimiento.idTipoPresupuesto" ng-options="presupuestotipo.idTipo as presupuestotipo.descripcion for presupuestotipo in presupuestotipos" ng-change="setTipoMovimiento()"></select>
+                </div>
+            </div>
+            <div class="form-group" ng-if="tipomovimiento == 1">
+                <label class="control-label col-sm-3" for="select-movementResult">{{translation.PRODUCTO}}:</label>
+                <div class="col-sm-9">
+                    <select id="select-movementResult" class="form-control" ng-model="movimiento.idResultado" ng-options="producto.idObjetivo as producto.descripcion for producto in productos" ng-change="setSelectedProducto()"></select>
+                </div>
+            </div>
+            <div class="form-group" ng-if="tipomovimiento == 1">
+                <label class="control-label col-sm-3" for="select-movementActivity">{{translation.ACTIVIDAD}}:</label>
+                <div class="col-sm-9">
+                    <select id="select-movementActivity" class="form-control" ng-model="movimiento.idActividad" ng-options="actividad.idObjetivo as actividad.descripcion for actividad in selectedProducto.actividades" ng-change="setSelectedActividad()"></select>
+                </div>
+            </div>
+            <div class="form-group" ng-if="tipomovimiento == 1 || tipomovimiento == 3">
+                <label class="control-label col-sm-3" for="input-movementSupplier">{{translation.PROVEEDOR}}:</label>
+                <div class="col-sm-9">
+                    <input id="input-movementSupplier" class="form-control" type="text" ng-model="movimiento.beneficiario">
+                </div>
+            </div>
+            <div class="form-group" ng-if="tipomovimiento == 2">
+                <label class="control-label col-sm-3" for="select-movementDonor">{{translation.DONANTE}}:</label>
+                <div class="col-sm-9">
+                    <select id="select-movementDonor" class="form-control" ng-model="movimiento.idProveedor" ng-options="donante.idDonante as donante.nombre for donante in donantes" ng-change="setSelectedDonante()"></select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-3" for="">{{translation.TOTALES}}</label>
+                <div class="form-inline col-sm-9">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="text-center">{{translation.PROGRAMADO}}</th>
+                                <th class="text-center">{{translation.ACTUAL}}</th>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th class="text-right">{{valorProgramado | number:2}}</th>
+                                <th class="text-right">{{valorActual | number:2}}</th>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-3" for="input-movementCounterpart">{{translation.CONTRAPARTIDA}}:</label>
+                <div class="col-sm-9">
+                    <input id="input-movementCounterpart" class="form-control" type="text" onkeypress="return validateNumber(event);" ng-model="movimiento.contraPartida" ng-blur="setAmount()">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-3" for="input-movementSupplier">{{translation.APORTEPROGRAMA}}:</label>
+                <div class="col-sm-9">
+                    <input id="input-movementSupplier" class="form-control" type="text" onkeypress="return validateNumber(event);" ng-model="movimiento.aportePrograma" ng-blur="setAmount()" ng-disabled="movimiento.idTipoPresupuesto == 1">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-3" for="">{{translation.MONTODONACIONES}}</label>
+                <div class="col-sm-9">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="text-right">{{translation.DONANTE}}</th>
+                                <th class="text-right">{{translation.MONTO}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="montodonante in montosDonantes">
+                                <th>{{montodonante.nombre}}</th>
+                                <th><input id="input-movementDonorsAmount" class="form-control" type="text" onkeypress="return validateNumber(event);" ng-model="montodonante.monto" ng-change="setMontoDonacion()"></th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-3" for="">{{translation.MONTO}}:</label>
+                <div class="col-sm-9">
+                    <p>{{movimiento.monto | number:2}}</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-3" for="select-movementCurrency">{{translation.MONEDA_EXTRANJERA}}:</label>
+                <div class="col-sm-9">
+                    <select id="select-movementCurrency" class="form-control" ng-model="movimiento.moneda" ng-options="moneda.idMoneda as moneda.nombre for moneda in monedas" ng-change="setAporteMonedaLocal()">
+                        <option value="">-- {{translation.NOAPLICA}} --</option>
+                    </select>
+                    <label>{{movimiento.aporteMonedaLocal | number:2}}</label><label>{{aporteMonedaLocalMensaje}}</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-3" for="input-movementPaymenttype">{{translation.MEDIOPAGO}}:</label>
+                <div class="col-sm-9">
+                    <input id="input-movementPaymenttype" class="form-control" class="large-input" type="text" ng-model="movimiento.medioPago" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-3" for="">{{translation.FECHAPAGO}}:</label>
+                <div class="col-sm-9">
+                    <p class="input-group" ng-style="{ 'width': '350px' }">
+                        <input type="date" class="form-control" uib-datepicker-popup ng-model="movimiento.fecha" is-open="$parent.opened" max="$parent.maxDate" date-disabled="disabled(date, mode)" close-text="{{translation.CERRAR}}" ng-style="{ 'width': '200px' }" />
+                        <!--<span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>-->
+                    </p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-3" for="select-movementExpensetype">{{translation.PARTIDA}}:</label>
+                <div class="col-sm-9">
+                    <select id="select-movementExpensetype" class="form-control" ng-model="movimiento.idPartidaGasto" ng-options="partidagasto.idPartidaGasto as partidagasto.nombre for partidagasto in partidasgastos">
+                        <option value="">-- {{translation.NOAPLICA}} --</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-3" for="select-movementPeriod">{{translation.PERIODO}}:</label>
+                <div class="col-sm-9">
+                    <select id="select-movementPeriod" class="form-control" ng-model="movimiento.idPeriodo" ng-options="periodo.idPeriodo as periodo.nombre for periodo in periodosProyecto"></select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-3" for="textarea-movementObservations">{{translation.OBSERVACIONES}}:</label>
+                <div class="col-sm-9">
+                    <textarea id="textarea-movementObservations" class="form-control" type="text" ng-model="movimiento.observaciones"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-3" for="">{{translation.SOPORTE}}:</label>
+                <div class="col-sm-9">
+                    <a ng-href="{{movimiento.urlSoporte}}"></a>
+                    <input type="file" name="file" accept="*" onchange="angular.element(this).scope().selectFileforUpload(this.files)" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-3" for=""></label>
+                <div class="col-sm-offset-2 col-sm-9">
+                    <button type="button" class="btn btn-primary" ng-click="SaveMovimiento()">
+                        {{translation.GUARDAR}}
+                    </button>
+                </div>
+            </div>
+
+            <div class="row">
+                <div uib-alert ng-class="'alert-' + (alert.type || 'warning')" close="dismissClose($index)" dismiss-on-timeout="6000" ng-repeat="alert in alerts" ng-if="showAlert">{{alert.msg}}</div>
+            </div>
+        </form>
+
+    </div>
+</div>

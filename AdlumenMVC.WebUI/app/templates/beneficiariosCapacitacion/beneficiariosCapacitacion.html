@@ -1,0 +1,44 @@
+﻿<div ng-controller="beneficiariosCapacitacionCtrl">
+
+    <h1>Beneficiarios Capacitacion {{Capacitacion.nombreCapacitacion}}</h1>
+
+    <div class="row" style="margin-right:auto; margin-left: auto;">
+
+        <div class="row">
+            <a class="btn btn-primary" ng-model="newBeneficiario" href="#!/capacitacion/{{idCapacitacion}}/beneficiarios/add">
+                Nueva Beneficiario <span class="glyphicon glyphicon-plus"></span>
+            </a>
+        </div>
+
+        <table class="table table-hover">
+
+            <thead>
+                <tr style="text-align: center">
+                    <th style="text-align: center" class="col-md-1">Id</th>
+                    <th style="text-align: center" class="col-md-3">Beneficiario</th>
+                    <th style="text-align: center" class="col-md-3">Fecha de Inscripci&oacute;n</th>
+                    <th style="text-align: center" class="col-md-3">Acciones</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <tr ng-repeat="beneficiarioCapacitacion in beneficiariosCapacitacion">
+                    <td>{{beneficiarioCapacitacion.idCapacitacionBeneficiario}}</td>
+                    <td>{{beneficiarioCapacitacion.nombre}}</td>
+                    <td>{{beneficiarioCapacitacion.fechaInscripcion | date:"dd/MM/yyyy"}}</td>
+                    
+                    <td>
+                        <a class="actions" ng-click="editBeneficiarioCapacitacion(beneficiarioCapacitacion.idCapacitacionBeneficiario)"><span class="icon-edit" style="font-size: 23px; vertical-align:middle; margin-left: 10px" title="Editar"></span></a>
+                        <!--a class="actions" ng-click="deleteBeneficiarioCapacitacion(beneficiarioCapacitacion.idCapacitacionBeneficiario)"><span class="icon-delete" style="font-size: 30px; vertical-align:middle; margin-left: 17px" title="Eliminar"></span></a-->
+                    </td>
+
+                </tr>
+            </tbody>
+
+        </table>
+
+     </div>
+
+</div>

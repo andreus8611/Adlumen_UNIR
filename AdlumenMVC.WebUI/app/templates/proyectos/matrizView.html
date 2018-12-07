@@ -1,0 +1,25 @@
+﻿<div class="box box-solid">
+    <div class="box-header">
+        <h3 class="box-title">{{translation.MATRIZ}}</h3>
+    </div>
+    <div class="box-body table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>{{translation.OBJETIVO}}</th>
+                    <th>{{translation.INDICADORES}}</th>
+                    <th>{{translation.SUPUESTOS}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="objetivo in proyecto.flatObjetivos">
+                    <td><p><b>{{objetivo.objetivoClase.descripcion}}</b></p><p><b ng-show="objetivo.codigo != 0">{{objetivo.codigo}}&nbsp;</b>{{objetivo.descripcion}}</p></td>
+                    <td><ul><li ng-repeat="indicador in objetivo.indicadores" uib-tooltip="{{getverificadorestooltip()}}">{{indicador.descripcion}}</li></ul></td>
+                    <td><ul><li ng-repeat="supuesto in objetivo.supuestos">{{supuesto.descripcion}}</li></ul></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+</div>
+

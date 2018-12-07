@@ -1,0 +1,91 @@
+﻿<div class="row" style="margin-right:auto; margin-left: auto;">
+    <div class="row">
+        <div class="col-md-6">
+            <uib-tabset>
+                <uib-tab heading="{{translation.INFORMACION}}">
+                    <div class="well well-lg">
+                        <p><b>{{translation.PROXIMO_INFORME}}: </b>{{getFechaProximoInforme() | date:'mediumDate'}}</p>
+                        <p><b>{{translation.META_PARCIAL}}: </b>{{getMetaParcial()}}</p>
+                        <p><b>{{translation.META}}: </b>{{indicador.unidadMedida}}</p>
+                        <p><b>{{translation.UNIDADMEDIDA}}: </b>{{indicador.meta}}</p>
+                        <p>
+                            <b>{{translation.PERIODO}}:</b>
+                            <select ng-model="muestra.idPeriodo" ng-options="periodo.idPeriodo as periodo.nombre for periodo in getPeriodsByProject()" ng-disabled="muestra.idPeriodo !== 0 || !muestra.canEdit"></select>
+                        </p>
+                        <p>
+                            <b>{{translation.DESCRIPCION}}:</b>
+                            <textarea rows="3" ng-model="muestra.observaciones" ng-readonly="!muestra.canEdit"></textarea>
+                        </p>
+                    </div>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>{{translation.VARIABLE}}</th>
+                                <th>{{translation.VALOR}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="variable in muestra.variables">
+                                <td>{{variable.description}}</td>
+                                <td><input type="text" ng-model="variable.value" ng-readonly="!muestra.canEdit" onkeypress="return validateNumber(event);"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </uib-tab>
+            </uib-tabset>
+        </div>
+        <div class="col-md-6">
+            <uib-tabset>
+                <uib-tab heading="{{translation.FUENTES_VERIFICACION}}">
+                    <div class="well well-lg">
+                        <div class="col-md-12" ng-show="muestra.canEdit">
+                            <div class="row">
+                                <p><b>{{translation.TIPO}}:</b></p>
+                                <select ng-model="selectedVerificatorType" ng-readonly="!muestra.canEdit" ng-options="verificator as verificator.description for verificator in verificadores" ng-change="changeTipoVerificador(selectedVerificatorType)"></select>
+                            </div>
+                            <div class="row">
+                                <input type="file" name="file" accept="*" onchange="angular.element(this).scope().selectFileforUpload(this.files)" />
+                            </div>
+                            <div class="row">
+                                <button type="button" class="btn btn-primary" ng-click="SaveFile()" uib-tooltip="{{translation.ADICIONAR_VERIFICADOR}}">
+                                    {{translation.ADICIONAR}}
+                                </button>
+                            </div>
+                            <div style="color: red">{{Message}}</div>
+                        </div>
+                        <div class="row"></div>
+                    </div>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>{{translation.TIPO}}</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="verificator in getNotDeletedVerificators()">
+                                <td>{{verificator.description}}</td>
+                                <td><a ng-href="{{verificator.url}}">{{verificator.fileName}}</a></td>
+                                <td>
+                                    <button type="button" class="btn btn-primary" ng-show="muestra.canEdit" ng-click="deleteSelectedVerificator()" uib-tooltip="{{translation.ELIMINAR}}">
+                                        <span class="glyphicon glyphicon-trash"></span>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </uib-tab>
+            </uib-tabset>
+        </div>
+    </div>
+    <div class="row">
+        <div uib-alert ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)" dismiss-on-timeout="8000" ng-repeat="alert in alerts" ng-if="showAlert">{{alert.msg}}</div>
+    </div>
+    <div class="row">
+        <button type="button" class="btn btn-primary" ng-click="modifyMuestra()" uib-tooltip="{{translation.GUARDAR}}">
+            {{translation.GUARDAR}}
+        </button>
+    </div>
+</div>

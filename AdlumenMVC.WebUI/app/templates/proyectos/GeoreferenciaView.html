@@ -1,0 +1,42 @@
+﻿<div class="box-header">
+    <h3 class="box-title">{{translation.GEOREFERENCIA}}</h3>
+</div>
+<div class="box-body">
+    <div class="container-fluid">
+        <div class="row" ng-show="editMode">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="google-places">{{translation.BUSCAR_UBICACION}}</label>
+
+                    <div class="form-inline">
+                        <google-places location="location" class="form-control"></google-places>
+                        <button ng-click="doSearch()" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+        <div class="row">
+            <div style="margin-top: 10px; margin-bottom: 10px;">
+                <button type="button" class="btn btn-primary" ng-show="!editMode" ng-click="Edit()">
+                    {{translation.EDITAR}}
+                </button>
+                <button type="button" class="btn btn-primary" ng-show="editMode" ng-click="SaveGeneral()">
+                    {{translation.GUARDAR}}
+                </button>
+                <button type="button" class="btn btn-primary" ng-show="editMode" ng-click="CancelEdit()">
+                    {{translation.CANCELAR}}
+                </button>
+            </div>
+
+            <ui-gmap-google-map ng-if="map.center" center="map.center" zoom="map.zoom" draggable="true">
+                <ui-gmap-marker coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id"></ui-gmap-marker>
+            </ui-gmap-google-map>
+        </div>
+    </div>
+
+</div>

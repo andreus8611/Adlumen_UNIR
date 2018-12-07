@@ -1,0 +1,56 @@
+﻿<div class="container-fluid">
+    <form name="bitacoraForm">
+
+        <div class="form-group">
+            <table class="table table-hover">
+
+                <thead>
+                    <tr>
+                        <th>{{translation.FECHA}}</th>
+                        <th>{{translation.USUARIO}}</th>
+                        <th>{{translation.COMENTARIO}}</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr ng-repeat="log in logs">
+                        <td>{{log.fechaRegistro | date : 'medium'}}</td>
+                        <td>{{getUserName(log)}}</td>
+                        <td><pre>{{log.comentario}}</pre></td>
+                    </tr>
+                    <tr ng-if="newLog">
+                        <td>{{logNuevo.fecha | date : 'medium'}}</td>
+                        <td>{{logNuevo.usuario}}</td>
+                        <td><textarea class="form-control" cols="100" rows="8" ng-model="logNuevo.comentario"></textarea></td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <div class="form-group">
+            <div uib-alert ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)" dismiss-on-timeout="8000" ng-repeat="alert in alerts" ng-if="showAlert">{{alert.msg}}</div>
+        </div>
+
+        <div class="form-group">
+            <button type="button" class="btn btn-primary" ng-model="newLog" ng-hide="newLog" uib-btn-checkbox btn-checkbox-true="true" btn-checkbox-false="false" ng-click="newRow()" ng-show="enableEditing();">
+                {{translation.NUEVO_COMENTARIO}}
+            </button>
+            <button type="button" class="btn btn-primary" ng-hide="newLog" ng-click="openModal()" ng-show="enableEditing();">
+                {{translation.IMPORTAR_BITACORA}}
+            </button>
+        </div>
+
+        <div class="form-group" ng-if="newLog">
+            <button type="button" class="btn btn-primary" ng-click="addBitacora()">
+                <span class="glyphicon glyphicon-floppy-disk"></span>
+            </button>
+
+            <button type="button" class="btn btn-primary" ng-click="resetBitacora()">
+                <span class="glyphicon glyphicon-remove"></span>
+            </button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,51 @@
+﻿<div class="box box-solid">
+    <div class="box-header">
+        <h3 class="box-title">{{translation.PLANES_CONTINGENCIA}}</h3>
+    </div>
+    <div class="box-body table-responsive">
+        <ul>
+            <li ng-repeat="objetivo in proyecto.flatObjetivos">
+                <p><b>{{objetivo.objetivoClase.descripcion}}</b></p><p><b ng-show="objetivo.codigo != 0">{{objetivo.codigo}}&nbsp;</b>{{objetivo.descripcion}}</p>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>{{translation.SUPUESTOS}}</th>
+                            <th>{{translation.PLANES_CONTINGENCIA}}</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="supuesto in objetivo.supuestos" ng-include="getPlanContingenciaTemplate(supuesto)"></tr>
+                    </tbody>
+                </table>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<script type="text/ng-template" id="displayPlanContingencia">
+    <td>{{supuesto.descripcion}}</td>
+    <td><a ng-href="{{supuesto.planContingencia}}" ng-show="supuesto.planContingencia">{{translation.VER_PLAN}}</a></td>
+    <td>
+        <button type="button" class="btn btn-primary" ng-show="!editMode" ng-click="editPlanesContingencia()" uib-tooltip="{{translation.EDITAR}}">
+            <span class="glyphicon glyphicon-pencil"></span>
+        </button>
+    </td>
+    <td></td>
+</script>
+<script type="text/ng-template" id="editPlanContingencia">
+    <td>{{supuesto.descripcion}}</td>
+    <td><input type="file" name="file" accept="*" onchange="angular.element(this).scope().selectFileforUpload(this.files)" /></td>
+    <td>
+        <button type="button" class="btn btn-primary" ng-show="editMode" ng-click="SaveSupuesto()" uib-tooltip="{{translation.GUARDAR}}">
+            <span class="glyphicon glyphicon-floppy-disk"></span>
+        </button>
+    </td>
+    <td>
+        <button type="button" class="btn btn-primary" ng-show="editMode" ng-click="CancelEdit()" uib-tooltip="{{translation.CANCELAR}}">
+            <span class="glyphicon glyphicon-remove"></span>
+        </button>
+    </td>
+</script>
+

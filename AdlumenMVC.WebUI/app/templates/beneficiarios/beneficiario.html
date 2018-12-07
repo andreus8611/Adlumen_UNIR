@@ -1,0 +1,62 @@
+﻿<div ng-controller="BeneficiariosCtrl">
+
+    <h1>Beneficiarios</h1>
+
+    <div class="row" style="margin-right:auto; margin-left: auto;">
+
+        <div class="row">
+            <a class="btn btn-primary" ng-model="newBeneficiario" ng-click="addNewObject()">
+                Nuevo Beneficiario <span class="glyphicon glyphicon-plus"></span>
+            </a>
+        </div><br />
+
+        <div class="row">
+            <div class="col-sm-10">
+                <select id="cmbIdObjetivo" class="form-control" ng-model="Beneficiario.cmbIdObjetivo" ng-change="filtrarBeneficiarios()">
+                    <option value="">Seleccione un Objetivo</option>
+                    <option ng-repeat="objetivo in objetivos" value="{{objetivo.idObjetivo}}">{{objetivo.descripcion}}</option>
+                </select>
+            </div>
+        </div><br />
+
+        <div class="alert" ng-show="filtro_beneficiario==false">
+            <alert type="info">Lo sentimos, no existen Beneficiarios para este Objetivo.</alert>
+        </div>
+
+        <div ng-show="filtro_beneficiario==true">
+            <table class="table table-hover">
+
+                <thead>
+                    <tr style="text-align: center">
+                        <th class="col-md-1">Id</th>
+                        <th class="col-md-1">Beneficiario</th>
+                        <th class="col-md-1">Email</th>
+                        <th class="col-md-1">Tel&eacute;fono</th>
+                        <th class="col-md-2">Direcci&oacute;n</th>
+                        <th class="col-md-1">Territorio Varas<sup>2</sup></th>
+                        <th class="col-md-2">Acciones</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr ng-repeat="beneficiario in beneficiariosByObjetivo">
+                        <td>{{beneficiario.idBeneficiario}}</td>
+                        <td>{{beneficiario.nombre}}</td>
+                        <td>{{beneficiario.email}}</td>
+                        <td>{{beneficiario.telefono}}</td>
+                        <td>{{beneficiario.direccion}}</td>
+                        <td>{{beneficiario.extensionTerritorial | number:2}}</td>
+                        <td>
+                            <a class="actions" ng-click="productivitybeneficiario(beneficiario.idBeneficiario)"><span class="icon-productivity" style="font-size: 35px; vertical-align:middle" title="Productividad"></a>
+                            <a class="actions" ng-click="editbeneficiario(beneficiario.idBeneficiario)"><span class="icon-edit" style="font-size: 23px; vertical-align:middle; margin-left: 10px" title="Editar"></span></a>
+                            <a class="actions" ng-click="deletebeneficiario(beneficiario.idBeneficiario)"><span class="icon-delete" style="font-size: 30px; vertical-align:middle; margin-left: 17px" title="Eliminar"></span></a>
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+
+        </div>
+     </div>
+
+</div>

@@ -1,0 +1,156 @@
+﻿<script type="text/ng-template" id="modalAlert.html">
+    <div class="modal-header">
+        <h3 class="modal-title">{{translation.INFORMACION}}</h3>
+    </div>
+    <div class="modal-body">
+        <b>{{ mensajeAlert }}</b>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="ok()">{{translation.ACEPTAR}}</button>
+    </div>
+</script>
+
+<script type="text/ng-template" id="modalConfirmation.html">
+    <div class="modal-header">
+        <h3 class="modal-title">{{translation.CONFIRMACION}}</h3>
+    </div>
+    <div class="modal-body">
+        <b>{{ mensajeConfirmacion }}</b>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="ok()">{{translation.SI}}</button>
+        <button class="btn btn-warning" type="button" ng-click="cancel()">{{translation.NO}}</button>
+    </div>
+</script>
+
+<section class="content-header">
+    <h1>
+        {{translation.PROYECTOS}}
+
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i> {{translation.HOME}}</a></li>
+        <li><a href="javascript:;">{{translation.ADMIN}}</a></li>
+        <li><a href="#!/projects">{{translation.PROYECTOS}}</a></li>
+        <li class="active">{{proyecto.codigo}}</li>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="row">
+
+        <div class="container-fluid">
+            <div class="box box-primary">
+                <div class="box-header">
+
+                </div>
+                <div class="box-body">
+                    <section class="col-lg-2 col-xs-12" style="padding: 0">
+                        <uib-tabset vertical="true" type="pills">
+                            <uib-tab ng-repeat="tab in tabs" heading="{{getTabHeader(tab.index - 1)}}" ng-click="setTab(tab.index - 1)" disabled="tab.disabled"></uib-tab>
+                        </uib-tabset>
+                    </section>
+
+                    <section class="col-lg-10 col-xs-12">
+                        <div class="row" ng-if="tabSelected == 0">
+                            <div class="container-fluid" ng-include="'app/templates/proyectos/generalView.html'"></div>
+                        </div>
+                        <div class="box box-solid" ng-if="tabSelected == 1">
+                            <div class="box-header">
+                                <h3 class="box-title">{{translation.GEOREFERENCIA}}</h3>
+                            </div>
+                            <div class="box-body">
+                                <div class="container-fluid">
+                                    <div class="row" ng-show="editMode">
+                                        <div class="form-horizontal">
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-2" for="google-places">{{translation.BUSCAR_UBICACION}}</label>
+
+                                                <div class="form-inline">
+                                                    <google-places location="googlePlaces.value" class="form-control"></google-places>
+                                                    <button ng-click="doSearch()" class="btn btn-primary">
+                                                        <span class="glyphicon glyphicon-search"></span>
+                                                    </button>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                    <div class="row">
+                                        <div style="margin-top: 10px; margin-bottom: 10px;">
+                                            <button type="button" class="btn btn-primary" ng-show="!editMode" ng-click="Edit()">
+                                                {{translation.EDITAR}}
+                                            </button>
+                                            <button type="button" class="btn btn-primary" ng-show="editMode" ng-click="SaveGeneral()">
+                                                {{translation.GUARDAR}}
+                                            </button>
+                                            <button type="button" class="btn btn-primary" ng-show="editMode" ng-click="CancelEdit()">
+                                                {{translation.CANCELAR}}
+                                            </button>
+                                        </div>
+
+                                        <ui-gmap-google-map ng-if="map.center" center="map.center" zoom="map.zoom" draggable="true">
+                                            <ui-gmap-marker coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id"></ui-gmap-marker>
+                                        </ui-gmap-google-map>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        
+                        <div class="row" ng-if="tabSelected == 2">
+                            <div class="col-md-12" ng-include="'app/templates/proyectos/problemaView.html'"></div>
+                        </div>
+                        <div class="row" ng-if="tabSelected == 3">
+                            <div class="col-md-12" ng-include="'app/templates/proyectos/objetivosView.html'"></div>
+                        </div>
+                        <div class="row" ng-if="tabSelected == 4">
+                            <div class="col-md-12" ng-include="'app/templates/proyectos/matrizView.html'"></div>
+                        </div>
+                        <div class="row" ng-if="tabSelected == 5">
+                            <div class="col-md-12" ng-include="'app/templates/proyectos/calendarioActividades.html'"></div>
+                        </div>
+                        <div class="row" ng-if="tabSelected == 6">
+                            <div class="col-md-12" ng-include="'app/templates/proyectos/calendarioIndicadores.html'"></div>
+                        </div>
+                        <div class="row" ng-if="tabSelected == 7">
+                            <div class="col-md-12" ng-include="'app/templates/proyectos/calendarioInformes.html'"></div>
+                        </div>
+                        <div class="row" ng-if="tabSelected == 8">
+                            <div class="col-md-12" ng-include="'app/templates/proyectos/ponderadoActividades.html'"></div>
+                        </div>
+                        <div class="row" ng-if="tabSelected == 9">
+                            <div class="col-md-12" ng-include="'app/templates/proyectos/ponderadoIndicadores.html'"></div>
+                        </div>
+                        <div class="row" ng-if="tabSelected == 10">
+                            <div class="col-md-12" ng-include="'app/templates/proyectos/planesContingencia.html'"></div>
+                        </div>
+                        <div class="row" ng-if="tabSelected == 11">
+                            <div class="col-md-12" ng-include="'app/templates/proyectos/presupuesto.html'"></div>
+                        </div>
+                        <div class="row">
+                            <div uib-alert ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)" dismiss-on-timeout="8000" ng-repeat="alert in alerts" ng-if="showAlert">{{alert.msg}}</div>
+                        </div>
+                        <div class="row">
+                            <br />
+                            <button type="button" class="btn btn-primary" ng-click="activate()" uib-tooltip="Activar proyecto" ng-disabled="editMode" ng-show="proyecto.proyecto.idEstado == 1">
+                                Activar
+                            </button>
+                            <button type="button" class="btn btn-primary" ng-click="close()" uib-tooltip="{{translation.REGRESAR_ADMINISTRACION}}" ng-disabled="editMode">
+                                {{translation.CERRAR}}
+                            </button>
+                        </div>
+                    </section>
+
+                </div>
+            </div>
+            
+        </div>
+
+    </div>
+    
+</section>
+
+

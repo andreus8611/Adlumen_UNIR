@@ -1,0 +1,182 @@
+﻿<script type="text/ng-template" id="modalAlert.html">
+    <div class="modal-header">
+        <h3 class="modal-title">{{translation.INFORMACION}}</h3>
+    </div>
+    <div class="modal-body">
+        <b>{{ mensajeAlert }}</b>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="ok()">{{translation.ACEPTAR}}</button>
+    </div>
+</script>
+
+<script type="text/ng-template" id="modalMovimientoContent.html">
+    <div class="modal-header">
+        <h3 class="modal-title">{{ translation.MOVIMIENTO }}</h3>
+    </div>
+    <div class="modal-body" ng-include="'app/templates/financiero/movimientoView.html'"></div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="close()">{{ translation.CERRAR }}</button>
+    </div>
+</script>
+
+<script type="text/ng-template" id="modalConfirmation.html">
+    <div class="modal-header">
+        <h3 class="modal-title">{{translation.CONFIRMACION}}</h3>
+    </div>
+    <div class="modal-body">
+        <b>{{ mensajeConfirmacion }}</b>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="ok()">{{translation.SI}}</button>
+        <button class="btn btn-warning" type="button" ng-click="cancel()">{{translation.NO}}</button>
+    </div>
+</script>
+
+<section class="content-header">
+    <h1>
+        {{translation.FINANCIERO}}
+
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i> {{translation.HOME}}</a></li>
+        <li class="active">{{translation.FINANCIERO}}</li>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="container-fluid">
+            
+            <div class="box box-primary">
+                    <div class="box-header">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label class="control-label col-sm-1" for="select-expensivesProject">{{translation.PROYECTO}}:</label>
+                                <div class="col-sm-6">
+                                    <select id="select-expensivesProject" class="form-control" ng-model="financieroparams.idProyecto" ng-options="project.idProyecto as project.nombre for project in projects" ng-change="showMovimientosProyecto(false)"></select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-body table-responsive">
+                        <section class="col-lg-7 col-xs-12">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>{{translation.DESCRIPCION}}</th>
+                                        <th>{{translation.PRESUPUESTO}}</th>
+                                        <th>{{translation.COSTO}}</th>
+                                        <th>{{translation.DIFERENCIA}}</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="total in totales">
+                                        <td>{{total.descripcion}}</td>
+                                        <td>{{total.presupuesto | number:2}}</td>
+                                        <td>{{total.costo | number:2}}</td>
+                                        <td>{{total.diferencia | number:2}}</td>
+                                        <td>
+                                            <button type="button" class="btn btn-primary" ng-click="changeSelectedTotal();" uib-tooltip="{{translation.VER_DETALLE}}">
+                                                <span class="glyphicon glyphicon-list-alt"></span>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </section>
+
+                        <section class="col-lg-5 col-xs-12">
+                            <canvas id="pie" class="chart chart-pie" 
+                                    chart-data="data" chart-labels="labels" chart-options="options">
+                            </canvas>
+                        </section>
+
+
+                    </div>
+                </div>
+            
+            <div class="box box-primary">
+
+                <div class="box-header">
+                    <div class="box-tools">
+                        <div class="input-group">
+                            <input class="form-control input-sm pull-right" type="text" placeholder="{{translation.FILTRAR}} por beneficiario, observaciones" name="table_search" ng-model="searchText">
+                            <div class="input-group-btn">
+                                <button class="btn btn-default">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div style="margin-top: 10px;" class="box-body table-responsive">
+                    <div class="container-fluid">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>{{translation.ID}}</th>
+                                    <th>{{translation.BENEFICIARIO}}</th>
+                                    <th>{{translation.OBSERVACIONES}}</th>
+                                    <th>{{translation.MONTO}}</th>
+                                    <th>{{translation.PERIODO}}</th>
+                                    <th>{{translation.SOPORTE}}</th>
+                                    <th>{{translation.CREADOPOR}}</th>
+                                    <th>{{translation.FECHACREACION}}</th>
+                                    <th>{{translation.MODIFICADOPOR}}</th>
+                                    <th>{{translation.FECHAMODIFICACION}}</th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="movimiento in selectedTotal.movimientos | filter: search ">
+                                    <td>{{movimiento.idMovimiento}}</td>
+                                    <td>{{movimiento.beneficiario}}</td>
+                                    <td>{{movimiento.observaciones}}</td>
+                                    <td>{{movimiento.monto | number:2}}</td>
+                                    <td>{{movimiento.periodo}}</td>
+                                    <td><a ng-href="{{movimiento.urlSoporte}}"></a></td>
+                                    <td>{{movimiento.usuarioCreacion}}</td>
+                                    <td>{{movimiento.fechaCreacion | date:medium}}</td>
+                                    <td>{{movimiento.usuarioEdicion}}</td>
+                                    <td>{{movimiento.fechaEdicion | date:medium}}</td>
+                                    <td>
+                                        <button type="button" class="btn btn-primary" ng-click="editSelectedMovimiento();" uib-tooltip="{{translation.EDITAR}}">
+                                            <span class="glyphicon glyphicon-pencil"></span>
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-primary" ng-click="deleteSelectedMovimiento()" uib-tooltip="{{translation.ELIMINAR}}">
+                                            <span class="glyphicon glyphicon-trash"></span>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="row" ng-show="financieroparams.idProyecto">
+                            <button type="button" class="btn btn-primary" ng-click="crearNuevoMovimiento()" uib-tooltip="{{translation.NUEVOMOVIMIENTO}}">
+                                {{translation.NUEVOMOVIMIENTO}}
+                            </button>
+                            <div class="pull-right form-inline">
+                                <label>{{translation.IMPORTAR}} <a ng-href="{{getMovTemplate()}}">{{translation.PLANTILLA}}</a></label>
+                                <button type="button" class="btn btn-primary" ng-click="importFile();" uib-tooltip="{{translation.IMPORTAR}}">
+                                    <span class="glyphicon glyphicon-upload"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+
+            </div>
+                        
+        </div>
+
+    </div>
+
+</section>

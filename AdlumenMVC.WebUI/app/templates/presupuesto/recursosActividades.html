@@ -1,0 +1,99 @@
+﻿<script type="text/ng-template" id="childsTemplate">
+    <div class="box box-solid" ng-repeat="child in child.childs">
+        <div class="box-body">
+            <h5><span ng-show="child.codigo != 0">{{child.codigo}}</span> {{child.descripcion}}</h5>
+            <div ng-if="!hasChilds(child)" class="h5">
+                <p>
+                    <b>{{translation.TOTAL_PRESUPUESTO}}:&nbsp;</b>{{child.totalPresupuesto | number: 2}}&nbsp;
+                    <b>{{translation.TOTAL_DISTRIBUIDO}}:&nbsp;</b>{{child.totalDistribuidoRecursos | number: 2}}&nbsp;
+                    <b>{{translation.PENDIENTE}}:&nbsp;</b>{{child.pendientePresupuesto | number: 2}}&nbsp;
+                </p>
+            </div>
+            <div uib-alert ng-if="child.pendientePresupuesto < 0" ng-class="'alert-danger'">{{translation.ERROR_RECURSOS_SOBREPASA_PRESUPUESTO}}</div>
+            <table class="table table-hover" ng-show="!hasChilds(child)">
+                <thead>
+                    <tr>
+                        <th>{{translation.CODIGO}}</th>
+                        <th>{{translation.DESCRIPCION}}</th>
+                        <th>{{translation.PARTIDA}}</th>
+                        <th>{{translation.PRESUPUESTO}}</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="recurso in child.recursos" ng-include="getRecursosTemplate(recurso)"></tr>
+                    <tr ng-show="selectedRecurso && selectedRecurso.idRecurso === 0" ng-include="getNewRecursoTemplate(child)"></tr>
+                </tbody>
+            </table>
+            <div ng-if="!hasChilds(child)">
+                <button type="button" class="btn btn-primary" ng-click="crearNuevoRecurso(child);" ng-show="!editMode && child.pendientePresupuesto > 0" uib-tooltip="{{translation.NUEVO}}">
+                    {{translation.NUEVO}}
+                </button>
+            </div>
+            <div ng-include="'childsTemplate'"></div>
+        </div>
+    </div>
+</script>
+<script type="text/ng-template" id="displayRecursosTemplate">
+    <td>{{recurso.codigo}}</td>
+    <td>{{recurso.descripcion}}</td>
+    <td width="30%"><select style="width:100%" ng-model="recurso.idpartidagasto" ng-options="partidaGastos.idPartidaGasto as partidaGastos.abreviatura for partidaGastos in partidasgastos" ng-disabled="true"></select></td>
+    <td>{{recurso.aporteprograma + recurso.contrapartida}}</td>
+    <td>
+        <button type="button" class="btn btn-primary" ng-show="!editMode" ng-click="editRecurso()" uib-tooltip="{{translation.EDITAR}}">
+            <span class="glyphicon glyphicon-pencil"></span>
+        </button>
+    </td>
+    <td>
+        <button type="button" class="btn btn-primary" ng-show="!editMode" ng-click="deleteRecurso()" uib-tooltip="{{translation.ELIMINAR}}">
+            <span class="glyphicon glyphicon-trash"></span>
+        </button>
+    </td>
+</script>
+<script type="text/ng-template" id="editRecursosTemplate">
+    <td colspan="6">
+        <table style="font:small">
+            <tr><td>{{translation.DESCRIPCION}}:</td><td><input class="large-input-full" type="text" ng-model="selectedRecurso.descripcion"></td></tr>
+            <tr>
+                <td>{{translation.TIPO}}:</td>
+                <td>
+                    <input type="radio" ng-model="selectedRecurso.tipo" value="Fisico">{{translation.FISICO}}
+                    <input type="radio" ng-model="selectedRecurso.tipo" value="Humano">{{translation.HUMANO}}
+                </td>
+            </tr>
+            <tr><td>{{translation.PARTIDA}}:</td><td><select style="width:100%" ng-model="selectedRecurso.idpartidagasto" ng-options="partidaGastos.idPartidaGasto as partidaGastos.abreviatura for partidaGastos in partidasgastos"></select></td></tr>
+            <tr><td>{{translation.CANTIDAD}}:</td><td><input class="large-input-full" type="number" onkeypress="return validateNumber(event);" ng-model="selectedRecurso.cantidad" ng-change="setAportePrograma()"></td></tr>
+            <tr><td>{{translation.UNIDADMEDIDA}}:</td><td><input class="large-input-full" type="text" ng-model="selectedRecurso.unidadMedida"></td></tr>
+            <tr><td>{{translation.VALORUNITARIO}}:</td><td><input class="large-input-full" type="number" onkeypress="return validateNumber(event);" ng-model="selectedRecurso.valorUnitario" ng-change="setAportePrograma()"></td></tr>
+            <tr><td>{{translation.CONTRAPARTIDA}}:</td><td><input class="large-input-full" type="number" onkeypress="return validateNumber(event);" ng-model="selectedRecurso.contrapartida" ng-change="setAportePrograma()"></td></tr>
+            <tr><td>{{translation.APORTEPROGRAMA}}:</td><td>{{selectedRecurso.aporteprograma | number: 2}}</tr>
+            <tr>
+                <td>
+                    <button type="button" class="btn btn-primary" ng-show="editMode" ng-click="SaveRecurso()" uib-tooltip="{{translation.GUARDAR}}">
+                        <span class="glyphicon glyphicon-floppy-disk"></span>
+                    </button>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-primary" ng-show="editMode" ng-click="CancelEdit()" uib-tooltip="{{translation.CANCELAR}}">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                </td>
+            </tr>
+        </table>
+        <div class="row">
+            <div uib-alert ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)" dismiss-on-timeout="8000" ng-repeat="alert in alerts" ng-if="showAlert">{{alert.msg}}</div>
+        </div>
+    </td>
+</script>
+<div class="row">
+    <div class="box box-solid" ng-repeat="child in cascadeObjectives">
+        <div class="bod-body">
+            <h4><span ng-show="child.codigo != 0">{{child.codigo}}</span> {{child.descripcion}}</h4>
+            <div ng-include="'childsTemplate'"></div>
+        </div>
+    </div>
+    <div class="row budget-alerts">
+        <div uib-alert ng-class="'alert-' + (alert.type || 'warning') + ' ' + (alert.fixed ? 'fixed-alert' : '')" close="closeAlert($index)" dismiss-on-timeout="8000" ng-repeat="alert in alerts" ng-if="showAlert">{{alert.msg}}</div>
+    </div>
+</div>

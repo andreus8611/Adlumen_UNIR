@@ -1,0 +1,48 @@
+﻿<div ng-controller="CapacitacionesCtrl">
+
+    <h1>Capacitaciones</h1>
+
+    <div class="row" style="margin-right:auto; margin-left: auto;">
+
+        <div class="row">
+            <a class="btn btn-primary" ng-model="newCapacitacion" href="#!/capacitaciones/add">
+                Nueva Capacitaci&oacute;n <span class="glyphicon glyphicon-plus"></span>
+            </a>
+        </div>
+
+        <table class="table table-hover">
+
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Capacitador</th>
+                    <th>Capacitaci&oacute;n</th>
+                    <th>Descripci&oacute;n</th>
+                    <th>Inicia</th>
+                    <th>Finaliza</th>
+                    <th>Acciones</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <tr ng-repeat="capacitacion in capacitaciones">
+                    <td>{{capacitacion.idCapacitacion}}</td>
+                    <td>{{capacitacion.nombre}}</td>
+                    <td>{{capacitacion.nombreCapacitacion}}</td>
+                    <td>{{capacitacion.descripcionCapacitacion}}</td>
+                    <td>{{capacitacion.fechaInicio | date:"dd/MM/yyyy"}}</td>
+                    <td>{{capacitacion.fechaFinal | date:"dd/MM/yyyy"}}</td>
+                    <td>
+                        <a class="actions" ng-click="beneficiariosCapacitacion(capacitacion.idCapacitacion)"><span class="icon-beneficiaries" style="font-size: 35px; vertical-align:middle; margin-left: 10px" title="Agregar Beneficiarios"></span></a>
+                        <a class="actions" ng-click="editcapacitacion(capacitacion.idCapacitacion)"><span class="icon-edit" style="font-size: 23px; vertical-align:middle; margin-left: 10px" title="Editar"></span></a>
+                        <a class="actions" ng-click="deletecapacitacion(capacitacion.idCapacitacion)"><span class="icon-delete" style="font-size: 30px; vertical-align:middle; margin-left: 17px" title="Eliminar"></span></a>
+                    </td>
+
+                </tr>
+            </tbody>
+
+        </table>
+
+</div>

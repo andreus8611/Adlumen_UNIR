@@ -1,0 +1,129 @@
+﻿<section class="content-header">
+    <h1>
+        {{translation.ENCUESTAS}}
+
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i> {{translation.HOME}}</a></li>
+        <li class="active">{{translation.ENCUESTAS}}</li>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="container-fluid">
+            <div class="box box-primary">
+                <div class="box-header">
+                    <div class="box-tools">
+                        <div style="width: 250px;" class="input-group">
+                            <input type="text" placeholder="{{translation.FILTRAR}} por título, descripción" class="form-control input-sm pull-right" ng-model="searchText" name="table_search">
+                            <div class="input-group-btn">
+                                <button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-body table-responsive">
+                    <form name="encuestaForm">
+                        <div class="form-group">
+                            <table class="table table-hover">
+
+                                <thead>
+                                    <tr>
+                                        <th>{{translation.TITULO}}</th>
+                                        <th>{{translation.DESCRIPCION}}</th>
+                                        <th>{{translation.IDIOMA}}</th>
+                                        <th>{{translation.ESTADO}}</th>
+                                        <th colspan="6"></th>
+                                    </tr>
+
+                                </thead>
+
+                                <tbody>
+
+                                    <tr ng-repeat="encuesta in encuestas | filter: search ">
+                                        <td>{{encuesta.titulo}}</td>
+                                        <td>{{encuesta.descripcion}}</td>
+                                        <td>{{getLanguageDescription(encuesta)}}</td>
+                                        <td>{{getEstadoDescription(encuesta)}}</td>
+                                        <td>
+                                            <button type="button" class="btn btn-primary" ng-click="editSelected();" ng-show="enableEditing();" uib-tooltip="{{translation.EDITAR}}">
+                                                <span class="glyphicon glyphicon-pencil"></span>
+                                            </button>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-primary" ng-click="deleteEncuesta()" ng-show="enableEditing();" uib-tooltip="{{translation.ELIMINAR}}">
+                                                <span class="glyphicon glyphicon-trash"></span>
+                                            </button>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-primary" ng-click="lockEncuesta()" ng-show="enableEditing();" uib-tooltip="{{translation.BLOQUEAR_ENCUESTA}}">
+                                                <span class="glyphicon glyphicon-lock"></span>
+                                            </button>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-primary" ng-click="editQuestions();" uib-tooltip="{{translation.VER_PREGUNTAS}}">
+                                                <span class="glyphicon glyphicon-question-sign"></span>
+                                            </button>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-primary" ng-click="resolveQuestionnaire();" ng-show="enableResolve();" uib-tooltip="{{translation.RESOLVER_ENCUESTA}}">
+                                                <span class="glyphicon glyphicon-arrow-right"></span>
+                                            </button>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-primary" ng-click="finishEncuesta();" ng-show="enableResolve();" uib-tooltip="{{translation.TERMINAR_ENCUESTA}}">
+                                                <span class="glyphicon glyphicon-ban-circle"></span>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr ng-if="newEncuesta">
+                                        <td><input type="text" ng-model="encuestaNueva.titulo" /></td>
+                                        <td><input type="text" ng-model="encuestaNueva.descripcion" /></td>
+                                        <td><select ng-model="encuestaNueva.idioma" ng-options="idioma.nombre for idioma in idiomas"></select></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+                        <div class="form-group">
+                            <div uib-alert ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)" dismiss-on-timeout="8000" ng-repeat="alert in alerts" ng-if="showAlert">{{alert.msg}}</div>
+                        </div>
+
+                        <div class="form-group">
+                            <button type="button" class="btn btn-primary" ng-model="newEncuesta" ng-hide="newEncuesta" uib-btn-checkbox btn-checkbox-true="true" btn-checkbox-false="false" ng-click="newRow()">
+                                {{translation.NUEVA_ENCUESTA}}
+                            </button>
+                        </div>
+
+                        <div class="form-group" ng-if="newEncuesta">
+                            <button type="button" class="btn btn-primary" ng-click="addEncuesta()">
+                                <span class="glyphicon glyphicon-floppy-disk"></span>
+                            </button>
+
+                            <button type="button" class="btn btn-primary" ng-click="resetEncuesta()">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+                        </div>
+                    </form>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+

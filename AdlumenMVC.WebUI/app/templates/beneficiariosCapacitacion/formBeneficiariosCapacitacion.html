@@ -1,0 +1,33 @@
+﻿<div ng-controller="beneficiariosCapacitacionCtrl">
+
+    <h1>Detalle Beneficiario Capacitación</h1>
+
+    <div class="row" style="margin-right:auto; margin-left: auto;">
+
+        <form class="form-horizontal col-md-8" role="form">
+
+            <div class="form-group">
+                <label for="cmbIdBeneficiario" class="col-sm-2 control-label">Beneficiarios</label>
+                <div class="col-sm-10">
+                    <select id="cmbIdBeneficiario" class="form-control" ng-model="newBeneficiarioCapacitacion.cmbIdBeneficiario">
+                        <option value="">Seleccione un Beneficiario</option>
+                        <option ng-repeat="beneficiario in beneficiarios" value="{{beneficiario.idBeneficiario}}">{{beneficiario.nombre}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-offset-1 col-sm-10">
+                    <button type="submit" class="btn btn-primary" ng-click="addBeneficiarioCapacitacion();">Grabar</button>
+                    <a class="btn btn-default" href="#!/capacitacion/{{idCapacitacion}}/beneficiarios">Cancelar</a>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+
+    <div class="alert">
+        <div uib-alert ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)" dismiss-on-timeout="8000" ng-repeat="alert in alerts" ng-if="showAlert">{{alert.msg}}</div>
+    </div>
+</div>

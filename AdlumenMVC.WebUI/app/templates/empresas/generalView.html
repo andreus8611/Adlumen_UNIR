@@ -1,0 +1,85 @@
+﻿<form class="form-horizontal">
+    <fieldset>
+        <section class="col-lg-8 col-xs-8">
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-name">{{translation.NOMBRE}}:</label>
+                <div class="col-sm-10">
+                    <input id="input-name" class="form-control" type="text" ng-model="empresa.nombre" ng-disabled="!editMode && tabSelected == 0">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-address">{{translation.DIRECCION}}:</label>
+                <div class="col-sm-10">
+                    <input id="input-address" class="form-control" type="text" ng-model="empresa.ubicacion" ng-disabled="!editMode && tabSelected == 0">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-url">{{translation.URL}}:</label>
+                <div class="col-sm-10">
+                    <input id="input-url" class="form-control" type="text" ng-model="empresa.url" ng-disabled="!editMode && tabSelected == 0">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-phone">{{translation.TELEFONO}}:</label>
+                <div class="col-sm-10">
+
+                    <input id="input-phone" class="form-control" type="text"   ng-pattern="base.phoneRegex" placeholder="+22 999-999-999"   ng-model="empresa.telefono" ng-disabled="!editMode && tabSelected == 0"   />
+                    
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="select-id">{{translation.IDENTIFICACION}}:</label>
+                <div class="col-sm-5">
+                    <select id="select-id" class="form-control" ng-model="empresa.idIdentificacionTipo" ng-options="tipo.idIdentificacionTipo as tipo.nombre for tipo in identificacionTipos" ng-disabled="!editMode && tabSelected == 0"></select>
+
+                </div>
+                <div class="col-sm-5">
+                    <input id="input-id" class="form-control" ng-model="empresa.identificacion" ng-disabled="!editMode && tabSelected == 0" />
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="select-country">{{translation.PAIS}}:</label>
+                <div class="col-sm-10">
+                    <select id="select-country" class="form-control" ng-model="empresa.idPais" ng-options="pais.idPais as pais.nombre for pais in paises" ng-disabled="!editMode && tabSelected == 0"></select>
+                </div>
+            </div>
+
+            <div class="form-inline form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="button" class="btn btn-primary" ng-show="!editMode" ng-click="Edit()">
+                        {{translation.EDITAR}}
+                    </button>
+                    <button type="button" class="btn btn-primary" ng-show="editMode" ng-click="SaveGeneral()">
+                        {{translation.GUARDAR}}
+                    </button>
+                    <button type="button" class="btn btn-primary" ng-show="editMode" ng-click="CancelEdit()">
+                        {{translation.CANCELAR}}
+                    </button>
+                    <button type="button" class="btn btn-primary" ng-show="!editMode" ng-click="EliminarEmpresa()">
+                        {{translation.ELIMINAR}}
+                    </button>
+                </div>
+
+            </div>
+
+        </section>
+
+        <section class="col-lg-4 col-xs-4">
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-image">{{translation.LOGO}}:</label>
+                <div class="col-sm-10">
+                    <input id="input-image" class="img-thumbnail" type="image" src="{{empresa.logo}}" ng-if="empresa.logo" />
+                </div>
+                <input type="file" name="file" accept="image/*" onchange="angular.element(this).scope().selectFileforUpload(this.files)" ng-show="editMode" />
+            </div>
+        </section>
+    </fieldset>
+</form>
+

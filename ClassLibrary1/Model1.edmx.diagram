@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="f48e6f300f1f44a1a7d9a742ebdc5e31" Name="Diagram1">
+        <EntityTypeShape EntityType="AdlumenJorgeModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.Acciones" Width="1.5" PointX="3" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.AspNetRoles" Width="1.5" PointX="5.25" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.AspNetUserClaims" Width="1.5" PointX="9.75" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.AspNetUserLogins" Width="1.5" PointX="9.75" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.AspNetUsers" Width="1.5" PointX="7.5" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.Cms_MenuNodos" Width="1.5" PointX="3" PointY="71.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.Cms_Menus" Width="1.5" PointX="0.75" PointY="72.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.Com_Mensajes" Width="1.5" PointX="13.5" PointY="65" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.Com_MensajesEstado" Width="1.5" PointX="11.25" PointY="60.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.Doc_ArchivosTipos" Width="1.5" PointX="30.75" PointY="55.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.Doc_Categorias" Width="1.5" PointX="30.75" PointY="58.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.Doc_Clientes_Categorias" Width="1.5" PointX="36" PointY="72.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.Doc_Documentos" Width="1.5" PointX="33" PointY="56.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.Documentos_Tareas" Width="1.5" PointX="35.25" PointY="64.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.M_Encuestas" Width="1.5" PointX="28.5" PointY="51.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.M_EncuestasResueltas" Width="1.5" PointX="30.75" PointY="47.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.M_Idiomas" Width="1.5" PointX="26.25" PointY="52.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.M_Monedas" Width="1.5" PointX="18.25" PointY="66.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.M_Paises" Width="1.5" PointX="3.75" PointY="65.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.M_Periodos" Width="1.5" PointX="2.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.M_PosiblesRespuestas" Width="1.5" PointX="33" PointY="52.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.M_Preguntas" Width="1.5" PointX="30.75" PointY="51.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.M_PreguntasResueltas" Width="1.5" PointX="33" PointY="49" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.M_Temas" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.m_TipCambio" Width="1.5" PointX="20.5" PointY="65.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.M_ValoresRespuesta" Width="1.5" PointX="35.25" PointY="49.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.Moduloes" Width="1.5" PointX="0.75" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.Org_Areas" Width="1.5" PointX="8.25" PointY="71.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.Org_Cargos" Width="1.5" PointX="10.5" PointY="71.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.Org_Donantes" Width="1.5" PointX="3.75" PointY="58.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.Org_Empleados" Width="1.5" PointX="12.75" PointY="71" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.Org_EmpleadosCargosHistorico" Width="1.5" PointX="15" PointY="72" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.Org_Empresas" Width="1.5" PointX="6" PointY="69.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.Org_IdentificacionTipos" Width="1.5" PointX="3.75" PointY="77.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.Org_Proveedores" Width="1.5" PointX="8.25" PointY="66.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.Pry_Beneficiarios" Width="1.5" PointX="10.5" PointY="77.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.Pry_Bitacoras" Width="1.5" PointX="22.75" PointY="70.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.Pry_CalendarioDonaciones" Width="1.5" PointX="25.75" PointY="75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.Pry_CapacitacionBeneficiario" Width="1.5" PointX="15.75" PointY="77.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.Pry_Capacitaciones" Width="1.5" PointX="13.5" PointY="86.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.Pry_DatosMuestras" Width="1.5" PointX="25" PointY="83.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.Pry_DatosVariables" Width="1.5" PointX="30.25" PointY="85" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.Pry_DatosVerificadores" Width="1.5" PointX="30.25" PointY="88.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.PRY_EVALUACIONESACTIVIDADESPERIODO" Width="1.5" PointX="10.5" PointY="81.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.Pry_EvaluacionHitos" Width="1.5" PointX="28" PointY="81.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.PRY_EVALUACIONINDICADORESPERIODO" Width="1.5" PointX="28" PointY="86.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.PRY_EVALUACIONPROYECTOPERIODO" Width="1.5" PointX="25" PointY="79.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.Pry_Facilitadores" Width="1.5" PointX="11.25" PointY="86.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.Pry_Indicadores" Width="1.5" PointX="18" PointY="69.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.Pry_Indicadores_Variables" Width="1.5" PointX="23.25" PointY="74.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.Pry_IndicadoresProyecto_Programa" Width="1.5" PointX="20.25" PointY="89.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.Pry_IndicadoresTipos" Width="1.5" PointX="15.75" PointY="68.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.Pry_IndicadoresVerificadores" Width="1.5" PointX="20.25" PointY="91.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.Pry_Informes" Width="1.5" PointX="27.75" PointY="67" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.Pry_Informes_Donantes" Width="1.5" PointX="30" PointY="70" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.Pry_Informes_Encuestas" Width="1.5" PointX="33" PointY="69.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.Pry_Informes_Indicador" Width="1.5" PointX="31" PointY="76.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.Pry_Informes_Presupuestos" Width="1.5" PointX="33" PointY="72.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.Pry_Informes_Supuestos" Width="1.5" PointX="33" PointY="85.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.Pry_InformesEstados" Width="1.5" PointX="25.5" PointY="68.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.PRY_INFORMESICA" Width="1.5" PointX="25" PointY="89.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.PRY_INFORMESICADETALLE" Width="1.5" PointX="27.25" PointY="95.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.PRY_INFORMESICADOCUMENTOS" Width="1.5" PointX="27.25" PointY="91.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.PRY_INFORMESICAESTADOS" Width="1.5" PointX="22.75" PointY="83.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.PRY_INFORMESICAINDICADORES" Width="1.5" PointX="25.25" PointY="71.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.PRY_INFORMESICAOBJETIVOS" Width="1.5" PointX="13.5" PointY="77.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.PRY_INFORMESICATIPOS" Width="1.5" PointX="22.75" PointY="86.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.Pry_MontoDonacion" Width="1.5" PointX="27.25" PointY="102.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.Pry_Movimientos" Width="1.5" PointX="25" PointY="97.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.Pry_NivelAceptacion" Width="1.5" PointX="22.75" PointY="89.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.Pry_Objetivos" Width="1.5" PointX="8.25" PointY="76.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.Pry_ObjetivosClase" Width="1.5" PointX="6" PointY="79.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.PRY_PARTIDAGASTOS" Width="1.5" PointX="22.75" PointY="95.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.PRY_PERIODOSPROYECTOS" Width="1.5" PointX="22.75" PointY="98.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.Pry_Presupuesto" Width="1.5" PointX="22.75" PointY="78.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.Pry_PresupuestoTipo" Width="1.5" PointX="20.5" PointY="81.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.Pry_ProductividadBeneficiario" Width="1.5" PointX="12.75" PointY="81" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.Pry_Proyectos" Width="1.5" PointX="20.5" PointY="68.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.Pry_Proyectos_Donantes" Width="1.5" PointX="22.75" PointY="65.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.Pry_Proyectos_NivelAceptacion" Width="1.5" PointX="28.75" PointY="75.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.Pry_ProyectosEstados" Width="1.5" PointX="18.25" PointY="78.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.Pry_ProyectosTipos" Width="1.5" PointX="18.25" PointY="81.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.Pry_Recursos" Width="1.5" PointX="15.5" PointY="81.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.Pry_Supuestos" Width="1.5" PointX="10.5" PointY="104.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.Pry_Variables" Width="1.5" PointX="21" PointY="61.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.Sys_Clientes" Width="1.5" PointX="3.75" PointY="80.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.Sys_Usuarios" Width="1.5" PointX="11.25" PointY="63.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.sysdiagrams" Width="1.5" PointX="4.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.Tar_Bitacora" Width="1.5" PointX="35.5" PointY="68.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.Tar_Listas" Width="1.5" PointX="25.75" PointY="62.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.Tar_Permisos_Bitacora" Width="1.5" PointX="37.5" PointY="64.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.Tar_Tareas" Width="1.5" PointX="30" PointY="63.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.Tar_Visitas" Width="1.5" PointX="32.25" PointY="64.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.Tenants" Width="1.5" PointX="6.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdlumenJorgeModel.M_Plantillas" Width="1.5" PointX="8.75" PointY="7.75" IsExpanded="true" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_dbo_Acciones_dbo_Moduloes_ModuloId" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Cms_MenuNodes_Cms_Menu" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Org_Empresas_Cms_Menus" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Org_Empresas_Cms_Menus1" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Org_Empresas_Cms_Menus2" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Com_Mensajes_Sys_Usuarios" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Mod_Messages_Mod_MessagesStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Doc_Documentos_Doc_ArchivosTipos" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Doc_Clientes_Categorias_Doc_Categorias" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Doc_Documentos_Doc_Categorias" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Doc_Clientes_Categorias_Sys_Clientes" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK__Documento__IdDoc__251C81ED" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK__Documento__IdDoc__2610A626" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK__Documento__IdTar__2704CA5F" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK__Documento__IdTar__27F8EE98" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_M_Encuestas_M_Idiomas" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_M_EncuestasResueltas_M_Encuestas" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_M_Preguntas_M_Encuestas" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_M_PreguntasResueltas_M_EncuestasResueltas" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK__m_TipCamb__idMon__2EA5EC27" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Pry_Movimientos_M_Monedas" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Pry_Proyectos_M_Monedas" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Org_Empresas_M_Paises" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_M_PosiblesRespuestas_M_Preguntas" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_M_PreguntasResueltas_M_Preguntas" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Pry_Informes_Encuestas_M_Preguntas" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_M_ValoresRespuesta_M_PreguntasResueltas" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Org_Areas_Org_Empresas" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Org_Cargos_Org_Areas" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Org_Empleados_Org_Cargos" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Org_EmpleadosCargosHistorico_Org_Cargos" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Org_Donantes_Org_IdentificacionTipos" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Org_Donantes_Sys_Clientes" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Pro_Proyectos_Donantes_Org_Donantes" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Pry_Calendario_Donaciones_Org_Donantes" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Pry_Informes_Donantes_Org_Donantes" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Org_Empleados_Org_IdentificacionTipos" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Org_Empleados_Sys_Usuarios" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Org_EmpleadosCargosHistorico_Org_Empleados" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Pry_Indicadores_Org_Empleados" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Org_Empresas_Org_IdentificacionTipos" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Org_Empresas_Sys_Clientes" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Org_Proveedores_Org_Empresas" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Pry_Objetivos_Org_Empresas" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Org_Proveedores_Org_IdentificacionTipos" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.KEY_PRY_BENEFICIARIO_CAPACITACIONES" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.KEY_PRY_BENEFICIARIOS" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.KEY_PRY_PRODUCTIVIDAD_BENEFICIARIO" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Pry_Bitacoras_Pry_Proyectos" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Pry_Calendario_Donaciones_Pry_Proyectos" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.KEY_PRY_CAPACITACIONES_BENEFICIARIO" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.KEY_PRY_CAPACITACIONES" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Pry_DatosMuestras_Pry_Indicadores" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Pry_DatosMuestras_Pry_NivelAceptacion" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Pry_DatosMuestras_PRY_PERIODOS" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Pry_DatosVariables_Pry_DatosMuestras" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Pry_DatosVerificadores_Pry_DatosMuestras" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Pry_Informes_Indicador_Pry_DatosMuestras" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Pry_DatosVariables_Pry_Variables" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Pry_DatosVerificadores_Pry_IndicadoresVerificadores" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_PRY_EVALUACIONESACTIVIDADESPERIODO_PRY_EVALUACIONPROYECTOPERIODO" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_PRY_EVALUACIONESACTIVIDADESPERIODO_Pry_Objetivos" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Pry_EvaluacionHitos_Pry_Indicadores" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Pry_EvaluacionHitos_Pry_Objetivos" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Pry_EvaluacionHitos_Pry_Objetivos1" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Pry_EvaluacionHitos_PRY_PERIODOS" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Pry_EvaluacionHitos_Pry_Proyectos" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_PRY_EVALUACIONINDICADORESPERIODO_Pry_Indicadores" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_PRY_EVALUACIONINDICADORESPERIODO_Pry_Objetivos" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_PRY_EVALUACIONINDICADORESPERIODO_PRY_PERIODOS" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_PRY_EVALUACIONINDICADORESPERIODO_Pry_Proyectos" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_PRY_EVALUACIONPROYECTOPERIODO_PRY_PERIODOS" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_PRY_EVALUACIONPROYECTOPERIODO_Pry_Proyectos" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Pry_Indicadores_Pry_IndicadoresTipos" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Pry_Indicadores_Pry_IndicadoresTipos1" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Pry_Indicadores_Variables_Pry_Indicadores" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Pry_IndicadoresProyecto_Programa_Pry_Indicadores" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Pry_IndicadoresVerificadores_Pry_Indicadores" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Pry_Informes_Indicador_Pry_Indicadores" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_PRY_INFORMESICAINDICADORES_Pry_Indicadores" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Pry_Indicadores_Variables_Pry_Variables" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Pry_Informes_Donantes_Pry_Informes" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Pry_Informes_Encuestas_Pry_Informes" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Pry_Informes_Indicador_Pry_Informes" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Pry_Informes_Presupuestos_Pry_Informes" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Pry_Informes_Pry_InformesEstados" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Pry_Informes_Pry_NivelAceptacion" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Pry_Informes_Pry_NivelAceptacion1" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Pry_Informes_Pry_Proyectos" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Pry_Informes_Supuestos_Pry_Informes" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Pry_Informes_Indicador_Pry_NivelAceptacion" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Pry_Informes_Presupuestos_Pry_NivelAceptacion" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Pry_Informes_Presupuestos_Pry_Presupuesto" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Pry_Informes_Supuestos_Pry_Supuestos" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_PRY_INFORMESICA_PRY_INFORMESICAESTADOS" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_PRY_INFORMESICA_PRY_INFORMESICATIPOS" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_PRY_INFORMESICA_PRY_PERIODOS" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_PRY_INFORMESICA_PRY_PERIODOS1" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_PRY_INFORMESICA_Pry_Proyectos" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_PRY_INFORMESICADETALLE_PRY_INFORMESICA" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_PRY_INFORMESICADOCUMENTOS_PRY_INFORMESICA" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_PRY_INFORMESICAINDICADORES_PRY_INFORMESICA" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_PRY_INFORMESICAOBJETIVOS_PRY_INFORMESICA" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_PRY_INFORMESICAOBJETIVOS_Pry_Objetivos" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Pry_MontoDonacion_Pry_Movimientos" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Pry_Movimientos_PRY_PARTIDAGASTOS" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Pry_Movimientos_PRY_PERIODOS" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Pry_Movimientos_Pry_Presupuesto" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Pry_Proyectos_NivelAceptacion_Pry_NivelAceptacion" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Pry_Objetivos_Pry_ObjetivosClase" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Pry_Proyectos_Pry_Objetivos" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Pry_Recursos_Pry_Objetivos" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Pry_Supuestos_Pry_Objetivos" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Pry_Recursos_PRY_PARTIDAGASTOS" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_PRY_PERIODOSPROYECTOS_Pry_Proyectos" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Pry_Presupuesto_Pry_PresupuestoTipo" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Pry_Presupuesto_Pry_Proyectos" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Pro_Proyectos_Donantes_Pro_Proyectos" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Pry_Proyectos_NivelAceptacion_Pry_Proyectos" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Pry_Proyectos_Pry_Proyectos" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Pry_Proyectos_Pry_ProyectosEstados" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Pry_Proyectos_Pry_ProyectosTipos" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Pry_Proyectos_Sys_Clientes" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Pry_Proyectos_Sys_Usuarios" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Pry_Proyectos_Sys_Usuarios1" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Pry_Proyectos_Sys_Usuarios2" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Tar_Listas_Pry_Proyectos" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Pry_Proyectos_Donantes_Sys_Usuarios" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Tar_Bitacora_Sys_Usuarios" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Tar_Listas_Sys_Usuarios" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Tar_Listas_Sys_Usuarios1" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Tar_Permisos_Bitacora_Sys_Usuarios" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Tar_Tareas_Sys_Usuarios" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Tar_Tareas_Sys_Usuarios1" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Tar_Tareas_Sys_Usuarios2" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Tar_Tareas_Sys_Usuarios3" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Tar_Bitacora_Tar_Visitas" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Tar_Tareas_Tar_Listas" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Tar_Permisos_Bitacora_Tar_Visitas" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.FK_Tar_Visitas_Tar_Tareas" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.AspNetRolesAcciones" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.AspNetUserRoles" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.Org_Donantes_Empresas" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.Sys_Usuarios_Donantes" ManuallyRouted="false" />
+        <AssociationConnector Association="AdlumenJorgeModel.Sys_Usuarios_Empresas" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

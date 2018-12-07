@@ -1,0 +1,124 @@
+﻿<section class="content-header">
+    <h1>
+        {{translation.CLIENTE}}
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i> {{translation.HOME}}</a></li>
+        <li><a href="javascript:;">{{translation.ADMIN}}</a></li>
+        <li class="active">{{translation.CLIENTE}}</li>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="container-fluid">
+            <form name="forms.client" role="form">
+                <div class="box box-primary">
+                    <div style="margin-top: 10px;" class="box-body">
+                        <section class="col-lg-4 col-xs-12 pull-right">
+                            <div class="form-inline">
+                                <label class="control-label col-sm-3">{{translation.LOGO}}</label>
+                                <input type="image" class="img-thumbnail" ng-src="{{client.logo}}" />
+                            </div>
+                            <div class="form-group">
+                                <div class="box-body with-border table-responsive">
+                                    <input type="file" name="file" accept="image/*" onchange="angular.element(this).scope().SelectedPhotoForUpload(this.files)" ng-disabled="!editMode" />
+                                </div>
+                            </div>
+                        </section>
+                        <section class="col-lg-8 col-xs-12">
+                            <div class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">{{translation.NOMBRE}}</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" ng-model="client.name" ng-disabled="true" ng-required="true" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">Max {{translation.USUARIOS}}</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" ng-model="client.maxUsers" ng-disabled="true" ng-required="true" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">Max {{translation.PROYECTOS}}</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" ng-model="client.maxProjects" ng-disabled="true" ng-required="true" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">Max {{translation.ALMACENAMIENTO}}</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" ng-model="client.maxStorage" ng-disabled="true" ng-required="true" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">{{translation.FECHA_REGISTRO}}</label>
+                                    <div class="col-sm-8">
+                                        <p class="input-group">
+                                            <input type="date" class="form-control" ng-model="client.orderDate" is-open="statusorderDate.opened" min-date="client.orderDate" ng-required="true" current-text="{{translation.HOY}}" clear-text="{{translation.LIMPIAR}}" close-text="{{translation.CERRAR}}" ng-disabled="true" />
+                                            <!--<span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="openorderDate($event)" ng-disabled="true"><i class="glyphicon glyphicon-calendar"></i></button>
+                            </span>-->
+                                        </p>
+
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">{{translation.FECHA_CADUCA}}</label>
+                                    <div class="col-sm-8">
+                                        <p class="input-group">
+                                            <input type="date" class="form-control" ng-model="client.expirationDate" is-open="statusexpirationDate.opened" min-date="client.orderDate" max-date="maxDate" ng-required="true" current-text="{{translation.HOY}}" clear-text="{{translation.LIMPIAR}}" close-text="{{translation.CERRAR}}" ng-disabled="!editMode" />
+                                            <!--<span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="openexpirationDate($event)" ng-disabled="!editMode"><i class="glyphicon glyphicon-calendar"></i></button>
+                            </span>-->
+                                        </p>
+
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">{{translation.CONTACTO_NOMBRE}}</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" ng-model="client.contactName" ng-disabled="!editMode" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">{{translation.CONTACTO_EMAIL}}</label>
+                                    <div class="col-sm-8">
+                                        <input type="email" class="form-control" ng-model="client.contactMail" ng-disabled="!editMode" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">{{translation.CONTACTO_DIRECCION}}</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" ng-model="client.contactAddress" ng-disabled="!editMode" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">{{translation.CONTACTO_TELEFONO}}</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" ng-model="client.contactPhone" ng-disabled="!editMode" />
+                                    </div>
+                                </div>
+                            </div>
+
+                        </section>
+                    </div>
+                    <div class="box-footer">
+                        <div class="form-inline pull-right">
+                            <button type="submit" ng-if="!editMode" class="btn btn-primary" ng-click="edit()">{{translation.EDITAR}}</button>
+                            <button type="submit" ng-if="editMode" class="btn btn-success" ng-click="validate() && save()">{{translation.GUARDAR}}</button>
+                            <button type="submit" ng-if="editMode" class="btn btn-danger" ng-click="cancel()">{{translation.CANCELAR}}</button>
+                        </div>
+                    </div>
+                    <div class="alert">
+                        <div uib-alert ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)" dismiss-on-timeout="8000" ng-repeat="alert in alerts" ng-if="showAlert">{{alert.msg}}</div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+
+</section>

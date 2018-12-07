@@ -1,0 +1,208 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Windows Update Notes</title>
+<style type="text/css">
+table.data {border-collapse:collapse;}
+table.data td, table.data th {text-align:left; border:1px solid black; padding:3px;}
+table.data th {background-color:#7C96C3; color:white;}
+table.data tr:nth-child(odd) td {background-color:#F5F5FF;}
+td {vertical-align:top; white-space:nowrap;}
+td.cmdDesc {padding-right:8px;}
+div.hdr {font-weight:bold; margin-bottom:6px;}
+div.topgap {margin-top:8px;}
+div#footnotes {visibility:hidden;}
+</style>
+<script type="text/javascript">
+var verInfoStr = 'Windows Update Notes - Mar 24 2016';
+
+var updatesByYearTbl = [
+  [ '979198', '2009'],
+  ['2492172', '2010'],
+  ['2662694', '2011'],
+  ['2800436', '2012'],
+  ['2921911', '2013'],
+  ['3028013', '2014'],
+  ['3132806', '2015'],
+  [ '894199', '2016'],
+];
+
+var updatesOfInterestTbl = [
+  //  KB      Replaces    7    8    UC   Description
+  [ '971033',        '', 'Y', ' ', ' ', 'Update for Windows Activation Technologies'],
+  ['2876229',        '', 'Y', 'Y', ' ', 'Skype for Microsoft Update'],
+  ['2902907',        '', ' ', ' ', ' ', 'NOT FOUND, possibly Microsoft Security Essentials related'],
+  ['2922324',        '', ' ', ' ', ' ', 'NOT FOUND, no ideas either'],
+  ['2952664',        '', 'Y', ' ', ' ', 'Compatibility update for upgrading Windows 7'],
+  ['2976978',        '', ' ', 'Y', ' ', 'Compatibility update for Windows 8.1 and Windows 8 '],
+  ['2976987',        '', ' ', ' ', ' ', 'NOT FOUND, looks like it might be a typo'],
+  ['2977759',        '', 'Y', ' ', ' ', 'Compatibility update for upgrading Windows 7'],
+  ['2990214',        '', 'Y', ' ', 'Y', 'Update that enables you to upgrade from Windows 7 to a later version of Windows'],
+  ['3008188',        '', ' ', 'Y', 'Y', 'November 2014 Windows Update client improvements in Windows 8.1 or Windows Server 2012 R2'],
+  ['3008273',        '', ' ', 'Y', 'Y', 'An update to enable an automatic update from Windows 8 to Windows 8.1'],  
+  ['3012973',        '', ' ', ' ', ' ', 'NOT FOUND, possibly the Upgrade to Windows 10 Pro'],
+  ['3015249',        '', ' ', ' ', ' ', 'NOT FOUND, no ideas either'],
+  ['3021917',        '', 'Y', ' ', ' ', 'Update to Windows 7 SP1 for performance improvements'],
+  ['3022345',        '', 'Y', 'Y', ' ', 'Update for customer experience and diagnostic telemetry'],
+  ['3035583',        '', 'Y', 'Y', ' ', 'Update installs Get Windows 10 app in Windows 8.1 and Windows 7 SP1'],
+  ['3044374', '3008188', ' ', 'Y', 'Y', 'Update that enables you to upgrade from Windows 8.1 to Windows 10'],
+  ['3046480',        '', 'Y', 'Y', ' ', 'Update helps to determine whether to migrate the .NET Framework 1.1 when you upgrade Windows 8.1 or Windows 7'],
+  ['3050265', '2990214', 'Y', ' ', 'Y', 'Windows Update Client for Windows 7: June 2015'],
+  ['3050267', '3044374', ' ', 'Y', 'Y', 'Windows Update Client for Windows 8.1: June 2015'],
+  ['3063822',        '', ' ', ' ', ' ', 'NOT FOUND, possibly Microsoft Security Essentials related'],
+  ['3064683',        '', ' ', 'Y', ' ', 'Windows 8.1 OOBE modifications to reserve Windows 10'],
+  ['3065987', '3050265', 'Y', ' ', 'Y', 'Windows Update Client for Windows 7 and Windows Server 2008 R2: July 2015'],
+  ['3065988', '3050267', ' ', 'Y', 'Y', 'Windows Update Client for Windows 8.1 and Windows Server 2012 R2: July 2015'],
+  ['3068707',        '', ' ', ' ', ' ', 'NOT FOUND, but reported to be telemetry related'],
+  ['3068708', '3022345', 'Y', 'Y', ' ', 'Update for customer experience and diagnostic telemetry'],
+  ['3072318',        '', ' ', 'Y', ' ', 'Update for Windows 8.1 OOBE to upgrade to Windows 10'],
+  ['3075249',        '', 'Y', 'Y', ' ', 'Update that adds telemetry points to consent.exe in Windows 8.1 and Windows 7'],
+  ['3075851', '3065987', 'Y', ' ', 'Y', 'Windows Update Client for Windows 7 and Windows Server 2008 R2: August 2015'],
+  ['3075853', '3065988', ' ', 'Y', 'Y', 'Windows Update Client for Windows 8.1 and Windows Server 2012 R2: August 2015'],
+  ['3080149', '3022345', 'Y', 'Y', ' ', 'Update for customer experience and diagnostic telemetry'],
+  ['3081954',        '', 'Y', ' ', ' ', 'Update for Work Folders improvements in Windows 7 SP1'],
+  ['3083324', '3075851', 'Y', ' ', 'Y', 'Windows Update Client for Windows 7 and Windows Server 2008 R2: September 2015'],
+  ['3083325', '3075853',  '', 'Y', 'Y', 'Windows Update Client for Windows 8.1 and Windows Server 2012 R2: September 2015'],
+  ['3083710', '3083324', 'Y', ' ', 'Y', 'Windows Update Client for Windows 7 and Windows Server 2008 R2: October 2015'],
+  ['3083711', '3083325', ' ', 'Y', 'Y', 'Windows Update Client for Windows 8.1 and Windows Server 2012 R2: October 2015'],
+  ['3090045',        '', 'Y', 'Y', ' ', 'Windows Update for reserved devices in Windows 8.1 or Windows 7 SP1'],
+  ['3112336',        '', ' ', 'Y', 'Y', 'Windows Update Client for Windows 8.1 and Windows Server 2012 R2: December 2015'],
+  ['3112343',        '', 'Y', ' ', 'Y', 'Windows Update Client for Windows 7 and Windows Server 2008 R2: December 2015'],
+  ['3123862',        '', 'Y', 'Y', ' ', 'Updated capabilities to upgrade Windows 8.1 and Windows 7'],
+  ['3135445',        '', 'Y', ' ', 'Y', 'Windows Update Client for Windows 7 and Windows Server 2008 R2: February 2016'],
+  ['3135449',        '', ' ', 'Y', 'Y', 'Windows Update Client for Windows 8.1 and Windows Server 2012 R2: February 2016'],
+  ['3138612',        '', 'Y', ' ', 'Y', 'Windows Update Client for Windows 7 and Windows Server 2008 R2: March 2016'],
+  ['3138615',        '', ' ', 'Y', 'Y', 'Windows Update Client for Windows 8.1 and Windows Server 2012 R2: March 2016'],
+  ['3139929',        '', 'Y', 'Y', ' ', 'MS16-023: Security update for Internet Explorer: March 8, 2016'],
+  ['3146449',        '', 'Y', 'Y', ' ', 'Updated Internet Explorer 11 capabilities to upgrade Windows 8.1 and Windows 7'],
+  //  KB      Replaces    7    8    UC   Description
+];
+
+var cmdsTbl = [
+  ['Uninstall an update',                     'wusa /uninstall /kb:3035583'],
+  ['Uninstall an update',                     'wusa /uninstall /kb:3035583 /quiet /norestart'],
+  ['Check for installed update (PowerShell)', 'get-hotfix -id KB3035583'],
+  ['Check for installed update',              'wmic qfe where HotFixID="KB3035583" list /format:list'],
+  ['Show installed updates',                  'wmic qfe list /format:htable > "%USERPROFILE%/Desktop/InstalledUpdates.html"'],
+  ['Show installed updates of interest',      'wmic qfe where ({hotFixIdOrList}) list /format:htable > "%USERPROFILE%/Desktop/InstalledUpdatesOfInterest.html"'],
+  ['Show Scheduled Tasks Table',              'schtasks /query /v > "%USERPROFILE%/Desktop/ScheduledTasks.txt"'],
+  ['Show Scheduled Tasks',                    'schtasks /query /v /fo LIST > "%USERPROFILE%/Desktop/ScheduledTasks.txt"'],
+  ['Check for Scheduled Task',                'schtasks /query /v /fo LIST /tn "\\Microsoft\\Windows\\Customer Experience Improvement Program\\Consolidator"'],
+  ['Change Scheduled Task',                   'schtasks /change /disable /tn "\\Microsoft\\Windows\\Customer Experience Improvement Program\\Consolidator"'],
+];
+
+var searchUrlTemplates = [
+// These are for reference only.  They don't point to working search engines
+// ['S1', 'http://www.example.com/search?q={searchTerms}&foo={searchTerms}'],
+// ['S2', 'http://www.example.org/search?q={searchTerms}'],
+];
+
+var kbUrlTemplate = 'https://support.microsoft.com/kb/{kb}';
+
+function getSearchLinks(kb) {
+  var html = '';
+  for(var i=0; i<searchUrlTemplates.length; i++) {
+    if(i > 0)
+      html += ' ';
+    var text = searchUrlTemplates[i][0];
+    var href = searchUrlTemplates[i][1].replace(/{searchTerms}/g, kb);
+    html += '<a href="' + href + '">' + text + '</a>';
+  }
+  return(html);
+}
+
+function escapeHtml(str) {
+  var div = document.createElement('div');
+  div.appendChild(document.createTextNode(str));
+  return div.innerHTML;
+};
+
+function showupdatesByYear() {
+  var tbl = updatesByYearTbl;
+  var html = '';
+  for(var i=0; i<tbl.length; i++) {
+    if(i > 0)
+      html += ', ';
+    html += '<a href="' + kbUrlTemplate.replace(/{kb}/g, tbl[i][0]) + '" target="_blank">' + tbl[i][1] + '</a>';
+  }
+  document.getElementById("updatesByYearHdr").innerHTML = "Description of Software Update Services and Windows Server Update Services changes in content for:";
+  document.getElementById("updatesByYear").innerHTML = html;
+}
+
+function showupdatesOfInterest() {
+  var tbl = updatesOfInterestTbl;
+  var html = '<table class="data">';
+  html += '<tr>'
+  html += '<th>Search</th><th>KB</th><th>Replaces</th><th>Win7</th><th>Win8</th><th>UpdateClient</th><th>Description</th></tr>';
+  for(var i=0; i<tbl.length; i++) {
+    html += '<tr>';
+    html += '<td>' + getSearchLinks('KB' + tbl[i][0]) + '</td>';
+    html += '<td><a href="' + kbUrlTemplate.replace(/{kb}/g, tbl[i][0]) + '" target="_blank">KB' + tbl[i][0] + '</a></td>';
+    html += '<td>'
+    if(tbl[i][1] !== '') {
+      html += '<a href="' + kbUrlTemplate.replace(/{kb}/g, tbl[i][0]) + '" target="_blank">KB' + tbl[i][1] + '</a>';
+    }
+    html += '</td>';
+    html += '<td style="text-align:center">' + tbl[i][2] + '</td>';
+    html += '<td style="text-align:center">' + tbl[i][3] + '</td>';
+    html += '<td style="text-align:center">' + tbl[i][4] + '</td>';
+    html += '<td>' + escapeHtml(tbl[i][5]) + '</td>';
+    html += '</tr>';
+  }
+  html += '</table>';
+  document.getElementById("updatesOfInterestHdr").innerHTML = updatesOfInterestTbl.length + ' Updates Of Interest:';
+  document.getElementById("updatesOfInterest").innerHTML = html;
+}
+
+function showMiscCmds() {
+  var tbl = cmdsTbl;
+  var html = '<table class="cmds">';
+  for(var i=0; i<tbl.length; i++) {
+    html += '<tr><td class="cmdDesc">' + tbl[i][0] + ':</td><td>' + escapeHtml(tbl[i][1]) + '</td></tr>';
+  }
+  html += '</table>';
+  tbl = updatesOfInterestTbl;
+  var hotFixIdOrList = '';
+  for(var i=0; i<tbl.length; i++) {
+    if(i > 0) {
+      hotFixIdOrList += ' OR ';
+    }
+    hotFixIdOrList += 'HotFixID="KB' + tbl[i][0] + '"';
+  }
+  document.getElementById("miscCmdsHdr").innerHTML = "Miscellaneous Commands:";
+  document.getElementById("miscCmds").innerHTML = html.replace(/{hotFixIdOrList}/g, hotFixIdOrList);
+}
+
+function showNotes() {
+  document.getElementById("footnotesHdr").innerHTML = "Footnotes:";
+  document.getElementById("footnotes").style.visibility="visible";
+}
+
+function init() {
+  document.title = verInfoStr;
+  document.getElementById("verInfoStr").innerHTML = verInfoStr;
+  showupdatesByYear();
+  showupdatesOfInterest();
+  showMiscCmds();
+  showNotes();
+}
+</script>
+</head>
+<body onload="init();">
+<noscript>This page requires javascript</noscript>
+<div id="updatesByYearHdr" class="hdr"></div>
+<div id="updatesByYear"></div>
+<div id="updatesOfInterestHdr" class="hdr topgap"></div>
+<div id="updatesOfInterest"></div>
+<div id="miscCmdsHdr" class="hdr topgap"></div>
+<div id="miscCmds"></div>
+<div id="footnotesHdr" class="hdr topgap"></div>
+<div id="footnotes">
+<div>(1) My Updates Of Interest list should not be construed as a recommended block list.</div>
+<div>(2) Search links can be added to the Updates Of Interest table by modifying the searchUrlTemplates array.</div>
+<div>(3) Adapt this page and/or its lists to suit your own purposes :)</div>
+</div>
+<div id="verInfoStr" class="hdr topgap"></div>
+</body>
+</html>

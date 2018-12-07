@@ -1,0 +1,40 @@
+﻿<section class="content-header">
+    <h1>
+        {{translation.INDICADORES}}
+
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i> {{translation.HOME}}</a></li>
+        <li class="active">{{translation.INDICADORES}}</li>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="container-fluid">
+            <div class="box box-primary">
+                <div class="box-header">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label class="control-label col-sm-1" for="select-indicatorsProject">{{translation.PROYECTO}}:</label>
+                            <div class="col-sm-6">
+                                <select id="select-indicatorsProject" class="form-control" ng-model="indicadoresparams.idProyecto" ng-options="project.idProyecto as project.nombre for project in projects" ng-change="showObjetivosProyecto()"></select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <section class="col-lg-4 col-xs-12">
+                        <get-objectives ui-objectives="selectedProject.objectives"></get-objectives>
+                    </section>   
+                    <section class="col-lg-8 col-xs-12">
+                        <div ng-if="indicadoresObjetivo" class="container-fluid" ng-include="'app/templates/indicadores/indicadoresTabView.html'"></div>
+                    </section>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>

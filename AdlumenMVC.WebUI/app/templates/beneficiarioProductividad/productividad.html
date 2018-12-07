@@ -1,0 +1,48 @@
+﻿<div ng-controller="ProductividadBeneficiarioCtrl">
+
+    <h1>Productividad {{Beneficiario.nombre}}</h1>
+
+    <div class="row" style="margin-right:auto; margin-left: auto;">
+
+        <div class="row">
+            <a class="btn btn-primary" ng-model="newBeneficiario" href="#!/productividades/{{idBeneficiario}}/add">
+                Nueva Productividad <span class="glyphicon glyphicon-plus"></span>
+            </a>
+        </div>
+
+        <table class="table table-hover">
+
+            <thead>
+                <tr>
+                    <th style="text-align: center" class="col-md-1">Id</th>
+                    <th style="text-align: center" class="col-md-2">Area Sembrada</th>
+                    <th style="text-align: center" class="col-md-2">Cultivo Sembrado</th>
+                    <th style="text-align: center" class="col-md-2">Cantidad Sembrada</th>
+                    <th style="text-align: center" class="col-md-2">Producci&oacute;n Cultivo</th>
+                    <th style="text-align: center" class="col-md-2">Acciones</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <tr ng-repeat="productividad in beneficiarioProductividades">
+                    <td>{{productividad.idProductividadBeneficiario}}</td>
+                    <td>{{productividad.areaSembrada | number: 2}}</td>
+                    <td>{{productividad.cultivoSembrado}}</td>
+                    <td>{{productividad.cantidadSembrada | number: 2}}</td>
+                    <td>{{productividad.produccionCultivo | number: 2}}</td>
+                    <td>{{beneficiario.extensionTerritorial | number:2}}</td>
+                    <td>
+                        <a class="actions" ng-click="editProductividad(productividad.idProductividadBeneficiario)"><span class="icon-edit" style="font-size: 23px; vertical-align:middle; margin-left: 10px" title="Editar"></span></a>
+                        <!--a class="actions" ng-click="deleteProductividad(productividad.idProductividadBeneficiario)"><span class="icon-delete" style="font-size: 30px; vertical-align:middle; margin-left: 17px" title="Eliminar"></span></a-->
+                    </td>
+
+                </tr>
+            </tbody>
+
+        </table>
+
+     </div>
+
+</div>

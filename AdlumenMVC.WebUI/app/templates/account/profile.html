@@ -1,0 +1,185 @@
+﻿<section class="content-header">
+    <h1>
+        {{translation.PERFIL}}
+
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i> {{translation.HOME}}</a></li>
+        <li class="active">{{translation.PERFIL}}</li>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="container-fluid">
+            <div class="box box-primary">
+                <div style="margin-top: 10px;" class="box-body">
+                    <div class="container-fluid">
+                        <section class="col-lg-4">
+                            <div class="box box-primary">
+                                <div class="box-body">
+                                    <img alt="User profile picture" ng-src="{{user.logo}}" class="profile-user-img img-responsive img-circle">
+                                    <h3 class="profile-username text-center">{{user.firstName}} {{user.lastName}}</h3>
+                                    <p class="text-muted text-center">{{user.position}}</p>
+                                    <ul class="list-group list-group-unbordered">
+                                        <li class="list-group-item">
+                                            <a href="javascript:;" ng-click="changePassword()">{{translation.CAMBIAR_CONTRASENIA}}</a>
+                                        </li>
+                                    </ul>
+                                    <a class="btn btn-primary btn-block" ng-click="editMode=true" href="javascript:;"><b>{{translation.EDITAR}} {{translation.USUARIO}}</b></a>
+                                </div>
+                            </div>
+                        </section>
+                        <section class="col-lg-8">
+                            <div class="form-horizontal">
+                                <form name="forms.profile" role="form">
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-2">{{translation.USUARIO}}</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" ng-model="user.userName" ng-disabled="true" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-2">{{translation.NOMBRE}}</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" ng-model="user.firstName" ng-disabled="true" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-2">{{translation.APELLIDO}}</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" ng-model="user.lastName" ng-disabled="true" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-2">{{translation.CORREO}}</label>
+                                        <div class="col-sm-10">
+                                            <input type="email" class="form-control" ng-model="user.email" ng-disabled="!editMode" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-2">{{translation.TELEFONO}}</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" ng-model="user.phoneNumber" ng-disabled="!editMode" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-offset-2 col-sm-10 form-inline">
+                                            <google-places class="form-control" location=location ng-disabled="!editMode"></google-places>
+                                            <button ng-click="doSearch()" class="btn btn-primary">
+                                                <span class="glyphicon glyphicon-search"></span>
+                                            </button>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-sm-offset-2 col-sm-10">
+                                            <ui-gmap-google-map ng-if="map.center" center="map.center" zoom="map.zoom" draggable="true">
+                                                <ui-gmap-marker coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id"></ui-gmap-marker>
+                                            </ui-gmap-google-map>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group" ng-if="editMode">
+                                        <div class="col-sm-offset-2">
+                                            <div class="form-inline">
+                                                <button type="submit" ng-click="validate() && editProfile()" class="btn btn-primary">{{translation.GUARDAR}}</button>
+                                                <button ng-click="cancelEdit()" type="submit" class="btn btn-danger">{{translation.CANCELAR}}</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                <div class="alert">
+                                    <div uib-alert ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)" dismiss-on-timeout="8000" ng-repeat="alert in alerts" ng-if="showAlert">{{alert.msg}}</div>
+                                </div>
+                            </div>
+                        </section>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<script type="text/ng-template" id="change_password.html">
+    <div class="modal-content">
+        <form name="form">
+            <div class="modal-header">
+                <button type="button"
+                        class="close"
+                        ng-click="cancel()"
+                        data-dismiss="modal"
+                        aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">{{translation.CAMBIAR_CONTRASENIA}}</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal">
+
+                    <div class="form-group">
+                        <label for="input-currentPassword" class="col-lg-3 control-label">{{translation.CONTRASENIA_ACTUAL}}</label>
+                        <div class="col-lg-8">
+                            <input type="password"
+                                   class="form-control"
+                                   ng-model="passwordModel.oldPassword"
+                                   ng-required="true" 
+                                   name="input-currentPassword"
+                                   autocomplete="new-password"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="input-newPassword" class="col-lg-3 control-label">{{translation.CONTRASENIA_NUEVA}}</label>
+                        <div class="col-lg-8">
+                            <input type="password"
+                                   class="form-control"
+                                   ng-model="passwordModel.newPassword"
+                                   ng-required="true"
+                                   name="input-newPassword" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="input-confirmPassword" class="col-lg-3 control-label">{{translation.CONFIRMAR_CONTRASENIA}}</label>
+                        <div class="col-lg-8">
+                            <input type="password"
+                                   class="form-control"
+                                   ng-model="passwordModel.confirmPassword"
+                                   ng-required="true"
+                                   name="input-confirmPassword" />
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="alert">
+                    <div uib-alert ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)" dismiss-on-timeout="8000" ng-repeat="alert in alerts" ng-if="showAlert">{{alert.msg}}</div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button"
+                        ng-click="save()"
+                        ng-disabled="form.$invalid"
+                        class="btn btn-success">
+                    {{translation.GUARDAR}}
+                </button>
+                <button type="button"
+                        ng-click="cancel()"
+                        class="btn btn-danger"
+                        data-dismiss="modal">
+                    {{translation.CANCELAR}}
+                </button>
+
+                <!--<div class="alert-danger" ng-if="error.length > 0 " ng-bind="error"></div>-->
+            </div>
+        </form>
+    </div>
+</script>
+

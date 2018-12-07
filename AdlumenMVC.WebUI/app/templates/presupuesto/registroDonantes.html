@@ -1,0 +1,80 @@
+﻿<script type="text/ng-template" id="displayProyectoDonanteTemplate">
+    <td width="30%"><select style="width:100%" ng-model="proyectoDonante.idDonante" ng-options="donante.idDonante as donante.nombre for donante in donantes" ng-disabled="true"></select></td>
+    <td width="30%"><select style="width:100%" ng-model="proyectoDonante.idUsuarioResponsable" ng-options="usuario.idUsuario as usuario.nombre for usuario in usuarios" ng-disabled="true"></select></td>
+    <td width="20%">{{proyectoDonante.monto | number: 2}}</td>
+    <td width="15%">{{proyectoDonante.fechaCreacion | date: short}}</td>
+    <td width="5%">
+        <button type="button" class="btn btn-primary" ng-show="!editMode" ng-click="editProyectoDonante()" uib-tooltip="{{translation.EDITAR}}">
+            <span class="glyphicon glyphicon-pencil"></span>
+        </button>
+    </td>
+    <td>
+        <button type="button" class="btn btn-primary" ng-show="!editMode" ng-click="deleteProyectoDonante()" uib-tooltip="{{translation.ELIMINAR}}">
+            <span class="glyphicon glyphicon-trash"></span>
+        </button>
+    </td>
+</script>
+<script type="text/ng-template" id="editProyectoDonanteTemplate">
+    <td width="30%"><select style="width:100%" ng-model="selectedProyectoDonante.idDonante" ng-options="donante.idDonante as donante.nombre for donante in donantes | filter: filterSponsor" ng-disabled="!selectedProyectoDonante.newProyectoDonante"></select></td>
+    <td width="30%"><select style="width:100%" ng-model="selectedProyectoDonante.idUsuarioResponsable" ng-options="usuario.idUsuario as usuario.nombre for usuario in usuarios"></select></td>
+    <td width="20%"><input class="large-input-full" type="number" onkeypress="return validateNumber(event);" ng-model="selectedProyectoDonante.monto"></td>
+    <td width="10%">{{proyectoDonante.fechaCreacion | date: short}}</td>
+    <td width="5%">
+        <button type="button" class="btn btn-primary" ng-show="editMode" ng-click="SaveProyectoDonante()" uib-tooltip="{{translation.GUARDAR}}">
+            <span class="glyphicon glyphicon-floppy-disk"></span>
+        </button>
+    </td>
+    <td width="5%">
+        <button type="button" class="btn btn-primary" ng-show="editMode" ng-click="CancelEdit()" uib-tooltip="{{translation.CANCELAR}}">
+            <span class="glyphicon glyphicon-remove"></span>
+        </button>
+    </td>
+</script>
+<div class="row">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>{{translation.PRESUPUESTO_TOTAL}}</th>
+                <th>{{translation.TOTAL_FINANCIADO}}</th>
+                <th>{{translation.CONTRAPARTIDA}}</th>
+                <th>{{translation.TOTAL_DONADO}}</th>
+                <th>{{translation.PENDIENTE}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{presupuestoData.totalPresupuesto | number:2}}</td>
+                <td>{{presupuestoData.totalFinanciado | number:2}}</td>
+                <td>{{presupuestoData.totalContrapartida | number:2}}</td>
+                <td>{{presupuestoData.totalDonado | number:2}}</td>
+                <td>{{presupuestoData.pendiente | number:2}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="row">
+        <div uib-alert ng-if="presupuestoData.pendiente != 0" ng-class="'alert-danger'">{{translation.DISTRIBUIR_PRESUPUESTO}}</div>
+    </div>
+    <table class="table table-hover" style="margin-right:auto; margin-left: inherit;">
+        <thead>
+            <tr>
+                <th>{{translation.DONANTE}}</th>
+                <th>{{translation.RESPONSABLE}}</th>
+                <th>{{translation.MONTO}}</th>
+                <th>{{translation.FECHACREACION}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="proyectoDonante in presupuestoData.proyectoDonantes" ng-include="getProyectoDonanteTemplate(proyectoDonante)"></tr>
+            <tr ng-show="selectedProyectoDonante && selectedProyectoDonante.newProyectoDonante" ng-include="getNewProyectoDonanteTemplate()"></tr>
+        </tbody>
+    </table>
+    <div>
+        <button type="button" class="btn btn-primary" ng-click="crearNuevoProyectoDonante();" ng-show="!editMode && presupuestoData.pendiente > 0" uib-tooltip="{{translation.NUEVO}}">
+            {{translation.NUEVO}}
+        </button>
+    </div>
+
+    <div class="row">
+        <div uib-alert ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)" dismiss-on-timeout="8000" ng-repeat="alert in alerts" ng-if="showAlert">{{alert.msg}}</div>
+    </div>
+</div>

@@ -1,0 +1,37 @@
+﻿<div class="container">
+    <div class="row" ng-if="editMode">
+
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="google-places">{{translation.BUSCAR_UBICACION}}</label>
+
+                <div class="form-inline">
+                    <google-places class="form-control" location="googlePlaces.value"></google-places>
+                    <button ng-click="doSearch()" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div style="margin-top: 10px; margin-bottom: 10px;">
+            <button id="editCompanyLocation" type="button" class="btn btn-primary" ng-show="!editMode" ng-click="Edit()">
+                {{translation.EDITAR}}
+            </button>
+            <button type="button" class="btn btn-primary" ng-show="editMode" ng-click="SaveGeneralData()">
+                {{translation.GUARDAR}}
+            </button>
+            <button type="button" class="btn btn-primary" ng-show="editMode" ng-click="CancelEdit()">
+                {{translation.CANCELAR}}
+            </button>
+        </div>
+
+    </div>
+</div>
+<ui-gmap-google-map ng-if="map.center" center="map.center" zoom="map.zoom" events="map.events" draggable="true">
+    <ui-gmap-marker coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id"></ui-gmap-marker>
+</ui-gmap-google-map>

@@ -1,0 +1,24 @@
+﻿<script type="text/ng-template" id="childObjectives">
+<div ng-repeat="child in child.childs" class="box box-default collapsed-box">
+    <div uib-tooltip="{{child.descripcion}}" class="box-header with-border">
+        <a ng-click="setObjective(child)"><h3 class="box-title">{{child.objectiveType.descripcion}} <span ng-if="child.codigo !== '0'">{{child.codigo}}</span></h3></a>
+        <div class="box-tools pull-right">
+            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+        </div><!-- /.box-tools -->
+    </div><!-- /.box-header -->
+    <div style="display: none;" class="box-body" ng-if="child.childs" ng-include="'childObjectives'">
+    </div><!-- /.box-body -->
+</div><!-- /.box -->
+</script> 
+
+<div>
+    <div ng-repeat="child in childs" class="box box-default collapsed-box">
+        <div uib-tooltip="{{child.descripcion}}" class="box-header with-border">
+            <a ng-click="setObjective(child)"><h3 class="box-title">{{child.objectiveType.descripcion}} <span ng-if="child.codigo !== '0'">{{child.codigo}}</span></h3></a>
+            <div class="box-tools pull-right">
+                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+            </div><!-- /.box-tools -->
+        </div><!-- /.box-header -->
+        <div style="display: none;" class="box-body" ng-include="'childObjectives'"></div><!-- /.box-body -->
+    </div><!-- /.box -->
+</div>
