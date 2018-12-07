@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ABREVIATURA" xml:space="preserve">
-    <value>Abreviatura</value>
-  </data>
   <data name="ABRIR_LINK" xml:space="preserve">
     <value>Abrir link en página en blanco</value>
   </data>
@@ -234,9 +231,6 @@
   <data name="ASISTENTE_PRESUPUESTO" xml:space="preserve">
     <value>Asistente de Presupuesto</value>
   </data>
-  <data name="ASUNTO" xml:space="preserve">
-    <value>Asunto</value>
-  </data>
   <data name="AVANCE_META" xml:space="preserve">
     <value>Avance meta</value>
   </data>
@@ -320,12 +314,6 @@
   </data>
   <data name="BUSCAR" xml:space="preserve">
     <value>Buscar</value>
-  </data>
-  <data name="BUSCAR_MAIL" xml:space="preserve">
-    <value>Buscar Correo</value>
-  </data>
-  <data name="BUSCAR_TIPO_CAMBIO" xml:space="preserve">
-    <value>Search Exchange Rates</value>
   </data>
   <data name="BUSCAR_UBICACION" xml:space="preserve">
     <value>Buscar Ubicación: </value>
@@ -789,9 +777,6 @@
   <data name="FILTRARMOVIMIENTOS" xml:space="preserve">
     <value>Filtrar movimientos</value>
   </data>
-  <data name="FILTRAR_DESCRIPCION_UBICACION" xml:space="preserve">
-    <value>Filtrar por descripción, ubicación</value>
-  </data>
   <data name="FINANCIAL_DATA" xml:space="preserve">
     <value>Datos Financieros</value>
   </data>
@@ -990,9 +975,6 @@
   <data name="MENSAJE_ENCUESTA_GUARDADA" xml:space="preserve">
     <value>Se ha guardado la encuesta correctamente!!</value>
   </data>
-  <data name="MENSAJE_ERROR" xml:space="preserve">
-    <value>El Destinatario, Asunto, Mensaje no puede quedar vacio</value>
-  </data>
   <data name="MENSAJE_EVALUACION_GUARDADO" xml:space="preserve">
     <value>La evaluación se ha guardado correctamente!!</value>
   </data>
@@ -1058,9 +1040,6 @@
   </data>
   <data name="MODIFICADOPOR" xml:space="preserve">
     <value>Modificado por</value>
-  </data>
-  <data name="MODIFICAR_GASTOS" xml:space="preserve">
-    <value>Modificar Partida de Gastos</value>
   </data>
   <data name="MODIFICAR_LISTA" xml:space="preserve">
     <value>Modificar Lista</value>
@@ -1184,9 +1163,6 @@
   </data>
   <data name="NUEVA_LISTA" xml:space="preserve">
     <value>Nueva Lista de Tareas</value>
-  </data>
-  <data name="NUEVA_PARTIDA" xml:space="preserve">
-    <value>Nueva Partida de Gastos</value>
   </data>
   <data name="NUEVA_PREGUNTA" xml:space="preserve">
     <value>Nueva Pregunta</value>
@@ -1386,9 +1362,6 @@
   <data name="PROBLEMA" xml:space="preserve">
     <value>Problema</value>
   </data>
-  <data name="PRODUCTO" xml:space="preserve">
-    <value>Producto</value>
-  </data>
   <data name="PROGRAMA" xml:space="preserve">
     <value>Programa</value>
   </data>
@@ -1448,9 +1421,6 @@
   </data>
   <data name="REGION" xml:space="preserve">
     <value>Región</value>
-  </data>
-  <data name="REGISTRO_DONACIONES" xml:space="preserve">
-    <value>Registro Donaciones</value>
   </data>
   <data name="REGISTRO_DONANTES" xml:space="preserve">
     <value>Registro de Donantes</value>
@@ -1629,18 +1599,6 @@
   <data name="URL" xml:space="preserve">
     <value>Url</value>
   </data>
-  <data name="USER_ERROR_EMAIL" xml:space="preserve">
-    <value>Correo requerido</value>
-  </data>
-  <data name="USER_ERROR_FIRSTNAME" xml:space="preserve">
-    <value>Nombre es requerido</value>
-  </data>
-  <data name="USER_ERROR_LASTNAME" xml:space="preserve">
-    <value>Apellido es requerido</value>
-  </data>
-  <data name="USER_ERROR_USERNAME" xml:space="preserve">
-    <value>Nombre de usuario requerido</value>
-  </data>
   <data name="USUARIO" xml:space="preserve">
     <value>Usuario</value>
   </data>
@@ -1667,9 +1625,6 @@
   </data>
   <data name="VENTA" xml:space="preserve">
     <value>Venta</value>
-  </data>
-  <data name="VER" xml:space="preserve">
-    <value>View</value>
   </data>
   <data name="VERIFICADORES" xml:space="preserve">
     <value>Verificadores</value>

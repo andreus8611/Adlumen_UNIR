@@ -1,4 +1,5 @@
-﻿using AdlumenMVC.WebUI.Infrastructure;
+﻿using AdlumenMVC.WebUI.Infraestructure;
+using AdlumenMVC.WebUI.Infrastructure;
 using AdlumenMVC.WebUI.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -13,7 +14,7 @@ using System.Web.Http;
 namespace AdlumenMVC.WebUI.Controllers
 {
 
-   
+
     //[Authorize(Roles="Admin")]
     [RoutePrefix("api/roles")]
     public class RolesController : BaseApiController
@@ -54,7 +55,7 @@ namespace AdlumenMVC.WebUI.Controllers
             }
 
             var role = new IdentityRole { Name = model.Name };
-
+            
             var result = await this.AppRoleManager.CreateAsync(role);
 
             if (!result.Succeeded)
@@ -62,10 +63,18 @@ namespace AdlumenMVC.WebUI.Controllers
                 return GetErrorResult(result);
             }
 
+            try
+            {
+                AddDefaultActions(role);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("No se agregaron los permisos de Usuarios. Agreguelos manualmente.");
+            }
+
             Uri locationHeader = new Uri(Url.Link("GetRoleById", new { id = role.Id }));
 
             return Created(locationHeader, TheModelFactory.Create(role));
-
         }
 
         [ClaimsAuthorization(Modulo = "Roles", ActionName = "Escritura")]
@@ -93,7 +102,7 @@ namespace AdlumenMVC.WebUI.Controllers
         public async Task<IHttpActionResult> ManageUsersInRole(UsersInRoleModel model)
         {
             var role = await this.AppRoleManager.FindByIdAsync(model.Id);
-            
+
             if (role == null)
             {
                 ModelState.AddModelError("", "Role does not exist");
@@ -146,6 +155,86 @@ namespace AdlumenMVC.WebUI.Controllers
             }
 
             return Ok();
+        }
+
+        [HttpGet]
+        [Route("fixroles")]
+        public IHttpActionResult FixRoles1()
+        {
+            try
+            {
+                using (var db = new ApplicationDbContext())
+                {
+                    var roles = db.Roles.ToList();
+                    var actions = db.AccionesRoles.ToList();
+                    var action2 = db.Acciones.FirstOrDefault(x => x.Nombre == "Lectura" && x.ModuloId == 4);
+                    var action1 = db.Acciones.FirstOrDefault(x => x.Nombre == "GetUserById" && x.ModuloId == 4);
+
+                    if (action1 == null || action2 == null)
+                    {
+                        return Ok("Las acciones predefinidas de Usuario no existen.");
+                    }
+
+                    foreach (var role in roles)
+                    {
+                        var permissionExists = actions.Any(x =>
+                            x.RoleId == role.Id &&
+                            x.AccionesId == action1.AccionesId);
+
+                        if (!permissionExists)
+                        {
+                            db.AccionesRoles.Add(new AccionesRole
+                            {
+                                RoleId = role.Id,
+                                AccionesId = action1.AccionesId
+                            });
+                        }
+
+                        permissionExists = actions.Any(x =>
+                            x.RoleId == role.Id &&
+                            x.AccionesId == action2.AccionesId);
+
+                        if (!permissionExists)
+                        {
+                            db.AccionesRoles.Add(new AccionesRole
+                            {
+                                RoleId = role.Id,
+                                AccionesId = action2.AccionesId
+                            });
+                        }
+                    }
+                    db.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                return Ok("Error. Intente de nuevo.<br><br>" + ex.Message);
+            }
+
+            return Ok("Los roles han sido corregidos.");
+        }
+
+        private void AddDefaultActions(IdentityRole role)
+        {
+            using (var db = new ApplicationDbContext())
+            {
+                var action2 = db.Acciones.FirstOrDefault(x => x.Nombre == "Lectura" && x.ModuloId == 4);
+                var action1 = db.Acciones.FirstOrDefault(x => x.Nombre == "GetUserById" && x.ModuloId == 4);
+
+                db.AccionesRoles.Add(new AccionesRole
+                {
+                    RoleId = role.Id,
+                    AccionesId = action1.AccionesId
+                });
+
+                db.AccionesRoles.Add(new AccionesRole
+                {
+                    RoleId = role.Id,
+                    AccionesId = action2.AccionesId
+                });
+
+                db.SaveChanges();
+            }
         }
     }
 }

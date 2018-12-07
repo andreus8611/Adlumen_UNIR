@@ -31,12 +31,6 @@ namespace AdlumenMVC.WebUI
                 "~/Scripts/Raphael/raphael*",
                 "~/Scripts/Raphael/angular-raphael-gauge.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/editor").Include(
-                "~/Scripts/editor/editor.js",
-               "~/Scripts/editor/jquery-1.12.0.js",
-               "~/Scripts/editor/angular-trix.js",
-                "~/Scripts/editor/democtrl.js"));
-
             bundles.Add(new ScriptBundle("~/bundles/jvectormap").Include(
                 "~/Scripts/jvectormap/jquery-jvectormap.js",
                 "~/Scripts/jvectormap/jquery-jvectormap-world-mill.js"));
@@ -102,9 +96,7 @@ namespace AdlumenMVC.WebUI
                 "~/Content/gantt/angular-gantt.css",
                 //"~/Content/fullcalendar.css",
                 "~/Content/fullcalendar.min.css",
-                "~/Content/nvd3-charts/nv.d3.min.css",
-                "~/Content/editor/editor.css",
-                "~/Content/editor/style.css"
+                "~/Content/nvd3-charts/nv.d3.min.css"
             ));
 
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
@@ -120,7 +112,6 @@ namespace AdlumenMVC.WebUI
                         "~/Content/themes/base/jquery.ui.datepicker.css",
                         "~/Content/themes/base/jquery.ui.progressbar.css",
                         "~/Content/themes/base/jquery.ui.theme.css"));
-         
 
         }
     }

@@ -496,55 +496,21 @@ adlumenApp.controller('userModalCtrl', [
 
     //save changes on user
 
-        $scope.validate = function () {
-            var areErrors = false;
-
-            if (!$scope.user.userName) {
-                areErrors = true;
-                addAlert('danger', $scope.translation["USER_ERROR_USERNAME"]);
-            }
-            if (!$scope.user.firstName ) {
-                areErrors = true;
-                addAlert('danger', $scope.translation["USER_ERROR_FIRSTNAME"]);
-            }
-            if (!$scope.user.lastName ) {
-                areErrors = true;
-                addAlert('danger', $scope.translation["USER_ERROR_LASTNAME"]);
-            }
-           
-            if (!$scope.user.email ) {
-                areErrors = true;
-                addAlert('danger', $scope.translation["USER_ERROR_EMAIL"]);
-            }
-            
-
-            return areErrors;
-        }
-
-
     $scope.save = function () {
         $scope.user.client = $scope.bdClient.id;
-
-        var areErrors = $scope.validate();
-
-        if (!areErrors) {
-
-            service.save($scope.user).then(
-                function (response) {
-                    $uibModalInstance.close(response.data);
-
-                },
-                function (response) {
-                    addAlert('danger', 'Ocurrió un error. Verifique que la contraseña y el correo sean válidos.');
-                    //for (var key in response.data.modelState) {
-                    //    for (var i = 0; i < response.data.modelState[key].length; i++) {
-                    //        addAlert('danger', response.data.modelState[key][i]);
-                    //    }
-                    //}
-                }
-
-            );
-        }
+        service.save($scope.user).then(
+            function(response) {
+                $uibModalInstance.close(response.data);
+            },
+            function(response) {
+                addAlert('danger', 'Ocurrió un error. Verifique que la contraseña y el correo sean válidos.');
+                //for (var key in response.data.modelState) {
+                //    for (var i = 0; i < response.data.modelState[key].length; i++) {
+                //        addAlert('danger', response.data.modelState[key][i]);
+                //    }
+                //}
+            }
+        );
     };
 
     $scope.cancel = function () {

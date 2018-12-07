@@ -13,6 +13,7 @@ using System.Security.Claims;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Newtonsoft.Json.Linq;
 using AdlumenMVC.Models.Model;
+using AdlumenMVC.WebUI.Infraestructure;
 
 namespace AdlumenMVC.WebUI.Controllers
 {
@@ -31,8 +32,7 @@ namespace AdlumenMVC.WebUI.Controllers
 
         //    return Ok(this.AppRoleManager.Roles.ToList().Select(u => this.TheModelFactory.Create(u)));
         //}
-
-
+        
 
         [ClaimsAuthorization(Modulo = "Usuarios", ActionName="Lectura")]
         [Route("users")]

@@ -199,7 +199,7 @@ adlumenApp
             $scope.enableAddNew = function () {
                 var enable = false;
                 if ($scope.tarea) {
-                    if ($scope.tarea.idUsuarioCreacion == localidusuario) {
+                    if ($scope.tarea.idUsuarioCreacion == localidusuario || $scope.tarea.idResponsable == localidusuario) {
                         enable = true;
                     }
                 }

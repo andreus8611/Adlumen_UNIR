@@ -2,14 +2,14 @@
 adlumenApp.controller('modalImportMovimientoCtrl',
     [
         '$scope', '$uibModalInstance', 'presupuestosTipos', 'productosByProyecto', 'donorsByProyecto', 'periodosProyecto', 'movimientoEjecutado', 'monedaAPI', 'partidasGastosAPI', 'translationService', 'languageService',
-        function ($scope, $uibModalInstance, presupuestosTipos,  productosByProyecto, donorsByProyecto, periodosProyecto, movimientoEjecutado, monedaAPI, partidasGastosAPI, translationService, languageService) {
+        function ($scope, $uibModalInstance, presupuestosTipos, productosByProyecto, donorsByProyecto, periodosProyecto, movimientoEjecutado, monedaAPI, partidasGastosAPI, translationService, languageService) {
 
             $scope.presupuestotipos = presupuestosTipos;
             $scope.productos = productosByProyecto;
             $scope.donantes = donorsByProyecto;
             $scope.periodosProyecto = periodosProyecto;
             $scope.movimientoEjecutado = movimientoEjecutado;
-          
+
             $scope.showAlert = false;
 
             var addAlert = function (varType, varMsg) {
@@ -126,16 +126,14 @@ adlumenApp.controller('modalImportMovimientoCtrl',
                                                     movimientoObj.idActividad = idActividad;
                                                 }
                                             }
-                                        } else if (movimientoObj.idTipoMovimiento === 2 || movimientoObj.idTipoMovimiento === 3) {
+                                        } else if (movimientoObj.idTipoMovimiento === 2) {
                                             if (!data[6] || data[6] === '') { //Beneficiario
                                                 addAlert('danger', $scope.translation["ROW"] + rowNumber + ": " + headers[6] + ": " + $scope.translation["ERROR_ARCHIVO_COLUMNA_VACIA"]);
                                                 areErrors = true;
                                             } else {
                                                 movimientoObj.beneficiario = data[6];
-                                                
                                             }
                                         }
-
                                     }
                                 }
 
@@ -330,18 +328,6 @@ adlumenApp.controller('modalImportMovimientoCtrl',
                 }
                 return null;
             }
-
-            //$scope.getPresupuestoTipo = function (dataAVerificar) {
-            //    //1. remove blank spaces
-            //    //2. Cambiar a mayúculas para no tenerlo en cuenta
-                
-            //    for (var i = 0; i < $scope.proyectoPresupuestoAPI.length; i++) {
-            //        var itemName = $scope.proyectoPresupuestoAPI[i]
-            //        var itemName2 =
-            //        if (itemName === dataConverted) return $scope.monedas[i].idMoneda;
-            //    }
-            //    return null;
-            //}
 
 
             //Translation

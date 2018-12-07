@@ -1,15 +1,13 @@
 ﻿'use strict';
 adlumenApp.controller('baseCtrl',
     [
-        '$scope', '$uibModal', 'authService', 'languageService', 'translationService', 'tareaAPI', 'mensajeAPI', 'empresasAPI', 'cuestionarioAPI', '$window',
-        function ($scope, $uibModal, authService, languageService, translationService, tareaAPI, mensajeAPI, empresasAPI, cuestionarioAPI, $window) {
+        '$scope', '$uibModal', 'authService', 'languageService', 'translationService', 'tareaAPI', 'mensajeAPI',
+        function($scope, $uibModal, authService, languageService, translationService, tareaAPI, mensajeAPI) {
             
             $scope.changeLanguage = function (lang) {
                 languageService.set(lang);
                 $scope.selectedLanguage = lang;
                 translate();
-                $window.location.href = '#!/dashboardCtrl'
-               
             };
 
             $scope.logOut = function () {
@@ -18,7 +16,6 @@ adlumenApp.controller('baseCtrl',
 
             var translate = function () {
                 translationService.getTranslation($scope, $scope.selectedLanguage);
-              
             };
 
             //Init
@@ -33,8 +30,7 @@ adlumenApp.controller('baseCtrl',
 
             tareaAPI($scope);
             mensajeAPI($scope);
-            empresasAPI($scope);
-            cuestionarioAPI($scope);
+
             $scope.$watchCollection('[tasks, mensajes, bdUser]', function (newValue, oldValue) {
 
                 if (newValue != oldValue) {

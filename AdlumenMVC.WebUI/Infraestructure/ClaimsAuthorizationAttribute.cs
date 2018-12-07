@@ -38,7 +38,7 @@ namespace AdlumenMVC.WebUI.Infrastructure
             }
 
             var userStore = new UserStore<ApplicationUser>(new ApplicationDbContext());
-                var userManager = new UserManager<ApplicationUser>(userStore);
+            var userManager = new UserManager<ApplicationUser>(userStore);
             //var user = userManager.FindByNameAsync(principal.Identity.Name);
             var user = (new ApplicationDbContext()).Users.Include(x => x.Roles).FirstOrDefault(x => x.UserName == principal.Identity.Name);
             if (user == null)
@@ -49,11 +49,10 @@ namespace AdlumenMVC.WebUI.Infrastructure
 
             foreach(var role in user.Roles)
             {
-                if (new AccionesRoleRepository().exist(
-                        new ModuloRepository().GetByName(Modulo).ModuloId,
-                        new AccionesRepository().GetByName(ActionName).AccionesId,
-                        role.RoleId
-                    ))
+                var module = new ModuloRepository().GetByName(Modulo);
+                var action = new AccionesRepository().GetByName(ActionName, module.ModuloId);
+
+                if (action != null && new AccionesRoleRepository().exist(module.ModuloId, action.AccionesId, role.RoleId))
                 {
                     hasPermission = true;
                     break;

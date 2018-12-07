@@ -7,12 +7,10 @@ adlumenApp.controller('tipcambioCtrl',
             $scope.init = function () {
 
                 //años del 1900 al 2100
-                var fecha =new  Date();
-                var ano = fecha.getFullYear() + 10;
-              
-                for (var i = 2000; i <= ano; i++) {
 
-                    if (i === 2000) {
+                for (var i = 1900; i <= 2100; i++) {
+
+                    if (i === 1900) {
                         $scope.arrayYears.push({ nombre: i, value: true });
                     } else {
                         $scope.arrayYears.push({ nombre: i, value: false });
@@ -166,10 +164,6 @@ adlumenApp.controller('tipcambioCtrl',
                         console.log("error");
                     });
 
-            };
-
-            $scope.getMovTemplate = function () {
-                return 'app/Files/Templates/template_import_curr_' + $scope.selectedLanguage + '.csv';
             };
 
         }

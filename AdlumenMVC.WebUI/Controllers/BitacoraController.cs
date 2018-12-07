@@ -30,7 +30,7 @@ namespace AdlumenMVC.WebUI.Controllers
 
 
         [ClaimsAuthorization(Modulo = "Tareas", ActionName = "RegistrarBitacora")]
-        [Authorize(Roles = "Admin, manager, typesetter, SuperAdmin")]
+        //[Authorize(Roles = "Admin, manager, typesetter, SuperAdmin, Gerente")]
         // POST api/bitacora
         public void Post(JObject value)
         {

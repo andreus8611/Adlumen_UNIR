@@ -2,7 +2,7 @@
 adlumenApp.controller('empresasCtrl',
     [
         '$scope', '$uibModal', '$stateParams', 'empresasAPI', 'empresaAPI', 'idTypesAPI', 'paisesAPI', 'tiposArchivosAPI', 'empleadosAPI', 'listasTareasAPI', 'usuariosAPI', 'FileUploadService', 'uiGmapGoogleMapApi', 'uiGmapIsReady', 'translationService', 'languageService', '$window',
-        function ($scope, $uibModal, $stateParams, empresasAPI, empresaAPI, idTypesAPI, paisesAPI, tiposArchivosAPI, empleadosAPI, listasTareasAPI, usuariosAPI, FileUploadService, uiGmapGoogleMapApi, uiGmapIsReady, translationService, languageService,  $window) {
+        function($scope, $uibModal, $stateParams, empresasAPI, empresaAPI, idTypesAPI, paisesAPI, tiposArchivosAPI, empleadosAPI, listasTareasAPI, usuariosAPI, FileUploadService, uiGmapGoogleMapApi, uiGmapIsReady, translationService, languageService, $window) {
 
             var localidusuario = 0;
 
@@ -11,8 +11,6 @@ adlumenApp.controller('empresasCtrl',
                 localidusuario = newValue.idLocal;
 
             });
-
-          
 
             $scope.empresasparams = { idEmpresa: 0 };
             $scope.areaActual = {};
@@ -26,10 +24,10 @@ adlumenApp.controller('empresasCtrl',
             $scope.saved = false;
 
             $scope.empresasparams.idEmpresa = $stateParams.idEmpresa;
-        
+
             $scope.tabs = [
-                { index: 1, name: "GENERAL", disabled: false, template: 'app/templates/empresas/generalView.html' },
-                { index: 2, name:"GEOREFERENCIA", disabled: false, template: 'app/templates/empresas/GeoreferenciaView.html' },
+                { index: 1, name: 'GENERAL', disabled: false, template: 'app/templates/empresas/generalView.html' },
+                { index: 2, name: 'GEOREFERENCIA', disabled: false, template: 'app/templates/empresas/GeoreferenciaView.html' },
                 { index: 3, name: 'AREAS', disabled: false, template: 'app/templates/empresas/areasView.html' },
                 { index: 4, name: 'RECURSOS_HUMANOS', disabled: false, template: 'app/templates/empresas/recursosHumanosView.html' },
                 { index: 5, name: 'PROVEEDORES', disabled: false, template: 'app/templates/empresas/proveedoresView.html' },
@@ -958,10 +956,7 @@ adlumenApp.controller('empresasCtrl',
                             FileUploadService.UploadFile($scope.SelectedFileForUpload, $scope.FileDescription, path).then(function (d) {
                                 $scope.empresa.logo = FileUploadService.getSavedFilePath();
                                 $scope.SaveGeneralData();
-                               
                                 ClearForm();
-                                
-                                
                             }, function (e) {
                                 addAlert('danger', e);
                             });
@@ -1243,8 +1238,6 @@ adlumenApp.controller('empresasCtrl',
             //Init
             $scope.selectedLanguage = languageService.get();
             $scope.translate();
-           
-
 
         }
     ]

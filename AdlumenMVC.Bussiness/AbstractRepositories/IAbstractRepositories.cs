@@ -449,8 +449,7 @@ namespace AdlumenMVC.Bussiness.AbstractRepositories
         Sys_Usuarios GetUsuarioById(int idUsuario);
 
         void deleteMuestra(Pry_DatosMuestras muestra);
-
-        
+        Pry_DatosVerificadores GetDatoVerificador(int id);
     }
 
     #endregion
@@ -572,8 +571,6 @@ namespace AdlumenMVC.Bussiness.AbstractRepositories
     #region Financiero
     public interface IFinancieroRepository
     {
-        int GetPresupuestoById_Proyect(int idPresupuesto, int idProyecto);
-        
 
         Object GetTotalesMovimientoPorProyecto(int idProyecto, int idTenant);
 
@@ -715,6 +712,7 @@ namespace AdlumenMVC.Bussiness.AbstractRepositories
 
         void ActualizarEstado(int idMensaje, int idEstado);
 
+        Com_Mensajes GetMessage(int idMessage);
     }
 
 

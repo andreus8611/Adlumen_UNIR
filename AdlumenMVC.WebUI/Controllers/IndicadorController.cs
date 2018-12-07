@@ -4,9 +4,11 @@ using AdlumenMVC.WebUI.Infrastructure;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 
 namespace AdlumenMVC.WebUI.Controllers
@@ -152,7 +154,16 @@ namespace AdlumenMVC.WebUI.Controllers
                             }
                             if ((bool)data.verificators[i].deleted && data.verificators[i].id != null)
                             {
-                                Context.deleteDatosVerificador((int)data.verificators[i].id);
+                                var itemToDelete = Context.GetDatoVerificador((int)data.verificators[i].id);
+                                if (itemToDelete != null)
+                                {
+                                    var path = HttpContext.Current.Server.MapPath(itemToDelete.Url);
+                                    if (File.Exists(path))
+                                    {
+                                        File.Delete(path);
+                                    }
+                                }
+                                Context.deleteDatosVerificador(itemToDelete.IdDatosFuentes);
                             }
                         }
                         Context.modifyMuestra();

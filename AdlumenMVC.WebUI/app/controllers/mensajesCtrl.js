@@ -1,8 +1,8 @@
 ﻿'use strict';
 adlumenApp.controller('mensajesCtrl',
     [
-        '$scope', 'mensajeAPI','usuarioAPI','translationService','languageService',
-        function ($scope, mensajeAPI, usuarioAPI, translationService, languageService) {
+        '$scope', 'mensajeAPI','usuarioAPI','translationService','languageService', '$sce', 'Restangular', '$http', '$q', '$location', '$window',
+        function ($scope, mensajeAPI, usuarioAPI, translationService, languageService, $sce, Restangular, $http, $q, $location, $window) {
 
             mensajeAPI($scope);
 
@@ -10,12 +10,30 @@ adlumenApp.controller('mensajesCtrl',
 
             $scope.message = {};
 
-            $scope.views = {showInbox: true, showSent: false, showDraft: false, showCompose: false, showDeleted: false};
+            $scope.views = { showInbox: true, showSent: false, showDraft: false, showCompose: false, showDeleted: false };
+
+            $scope.tinymceOptions = {
+                menubar: false,
+                statusbar: false,
+                plugins: 'lists',
+                language: 'es',
+                toolbar1: 'insertfile | styleselect | bold italic underline | bullist numlist outdent indent',
+                style_formats: [
+                    { title: 'Encabezado 1', block: 'h1' },
+                    { title: 'Encabezado 2', block: 'h2' },
+                    { title: 'Encabezado 3', block: 'h3' },
+                    { title: 'Encabezado 4', block: 'h4' },
+                    { title: 'Encabezado 5', block: 'h5' },
+                    { title: 'Encabezado 6', block: 'h6' }
+                ]
+            }
 
             $scope.setMessageView = function (id, lastView, message) {
                 _.each($scope.views, function (value, key) {
                     $scope.views[key] = false;
                 });
+                $scope.attachmentName = null;
+                $scope.attachmentKey = null;
                 switch (id) {
                     case 1:
                         $scope.views.showInbox = true;
@@ -32,25 +50,34 @@ adlumenApp.controller('mensajesCtrl',
                     case 5:
                         $scope.views.showDeleted = true;
                         break;
-                    case 9:
-                        $scope.views.showTrash = true;
-                        break;
                     case 6:
                         $scope.views.showReadMessage = true;
                         if (!_.isUndefined(lastView) && !_.isUndefined(message)) {
                             $scope.lastView = lastView;
                             $scope.selectedMessage = message;
-                        }
-                        break;
-                    case 7:
-                        $scope.views.showReadMessage2 = true;
-                        if (!_.isUndefined(lastView) && !_.isUndefined(message)) {
-                            $scope.lastView = lastView;
-                            $scope.selectedMessage = message;
+                            $scope.checkForAttachment(message);
                         }
                         break;
                 }
             };
+
+            $scope.checkForAttachment = function (message) {
+                $http.get('api/mensajes/GetAttachmentUrl?idMessage=' + message.idMensaje).then(function (response) {
+                    $scope.attachmentName = response.data.name;
+                    $scope.attachmentKey = response.data.key;
+                });
+            }
+
+            $scope.validateAttachment = function (element) {
+                if (element.files[0].size > (32 * 1024 * 1024)) {
+                    alert("Tamaño máximo: 32 MB");
+                    element.value = "";
+                }
+                else {
+                    var fileName = element.files[0].name;
+                    $('#custom-file-label').html(fileName);
+                }
+            }
 
             $scope.$watchCollection('[bdUser, mensajes]', function (newValue, oldValue) {
 
@@ -134,92 +161,51 @@ adlumenApp.controller('mensajesCtrl',
             };
 
             $scope.addMensaje = function () {
-
-
                 $scope.message.idUsuarioRemitente = $scope.user.idLocal;
-
-               
-
+                $scope.message.prioridad = false;
                 $scope.message.idEstado = 1;
-
                 $scope.alerts = [];
-
-                $scope.mensajes.post($scope.message).then(function () {
-
-                    addAlert('success', $scope.translation.MENSAJE_BITACORA_GUARDADA);
-
-                    mensajeAPI($scope);
-
-                    //setMessageView(1);
-                    $scope.$state.reload();
-                }, function (error) {
-                    //addAlert('danger', error.data.exceptionMessage);
-                    addAlert('danger', $scope.translation["MENSAJE_ERROR"]);
-                });
-            }
-            $scope.editMensaje = function () {
-
-
-                var id = $scope.selectedMessage.idMensaje; 
-
-                //$scope.message.prioridad = false;
-
-                var edo=$scope.message.idEstado = 1;
-
-                $scope.alerts = [];
-
-                $scope.mensajes.Put($scope.selectedMessage).then(function () {
-
-                    addAlert('success', $scope.translation.MENSAJE_BITACORA_GUARDADA);
-
-                    mensajeAPI($scope);
-
-                    //setMessageView(1);
-                    $scope.$state.reload();
-                }, function (error) {
-                    //addAlert('danger', error.data.exceptionMessage);
-                    addAlert('danger', $scope.translation["MENSAJE_ERROR"]);
-                });
-            }
-            // 
-            $scope.addBorrador = function () {
-
-
-            $scope.message.idUsuarioRemitente = $scope.user.idLocal;
-
-            //$scope.message.prioridad = false;
-
-            $scope.message.idEstado = 4;
-
-            $scope.alerts = [];
-
-            $scope.mensajes.post($scope.message).then(function () {
-
-                addAlert('success', $scope.translation.MENSAJE_BITACORA_GUARDADA);
-
-                mensajeAPI($scope);
-              
-                //setMessageView(1);
-                //
-                $scope.$state.reload();
-
-            }, function (error) {
-                //addAlert('danger', error.data.exceptionMessage);
-                addAlert('danger', $scope.translation["MENSAJE_ERROR"]);
-                    });
-              
-        }
-       
-            $scope.descartar = function () {
-
-
+                var data = new FormData();
+                data.append('idUsuarioRemitente', $scope.user.idLocal);
+                data.append('prioridad', false);
+                data.append('idEstado', 1);
+                data.append('idUsuarioDestinatario', $scope.message.idUsuarioDestinatario);
+                data.append('asunto', $scope.message.asunto);
+                data.append('mensaje', $scope.message.mensaje);
                 
-                    //setMessageView(1);
-                    //
-                    $scope.$state.reload();
+                if ($('#attachment')[0].files.length > 0) {
+                    $scope.message.attachment = $('#attachment')[0].files[0];
+                    data.append('attachment', $('#attachment')[0].files[0])
+                }
+                var defer = $q.defer();
+                $http.post("/api/Mensajes/AddMensaje", data,
+                {
+                    withCredentials: true,
+                    headers: { 'Content-Type': undefined },
+                    transformRequest: angular.identity
+                }).then(
+                    function (d) {
+                        addAlert('success', $scope.translation.MENSAJE_BITACORA_GUARDADA);
+                        mensajeAPI($scope);
+                        $scope.setMessageView(1);
+                    },
+                    function () {
+                        addAlert('danger', 'Error');
+                    }
+                );
+                //Restangular.one('api/mensajes')
+                //    .withHttpConfig({ transformRequest: angular.identity })
+                //    .customPOST(data, '', undefined, { 'Content-Type': undefined })
 
-
+                //$scope.mensajes.post($scope.message).then(function () {
+                //    addAlert('success', $scope.translation.MENSAJE_BITACORA_GUARDADA);
+                //    mensajeAPI($scope);
+                //    setMessageView(1);
+                //}, function (error) {
+                //    addAlert('danger', error.data.exceptionMessage);
+                //});
             }
+
             //Sirve para ver los mensajes Recibicos, Enviados
             $scope.selectMensajesRecibidos = function (mensaje) {
                 $scope.newMensaje = mensaje;
@@ -242,15 +228,7 @@ adlumenApp.controller('mensajesCtrl',
                 $scope.leer = true;
 
             }
-            $scope.selectMensajesBorradores= function (mensaje) {
-                $scope.newMensaje = mensaje;
-                $scope.selected = true;
-                $scope.draft = false;
-                $scope.leer = true;
-                
-            }
-
-         
+           
             
         //Sirve par cambiar color de los que no se ha leido
             $scope.set_color = function (mensaje) {
@@ -280,18 +258,15 @@ adlumenApp.controller('mensajesCtrl',
 
                     mensajeAPI($scope);
                   
-                  
                 }, function () {
                 }
 
                 );
-                
-            }         
-
-            $scope.cambiar = function () {
-                $("compose - textarea").color = "red";
             }
 
+            $scope.displayHtml = function () {
+                return $sce.trustAsHtml($scope.selectedMessage.mensaje);
+            };
         }
     ]
 );

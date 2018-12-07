@@ -199,7 +199,6 @@ adlumenApp.controller('movimientoCtrl',
                 $scope.showAlert = true;
             };
 
-
             //File Select event 
             $scope.selectFileforUpload = function (file) {
                 $scope.SelectedFileForUpload = file[0];
@@ -298,9 +297,8 @@ adlumenApp.controller('movimientoCtrl',
                     postMovimiento.post($scope.movimiento).then(function () {
 
                         //addAlert('success', $scope.translation["MENSAJE_MOVIMIENTO_GUARDADO"]);
-                        $scope.addAlert($scope.translation["MENSAJE_MOVIMIENTO_GUARDADO"]);
-                        ClearForm();
-                        $scope.close();
+                        $scope.showAlert($scope.translation["MENSAJE_MOVIMIENTO_GUARDADO"]);
+
                     }, function () {
 
                         addAlert('danger', $scope.translation["ERROR_GUARDADO"]);
@@ -347,8 +345,7 @@ adlumenApp.controller('movimientoCtrl',
                             FileUploadService.UploadFile($scope.SelectedFileForUpload, $scope.FileDescription, path).then(function (d) {
                                 $scope.movimiento.urlSoporte = FileUploadService.getSavedFilePath();
                                 $scope.SaveMovimientoData();
-                              
-                                $scope.close();
+                                ClearForm();
                             }, function (e) {
                                 addAlert('danger', e);
                             });
@@ -356,12 +353,8 @@ adlumenApp.controller('movimientoCtrl',
                     }
                     else {
                         $scope.SaveMovimientoData();
-                      
-                        $scope.close();
-                        
                     }
                 }
-               
             }
 
             //Translation

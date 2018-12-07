@@ -20,7 +20,9 @@ var adlumenApp = angular.module('adlumenApp',
         "ui.calendar",
         "nvd3",
         "nemLogging",
-        'angularjs-gauge'
+        'angularjs-gauge',
+        'ngSanitize',
+        'ui.tinymce'
     ]);
 
 adlumenApp.config(

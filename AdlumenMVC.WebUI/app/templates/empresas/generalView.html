@@ -25,9 +25,7 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-phone">{{translation.TELEFONO}}:</label>
                 <div class="col-sm-10">
-
-                    <input id="input-phone" class="form-control" type="text"   ng-pattern="base.phoneRegex" placeholder="+22 999-999-999"   ng-model="empresa.telefono" ng-disabled="!editMode && tabSelected == 0"   />
-                    
+                    <input id="input-phone" class="form-control" type="text" ng-model="empresa.telefono" ng-disabled="!editMode && tabSelected == 0">
                 </div>
             </div>
 

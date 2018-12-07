@@ -25,11 +25,11 @@ namespace AdlumenMVC.WebUI.Infraestructure.CustomTablesRepositories.Concrete
             }
         }
 
-        public Acciones GetByName(string name)
+        public Acciones GetByName(string name, int idModule)
         {
-            using (ApplicationDbContext Context = new ApplicationDbContext())
+            using (var db = new ApplicationDbContext())
             {
-                return Context.Acciones.FirstOrDefault(a => a.Nombre == name);
+                return db.Acciones.FirstOrDefault(x => x.Nombre == name && x.ModuloId == idModule);
             }
         }
     }

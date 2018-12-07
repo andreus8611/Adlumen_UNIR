@@ -225,9 +225,6 @@
   <data name="ASISTENTE_PRESUPUESTO" xml:space="preserve">
     <value>Bugdet Assistant</value>
   </data>
-  <data name="ASUNTO" xml:space="preserve">
-    <value>Subject</value>
-  </data>
   <data name="AVANCE_META" xml:space="preserve">
     <value>Goal Progress</value>
   </data>
@@ -251,9 +248,6 @@
   </data>
   <data name="BLOQUEAR_ENCUESTA_CONFIRMACION" xml:space="preserve">
     <value>Are you sure you want to lock the inquiry? This shall not be modified.</value>
-  </data>
-  <data name="BORRADOR" xml:space="preserve">
-    <value>Eraser</value>
   </data>
   <data name="BORRAR_AREA_CONFIRMACION" xml:space="preserve">
     <value>Are you sure you want to delete the area?</value>
@@ -312,14 +306,8 @@
   <data name="BUSCAR" xml:space="preserve">
     <value>Search</value>
   </data>
-  <data name="BUSCAR_MAIL" xml:space="preserve">
-    <value>Search Mail</value>
-  </data>
   <data name="BUSCAR_UBICACION" xml:space="preserve">
     <value>Search location: </value>
-  </data>
-  <data name="BUZON_ENTRADA" xml:space="preserve">
-    <value>Mail box</value>
   </data>
   <data name="CALENDARIO_ACTIVIDADES" xml:space="preserve">
     <value>Activities Calendar</value>
@@ -350,9 +338,6 @@
   </data>
   <data name="CARGO" xml:space="preserve">
     <value>Position</value>
-  </data>
-  <data name="CARPETAS" xml:space="preserve">
-    <value>Folders</value>
   </data>
   <data name="CERRAR" xml:space="preserve">
     <value>Close</value>
@@ -461,9 +446,6 @@
   </data>
   <data name="DESCARGAR" xml:space="preserve">
     <value>Download</value>
-  </data>
-  <data name="DESCARTAR" xml:space="preserve">
-    <value>Discard</value>
   </data>
   <data name="DESCRIPCION" xml:space="preserve">
     <value>Description</value>
@@ -594,12 +576,6 @@
   <data name="ENCUESTA_TERMINADA" xml:space="preserve">
     <value>Finished</value>
   </data>
-  <data name="ENVIADOS" xml:space="preserve">
-    <value>Sent</value>
-  </data>
-  <data name="ENVIAR" xml:space="preserve">
-    <value>Submit</value>
-  </data>
   <data name="ERROR_ARCHIVO_ACTIVIDAD_INVALIDA" xml:space="preserve">
     <value>No Activity type found with the code: </value>
   </data>
@@ -684,17 +660,11 @@
   <data name="ERROR_VARIABLE_YA_EXISTE" xml:space="preserve">
     <value>A variable with the same name already exists in the formula</value>
   </data>
-  <data name="ESCRIBIR_MENSAJE" xml:space="preserve">
-    <value>Write Message</value>
-  </data>
   <data name="ESCRITURA" xml:space="preserve">
     <value>Writte</value>
   </data>
   <data name="ESTADO" xml:space="preserve">
     <value>Status</value>
-  </data>
-  <data name="ETIQUETAS" xml:space="preserve">
-    <value>Labels</value>
   </data>
   <data name="EVALUACION" xml:space="preserve">
     <value>Evaluation</value>
@@ -938,9 +908,6 @@
   </data>
   <data name="MENSAJE_ENCUESTA_GUARDADA" xml:space="preserve">
     <value>Inquiry has been saved successfully!!</value>
-  </data>
-  <data name="MENSAJE_ERROR" xml:space="preserve">
-    <value>The Recipient, Subject, Message can not be left empty</value>
   </data>
   <data name="MENSAJE_EVALUACION_GUARDADO" xml:space="preserve">
     <value>Evaluation has been saved successfully!!</value>
@@ -1197,9 +1164,6 @@
   <data name="PALABLAS_CLAVES" xml:space="preserve">
     <value>Keywords</value>
   </data>
-  <data name="PAPELERA_RECICLAJE" xml:space="preserve">
-    <value>Trash</value>
-  </data>
   <data name="PARTIDA" xml:space="preserve">
     <value>Expenditure item</value>
   </data>
@@ -1305,14 +1269,8 @@
   <data name="PRESUPUESTO_TOTAL" xml:space="preserve">
     <value>Total Budget</value>
   </data>
-  <data name="PRIORIDAD" xml:space="preserve">
-    <value>Priority</value>
-  </data>
   <data name="PROBLEMA" xml:space="preserve">
     <value>Problem</value>
-  </data>
-  <data name="PRODUCTO" xml:space="preserve">
-    <value>Product</value>
   </data>
   <data name="PROGRAMA" xml:space="preserve">
     <value>Program</value>
@@ -1373,9 +1331,6 @@
   </data>
   <data name="REGION" xml:space="preserve">
     <value>Region</value>
-  </data>
-  <data name="REGISTRO_DONACIONES" xml:space="preserve">
-    <value>Registration Donations</value>
   </data>
   <data name="REGISTRO_DONANTES" xml:space="preserve">
     <value>Donor Registry</value>
@@ -1454,9 +1409,6 @@
   </data>
   <data name="SOPORTE" xml:space="preserve">
     <value>Support</value>
-  </data>
-  <data name="String1" xml:space="preserve">
-    <value>Required mail</value>
   </data>
   <data name="SUBTIPO" xml:space="preserve">
     <value>Subtype</value>
@@ -1548,18 +1500,6 @@
   <data name="URL" xml:space="preserve">
     <value>Url</value>
   </data>
-  <data name="USER_ERROR_EMAIL" xml:space="preserve">
-    <value>Correo requerido</value>
-  </data>
-  <data name="USER_ERROR_FIRSTNAME" xml:space="preserve">
-    <value>Name is required</value>
-  </data>
-  <data name="USER_ERROR_LASTNAME" xml:space="preserve">
-    <value>Last name is required</value>
-  </data>
-  <data name="USER_ERROR_USERNAME" xml:space="preserve">
-    <value>Required username</value>
-  </data>
   <data name="USUARIO" xml:space="preserve">
     <value>User</value>
   </data>
@@ -1631,26 +1571,5 @@
   </data>
   <data name="ZONA_HORARIA" xml:space="preserve">
     <value>Time Zone</value>
-  </data>
-  <data name="ABREVIATURA" xml:space="preserve">
-    <value>Abbreviation</value>
-  </data>
-  <data name="BUSCAR_TIPO_CAMBIO" xml:space="preserve">
-    <value>Search Exchange Rates</value>
-  </data>
-  <data name="MODIFICAR_GASTOS" xml:space="preserve">
-    <value>Modify expense item</value>
-  </data>
-  <data name="NUEVA_PARTIDA" xml:space="preserve">
-    <value>New expenditure item</value>
-  </data>
-  <data name="VER" xml:space="preserve">
-    <value>View</value>
-  </data>
-  <data name="FILTRAR_DESCRIPCION_UBICACION" xml:space="preserve">
-    <value>Filter by description and location</value>
-  </data>
-  <data name="TENANTS" xml:space="preserve">
-    <value>Tenants</value>
   </data>
 </root>

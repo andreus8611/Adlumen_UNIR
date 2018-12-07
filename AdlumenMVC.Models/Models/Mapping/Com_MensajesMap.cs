@@ -13,8 +13,7 @@ namespace AdlumenMVC.Models.Model.Mapping
             // Properties
             this.Property(t => t.Asunto)
                 .IsRequired()
-                .HasMaxLength(100)
-                ;
+                .HasMaxLength(100);
 
             this.Property(t => t.Mensaje)
                 .IsRequired();

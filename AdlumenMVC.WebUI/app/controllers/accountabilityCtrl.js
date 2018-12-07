@@ -106,6 +106,7 @@ adlumenApp.controller('accountabilityCtrl',
                 angular.forEach(angular.element("input[type='file']"), function (inputElem) {
                     angular.element(inputElem).val(null);
                 });
+                $scope.SelectedFileForUpload = null;
             }
 
             $scope.addNewVerificador = function () {

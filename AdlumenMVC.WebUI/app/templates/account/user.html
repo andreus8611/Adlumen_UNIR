@@ -21,13 +21,13 @@
                 <div class="form-group">
                     <label class="control-label col-sm-2">{{translation.NOMBRE}}</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" ng-model="user.firstName"  />
+                        <input type="text" class="form-control" ng-model="user.firstName" ng-disabled="editMode" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-2">{{translation.APELLIDO}}</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" ng-model="user.lastName"  />
+                        <input type="text" class="form-control" ng-model="user.lastName" ng-disabled="editMode" />
                     </div>
                 </div>
                 <div class="form-group">
@@ -59,7 +59,7 @@
                 <div class="form-group">
                     <label class="control-label col-sm-2">{{translation.TELEFONO}}</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" ng-model="user.phoneNumber" ng-pattern="base.phoneRegex" />
+                        <input type="text" class="form-control" ng-model="user.phoneNumber" />
                     </div>
                 </div>
                 <div class="form-group">

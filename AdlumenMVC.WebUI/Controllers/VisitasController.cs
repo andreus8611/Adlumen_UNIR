@@ -34,7 +34,7 @@ namespace AdlumenMVC.WebUI.Controllers
             return Context.GetVisitaById(id);
         }
 
-        [ClaimsAuthorization(Modulo = "Proyectos", ActionName = "RegistrarVisitas")]
+        [ClaimsAuthorization(Modulo = "Tareas", ActionName = "RegistrarVisitas")]
         // POST api/visitas
         public void Post(JObject value)
         {

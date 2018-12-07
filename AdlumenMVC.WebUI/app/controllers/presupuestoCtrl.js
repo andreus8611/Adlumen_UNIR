@@ -45,7 +45,7 @@ adlumenApp.controller('presupuestoCtrl',
                 var tmpIndex = 1;
                 $scope.tabs = [];
 
-                $scope.tabs.push({ index: tmpIndex++, name: 'REGISTRO_DONACIONES', disabled: false, translate: true });
+                $scope.tabs.push({ index: tmpIndex++, name: 'REGISTRO_DONANTES', disabled: false, translate: true });
                 $scope.tabs.push({ index: tmpIndex++, name: 'PRESUPUESTO_PROYECTO', disabled: false, translate: true });
                 $scope.tabs.push({ index: tmpIndex++, name: 'PRESUPUESTO_OBJETIVOS', disabled: false, translate: true });
                 $scope.tabs.push({ index: tmpIndex++, name: 'RECURSOS_ACTIVIDADES', disabled: false, translate: true });

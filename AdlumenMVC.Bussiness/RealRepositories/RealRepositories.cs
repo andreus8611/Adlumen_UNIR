@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using AdlumenMVC.Models.Models;
+using System.IO;
 
 namespace AdlumenMVC.Bussiness.RealRepositories
 {
@@ -732,7 +733,6 @@ namespace AdlumenMVC.Bussiness.RealRepositories
             return (Context.pry_indicadores.Where(a => a.IdObjetivo == idObjetivo && a.IdSubTipo == idSubTipo && a.IdTipo == idTipo).Count()) + 1;
         }
 
-       
         public Pry_Supuestos GetSupuestoById(int idSupuesto)
         {
             return Context.pry_supuestos.Where(a => a.IdSupuesto == idSupuesto).FirstOrDefault();
@@ -2528,6 +2528,11 @@ namespace AdlumenMVC.Bussiness.RealRepositories
             }
         }
 
+        public Pry_DatosVerificadores GetDatoVerificador(int id)
+        {
+            return Context.pry_datosverificadores.Where(a => a.IdDatosFuentes == id).FirstOrDefault();
+        }
+
         public void actualizarIndicador(Pry_DatosMuestras muestra)
         {
             Pry_Indicadores indicador = Context.pry_indicadores.Where(a => a.IdIndicador == muestra.IdIndicador).FirstOrDefault();
@@ -3313,13 +3318,12 @@ namespace AdlumenMVC.Bussiness.RealRepositories
 
         public List<UserCompany> GetUsuarioByEmpresa(int idEmpresa, int? idCliente)
         {
-            //Modificacion para usuarios eliminados
             var users = new List<UserCompany>();
             var context = Context as Adlumen2SocEntities;
 
             var sys_usuarios = context.Sys_Usuarios
                 .Include(x => x.Org_Empresas)
-                .Where(a => a.CustomerId == idCliente && a.idEmpresa>0);
+                .Where(a => a.CustomerId == idCliente);
 
             foreach (Sys_Usuarios sys_usuario in sys_usuarios)
             {
@@ -3330,7 +3334,7 @@ namespace AdlumenMVC.Bussiness.RealRepositories
                     FullName = sys_usuario.Nombre
                 };
 
-                Org_Empresas org_empresa = sys_usuario.Org_Empresas.Where(a => a.IdEmpresa == idEmpresa && a.IdEmpresa>0).FirstOrDefault();
+                Org_Empresas org_empresa = sys_usuario.Org_Empresas.Where(a => a.IdEmpresa == idEmpresa).FirstOrDefault();
                 if (org_empresa != null)
                 {
                     user.idEmpresa = org_empresa.IdEmpresa;
@@ -3756,7 +3760,6 @@ namespace AdlumenMVC.Bussiness.RealRepositories
         public IEnumerable<Object> GetAllUser()
         {
             return (from t in Context.sys_usuarios
-                    where t.idEmpresa>0
 
                     select new { t.Nombre, t.Correo, t.IdUsuario, t.idEmpresa, t.CustomerId }).AsEnumerable();
 
@@ -3766,7 +3769,6 @@ namespace AdlumenMVC.Bussiness.RealRepositories
         public IEnumerable<Object> GetAll()
         {
             return (from usuario in Context.sys_usuarios
-                    where usuario.idEmpresa > 0
                     orderby usuario.Nombre
                     select new
                     {
@@ -3788,10 +3790,6 @@ namespace AdlumenMVC.Bussiness.RealRepositories
             Context = _Context;
         }
 
-        public int GetPresupuestoById_Proyect(int idPresupuesto, int idProyecto)
-        {
-            return Convert.ToInt32(Context.pry_presupuesto.Where(a => a.IdTipoPresupuesto == idPresupuesto && a.IdProyecto==idProyecto).Select(x=>x.IdPresupuesto).SingleOrDefault().ToString());
-        }
         public Object GetTotalesMovimientoPorProyecto(int idProyecto, int idTenant)
         {
             List<SELTOTALESMOVIMIENTOPROYECTO_Result> totalesResults = Context.seltotalesmovimientoproyecto(idProyecto, idTenant);
@@ -4938,8 +4936,7 @@ namespace AdlumenMVC.Bussiness.RealRepositories
             return (from t in Context.com_mensajes
                     join p in Context.sys_usuarios on t.IdUsuarioRemitente equals p.IdUsuario
                     join dt in Context.sys_usuarios on t.IdUsuarioDestinatario equals dt.IdUsuario
-
-
+                    
                     select new
                     {
                         idMensaje = t.IdMensaje,
@@ -4953,7 +4950,8 @@ namespace AdlumenMVC.Bussiness.RealRepositories
                         FechaLectura = t.FechaLectura,
                         FechaBorrado = t.FechaBorrado,
                         nombre = p.Nombre,
-                        Enviadoa = dt.Nombre
+                        Enviadoa = dt.Nombre,
+                        IdTenant = t.IdTenant,
                     }).AsEnumerable();
         }
 
@@ -5028,7 +5026,10 @@ namespace AdlumenMVC.Bussiness.RealRepositories
 
         }
 
-
+        public Com_Mensajes GetMessage(int idMessage)
+        {
+            return Context.com_mensajes.FirstOrDefault(x => x.IdMensaje == idMessage);
+        }
 
 
 

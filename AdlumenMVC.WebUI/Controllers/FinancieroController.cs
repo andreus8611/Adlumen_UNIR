@@ -212,96 +212,44 @@ namespace AdlumenMVC.WebUI.Controllers
                 case "import":
                     {
                         JArray movimientos = (JArray)value["movimientos"];
-
-                        if (data.idTipoPresupuesto == 1)
+                        foreach (JObject movimientodata in movimientos)
                         {
-                            foreach (JObject movimientodata in movimientos)
+                            dynamic movdata = movimientodata;
+                            DateTime? fechaFormateada = null;
+
+                            string[] dateformat = {"yyyy/MM/dd"};
+                            DateTime date;
+
+                            if (DateTime.TryParseExact((string)movdata.fecha,
+                                                       dateformat, 
+                                                       System.Globalization.CultureInfo.InvariantCulture,
+                                                       System.Globalization.DateTimeStyles.None, 
+                                                       out date))
                             {
-                                dynamic movdata = movimientodata;
-                                DateTime? fechaFormateada = null;
-
-                                string[] dateformat = { "yyyy/MM/dd" };
-                                DateTime date;
-
-                                if (DateTime.TryParseExact((string)movdata.fecha,
-                                                           dateformat,
-                                                           System.Globalization.CultureInfo.InvariantCulture,
-                                                           System.Globalization.DateTimeStyles.None,
-                                                           out date))
-                                {
-                                    fechaFormateada = date;
-                                }
-                                Pry_Movimientos movimiento = new Pry_Movimientos()
-                                {
-                                    IdPresupuesto = (int)movdata.idPresupuesto,
-                                    IdProveedor = (int?)movdata.idProveedor,
-                                    Monto = (double?)movdata.monto,
-                                    Fecha = fechaFormateada,
-                                    Observaciones = (string)movdata.observaciones,
-                                    UrlSoporte = (string)movdata.urlSoporte,
-                                    IdPeriodo = (int?)movdata.idPeriodo,
-                                    BENEFICIARIO = (string)movdata.beneficiario,
-                                    MEDIOPAGO = (string)movdata.medioPago,
-                                    CONTRAPARTIDA = !string.IsNullOrEmpty((string)movdata.contraPartida) ? ((decimal?)movdata.contraPartida) : null,
-                                    APORTEPROGRAMA = !string.IsNullOrEmpty((string)movdata.aportePrograma) ? ((decimal?)movdata.aportePrograma) : null,
-                                    IDPARTIDAGASTO = (int?)movdata.idPartidaGasto,
-                                    USUARIOCREACION = userName,
-                                    FECHACREACION = DateTime.Now,
-                                    APORTEMONEDALOCAL = (decimal?)movdata.aporteMonedaLocal,
-                                    MONEDALOCAL = (int?)movdata.moneda
-                                };
-
-
-
-                                Context.addMovimiento(movimiento);
+                                 fechaFormateada = date;
                             }
-                        }
-                        else
-                        {
-                             foreach (JObject movimientodata in movimientos)
+
+                            Pry_Movimientos movimiento = new Pry_Movimientos()
                             {
-                                
-                                dynamic movdata = movimientodata;
-                                DateTime? fechaFormateada = null;
-
-                                string[] dateformat = { "yyyy/MM/dd" };
-                                DateTime date;
-
-                                if (DateTime.TryParseExact((string)movdata.fecha,
-                                                           dateformat,
-                                                           System.Globalization.CultureInfo.InvariantCulture,
-                                                           System.Globalization.DateTimeStyles.None,
-                                                           out date))
-                                {
-                                    fechaFormateada = date;
-                                }
-                                int idppto = Context.GetPresupuestoById_Proyect(Convert.ToInt32(movdata.idTipoPresupuesto), Convert.ToInt32(movdata.idProyecto));
-                                Pry_Movimientos movimiento = new Pry_Movimientos()
-                                {
-                                    IdPresupuesto = idppto,
-                                    IdProveedor = (int?)movdata.idProveedor,
-                                    Monto = (double?)movdata.monto,
-                                    Fecha = fechaFormateada,
-                                    Observaciones = (string)movdata.observaciones,
-                                    UrlSoporte = (string)movdata.urlSoporte,
-                                    IdPeriodo = (int?)movdata.idPeriodo,
-                                    BENEFICIARIO = (string)movdata.beneficiario,
-                                    MEDIOPAGO = (string)movdata.medioPago,
-                                    CONTRAPARTIDA = !string.IsNullOrEmpty((string)movdata.contraPartida) ? ((decimal?)movdata.contraPartida) : null,
-                                    APORTEPROGRAMA = !string.IsNullOrEmpty((string)movdata.aportePrograma) ? ((decimal?)movdata.aportePrograma) : null,
-                                    IDPARTIDAGASTO = (int?)movdata.idPartidaGasto,
-                                    USUARIOCREACION = userName,
-                                    FECHACREACION = DateTime.Now,
-                                    APORTEMONEDALOCAL = (decimal?)movdata.aporteMonedaLocal,
-                                    MONEDALOCAL = (int?)movdata.moneda
-                                };
-
-
-
-                                Context.addMovimiento(movimiento);
-                            }
+                                IdPresupuesto = (int)movdata.idPresupuesto,
+                                IdProveedor = (int?)movdata.idProveedor,
+                                Monto = (double?)movdata.monto,
+                                Fecha = fechaFormateada,
+                                Observaciones = (string)movdata.observaciones,
+                                UrlSoporte = (string)movdata.urlSoporte,
+                                IdPeriodo = (int?)movdata.idPeriodo,
+                                BENEFICIARIO = (string)movdata.beneficiario,
+                                MEDIOPAGO = (string)movdata.medioPago,
+                                CONTRAPARTIDA = !string.IsNullOrEmpty((string)movdata.contraPartida) ? ((decimal?)movdata.contraPartida) : null,
+                                APORTEPROGRAMA = !string.IsNullOrEmpty((string)movdata.aportePrograma) ? ((decimal?)movdata.aportePrograma) : null,
+                                IDPARTIDAGASTO = (int?)movdata.idPartidaGasto,
+                                USUARIOCREACION = userName,
+                                FECHACREACION = DateTime.Now,
+                                APORTEMONEDALOCAL = (decimal?)movdata.aporteMonedaLocal,
+                                MONEDALOCAL = (int?)movdata.moneda
+                            };
+                            Context.addMovimiento(movimiento);
                         }
-
                     }
                     break;
             }

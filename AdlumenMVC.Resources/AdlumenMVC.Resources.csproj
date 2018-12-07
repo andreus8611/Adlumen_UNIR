@@ -50,9 +50,7 @@
   <ItemGroup>
     <EmbeddedResource Include="resources.pt.resx" />
     <EmbeddedResource Include="resources.fr.resx" />
-    <EmbeddedResource Include="resources.en.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
+    <EmbeddedResource Include="resources.en.resx" />
     <EmbeddedResource Include="resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <CustomToolNamespace>Resources</CustomToolNamespace>

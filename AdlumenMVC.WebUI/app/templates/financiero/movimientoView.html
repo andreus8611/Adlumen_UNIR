@@ -19,7 +19,7 @@
                 </div>
             </div>
             <div class="form-group" ng-if="tipomovimiento == 1">
-                <label class="control-label col-sm-3" for="select-movementResult">{{translation.PRODUCTO}}:</label>
+                <label class="control-label col-sm-3" for="select-movementResult">{{translation.RESULTADO}}:</label>
                 <div class="col-sm-9">
                     <select id="select-movementResult" class="form-control" ng-model="movimiento.idResultado" ng-options="producto.idObjetivo as producto.descripcion for producto in productos" ng-change="setSelectedProducto()"></select>
                 </div>
@@ -121,8 +121,8 @@
                     <p class="input-group" ng-style="{ 'width': '350px' }">
                         <input type="date" class="form-control" uib-datepicker-popup ng-model="movimiento.fecha" is-open="$parent.opened" max="$parent.maxDate" date-disabled="disabled(date, mode)" close-text="{{translation.CERRAR}}" ng-style="{ 'width': '200px' }" />
                         <!--<span class="input-group-btn">
-                    <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-                </span>-->
+                            <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>-->
                     </p>
                 </div>
             </div>
@@ -160,10 +160,6 @@
                         {{translation.GUARDAR}}
                     </button>
                 </div>
-            </div>
-
-            <div class="row">
-                <div uib-alert ng-class="'alert-' + (alert.type || 'warning')" close="dismissClose($index)" dismiss-on-timeout="6000" ng-repeat="alert in alerts" ng-if="showAlert">{{alert.msg}}</div>
             </div>
         </form>
 

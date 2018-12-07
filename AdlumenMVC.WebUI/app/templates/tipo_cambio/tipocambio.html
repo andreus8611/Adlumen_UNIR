@@ -27,6 +27,7 @@
                                         <li class="list-group-item" ng-repeat="moneda in arrayMonedas">
                                             <div class="radio" style="margin-bottom:1px; margin-top: 1px;">
                                                 <label><input type="radio" value="" ng-click="changeRadio(arrayMonedas, moneda)" ng-checked="moneda.value">{{moneda.nombre}}</label>
+
                                             </div>
 
                                         </li>
@@ -88,15 +89,14 @@
                         <div class="container-fluid">
                             <div class="form-inline">
                                 <button type="button" class="btn btn-primary" ng-click="searchExchange()">
-                                    <span class="glyphicon glyphicon-search"></span>{{translation.BUSCAR_TIPO_CAMBIO}}
+                                    <span class="glyphicon glyphicon-search"></span> Buscar Tipos de Cambio
 
                                 </button>
 
                                 <button type="button" class="btn btn-primary" ng-click="openModal()">
-                                    <span class="glyphicon glyphicon-plus"></span> {{translation.NUEVO}}
+                                    <span class="glyphicon glyphicon-plus"></span> Nuevo
 
                                 </button>
-                                <label><a ng-href="{{getMovTemplate()}}">{{translation.IMPORTAR}} {{translation.PLANTILLA}}</a></label>
                             </div>
                         </div>
                     </div>
@@ -142,7 +142,6 @@
 
                     </table>
                 </div>
-                
             </div>
         </div>
     </div>

@@ -11,6 +11,6 @@ namespace AdlumenMVC.WebUI.Infraestructure.CustomTablesRepositories.Abstract
         IEnumerable<Acciones> GetAll();
         Acciones GetById(int id);
 
-        Acciones GetByName(string name);
+        Acciones GetByName(string name, int moduleId);
     }
 }

@@ -2,36 +2,24 @@
 adlumenApp.controller('tareasCtrl',
     [
         '$scope', 'tareaAPI', 'projectAPI', 'listAPI', 'usuarioAPI','$uibModal',
-        function ($scope, tareaAPI, projectAPI, listAPI, usuarioAPI, $uibModal) {
+        function ($scope, tareaAPI, projectAPI, listAPI, usuarioAPI,$uibModal) {
 
-
-            var localidusuario = 0;
-
-            $scope.$watch('bdUser', function (newValue, oldValue) {
-
-                localidusuario = newValue.idLocal;
-
-            });
-            usuarioAPI($scope);
             projectAPI($scope);
             tareaAPI($scope);
             listAPI($scope);
-      
-
-           
 
             $scope.task = null;
-
+            
             $scope.$watchCollection('[tasks, bdUser]', function (newValue, oldValue) {
                 if (newValue != oldValue) {
 
                     if (_.indexOf(newValue[1].roles, "Admin") === -1 && _.indexOf(newValue[1].roles, "manager") === -1) {
-                        $scope.tareas = _.where(newValue[0], { idResponsable: newValue[1].idLocal });
+                        $scope.tareas = _.where(newValue[0], {idResponsable: newValue[1].idLocal});
                     }
                     else {
                         $scope.tareas = newValue[0];
                     }
-
+                                        
                 }
             });
 
@@ -279,43 +267,17 @@ adlumenApp.controller('taskModalCtrl',
 
             //Save task
 
-            $scope.save = function (idUsuario) {
-
-             
-
-                $scope.task.idUsuario = idUsuario;
-                $scope.task.idLista = list.id;
-                
+            $scope.save = function(idUsuario) {
 
                 if ($scope.task.fechaInicio > $scope.task.fechaFin) {
                     addAlert('danger', $scope.translation["ERROR_FECHAINICIO_FECHAFIN_INVALIDAS"]);
                     return;
                 }
-                if (!$scope.responsable     ) {
-                    addAlert('danger', 'El campo responsable es requerido se encuentra vacío.');
-                    return;
-                }
 
-                else {
-                    $scope.task.idResponsable = $scope.responsable.idUsuario;
-                    
-                }
+                $scope.task.idUsuario = idUsuario;
+                $scope.task.idLista = list.id;
+                $scope.task.idResponsable = $scope.responsable.idUsuario;
 
-                if (!$scope.task.descripcion || _.isEmpty($scope.task.descripcion.trim())) {
-                    addAlert('danger', 'El campo descripcion es requerido se encuentra vacío.');
-                    return;
-                }
-                if (!$scope.task.fechaInicio ) {
-                    addAlert('danger', 'El campo fecha inicio es  requerido se encuentra vacío.');
-                    return;
-                }
-                if (!$scope.task.fechaFin ) {
-                    addAlert('danger', 'El campo decha in es requerido se encuentra vacío.');
-                    return;
-                }
-               
-               
-              
                 if ($scope.task.done === true) 
                     $scope.task.idUsuarioCompletado = idUsuario;
                 else

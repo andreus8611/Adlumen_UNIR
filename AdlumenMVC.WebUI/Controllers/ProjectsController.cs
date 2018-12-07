@@ -116,9 +116,9 @@ namespace AdlumenMVC.WebUI.Controllers
         {
             try
             {
-                var db = new Adlumen2SocEntities();
-
-                var users = db.Database.SqlQuery<UserWithRole>(@"
+                using (var db = new Adlumen2SocEntities())
+                {
+                    var users = db.Database.SqlQuery<UserWithRole>(@"
 SELECT su.IdUsuario, su.Nombre, anr.Name as Role
 FROM Sys_Usuarios su
 LEFT JOIN Sys_Usuarios_Empresas sue ON su.IdUsuario = sue.IdUsuario
@@ -127,9 +127,10 @@ LEFT JOIN AspNetUserRoles anur ON anu.Id = anur.UserId
 LEFT JOIN AspNetRoles anr ON anr.Id = anur.RoleId
 WHERE sue.IdEmpresa = @p0
 AND anr.Name IN ('digitador', 'evaluador', 'gerente')
-AND anu.IdTenant = @p1", id, TenantUtil.GetTenantFromUrl().Id);
+AND anu.IdTenant = @p1", id, TenantUtil.GetTenantFromUrl().Id).ToList();
 
-                return users;
+                    return users;
+                }
             }
             catch (Exception)
             {

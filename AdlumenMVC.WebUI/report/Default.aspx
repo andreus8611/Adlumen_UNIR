@@ -1,8 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="AdlumenMVC.WebUI.Reports.Default" %>
 
-<%@ Register assembly="Microsoft.ReportViewer.WebForms, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" namespace="Microsoft.Reporting.WebForms" tagprefix="rsweb" %>
-
-<%@ Register assembly="Microsoft.ReportViewer.WebForms" namespace="Microsoft.Reporting.WebForms" tagprefix="rsweb" %>
+<%@ Register assembly="Microsoft.ReportViewer.WebForms, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845DCD8080CC91" namespace="Microsoft.Reporting.WebForms" tagprefix="rsweb" %>
 
 <!DOCTYPE html>
 
@@ -26,8 +24,8 @@
             BackColor="#dee7f2" BorderColor="#a4b7d8" SplitterBackColor="#a4b7d8">
         </rsweb:ReportViewer>
     </div>
-      
 
+    </form>
     <script>
     function pageLoad() {
         try {
@@ -41,7 +39,5 @@
         }
     }
     </script>
-
-    </form>
-    </body>
+</body>
 </html>

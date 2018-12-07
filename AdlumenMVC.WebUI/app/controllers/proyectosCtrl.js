@@ -220,6 +220,8 @@ adlumenApp.controller('proyectosCtrl',
                             $scope.flatResultados = _.filter($scope.proyecto.flatObjetivos, function (_objetivos) {
                                 return _objetivos.idObjetivoClase >= 3;
                             });
+
+                            $scope.getUsersbyCompany();
                         }
                     );
                 }

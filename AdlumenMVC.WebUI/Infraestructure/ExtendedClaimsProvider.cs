@@ -15,13 +15,13 @@ namespace AdlumenMVC.WebUI.Infrastructure
 
             var daysInWork =  (DateTime.Now.Date - user.JoinDate).TotalDays;
 
-            if (daysInWork > 0)
+            if (daysInWork > 90)
             {
                 claims.Add(CreateClaim("FTE", "1"));
                
             }
             else {
-                claims.Add(CreateClaim("FTE", "1"));
+                claims.Add(CreateClaim("FTE", "0"));
             }
 
             return claims;
